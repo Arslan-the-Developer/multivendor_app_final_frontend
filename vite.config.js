@@ -1,14 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import dotenv from'dotenv';
+import tailwindcss from '@tailwindcss/vite'
+
 
 dotenv.config();
 
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  base: process.env.VITE_BASE_URL || "/fasdf",
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
+  base: process.env.VITE_BASE_URL || "/multivendor_app_final_frontend",
 })
 
 
