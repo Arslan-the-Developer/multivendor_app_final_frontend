@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 const HomeScreen = lazy(() => import('./Screens/HomeScreen/HomeScreen'));
+const UserRegistrationScreen = lazy(() => import('./Screens/AuthScreens/UserRegistrationScreen/UserRegistrationScreen'));
+const UserOTPVerifyScreen = lazy(() => import('./Screens/AuthScreens/UserOTPVerifyScreen/UserOTPVerifyScreen'));
 
 
 function App() {
@@ -15,6 +17,10 @@ function App() {
         <Routes>
 
           <Route path="/" element={<HomeScreen />} />
+          
+          <Route path="/user-register" element={<UserRegistrationScreen />} />
+          
+          <Route path="/user-otp-verify" element={<UserOTPVerifyScreen />} />
 
         </Routes>
 
