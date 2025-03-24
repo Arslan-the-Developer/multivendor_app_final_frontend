@@ -101,6 +101,7 @@ function Navbar() {
         {
           loading ? (
             <BarLoader color="#006964" />
+            
           ) : (
 
             !isAuthenticated ? (
