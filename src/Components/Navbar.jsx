@@ -13,6 +13,7 @@ function Navbar() {
   const { isAuthenticated, isSeller, isApprovedSeller ,loading } = useCheckAuthentication();
 
   const [isAccountMenuOpen, setAccountMenuOpen] = useState(false);
+  const [isResponsiveMenuOpen, setResponsiveMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [showSubCategoriesFor, setShowCategoriesFor] = useState('');
   const [SearchBarUxText, setSearchBarUxText] = useState('Shift + S');
@@ -73,20 +74,30 @@ function Navbar() {
   return (
     <nav className="flex items-center justify-between w-full h-18 relative" onMouseLeave={() => setShowCategoriesFor('')}>
       {/* Logo Section */}
-      <div className="w-1/4 flex items-center justify-center h-full" onMouseEnter={() => setShowCategoriesFor('')}>
+      <div className="w-1/4 flex items-center justify-center h-full max-[900px]:hidden" onMouseEnter={() => setShowCategoriesFor('')}>
         <Link to="/" className="text-3xl font-lilita">
           <motion.h2 initial={{x : -20, opacity : 0}} animate={{x : 0, opacity : 1}}>Vend<span className="text-primary">ezy</span></motion.h2>
         </Link>
       </div>
 
       {/* Search Bar */}
-      <div className="w-1/2 flex items-center justify-center h-full mb-2" onMouseEnter={() => setShowCategoriesFor('')}>
+      <div className="w-1/2 max-[900px]:w-full relative flex items-center justify-center h-full mb-2" onMouseEnter={() => setShowCategoriesFor('')}>
+        <button className="absolute left-5 hidden max-[900px]:flex" onClick={() => setResponsiveMenuOpen(!isResponsiveMenuOpen)}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+            <path d="M4 5L20 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 12L20 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 19L20 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <div className={`w-full hidden max-[900px]:flex absolute ${isResponsiveMenuOpen ? 'h-80 -bottom-80' : 'h-0 bottom-0'} bg-amber-100 transition-all`}>
+
+        </div>
         <motion.form initial={{y : 20, opacity : 0}} animate={{y : 0, opacity : 1}} className="w-9/12 flex items-center justify-center relative" onSubmit={HandleSearch}>
           <input
             id="search_box"
             type="text"
             placeholder="Search Products . . . ."
-            className="py-2 px-3 mt-2 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product"
+            className="py-2 px-3 mt-2 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full"
             value={searchText}
             onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
           />
@@ -97,11 +108,10 @@ function Navbar() {
       </div>
 
       {/* User Section */}
-      <div className="w-1/4 flex items-center justify-center h-full" onMouseEnter={() => setShowCategoriesFor('')}>
+      <div className="w-1/4 flex items-center justify-center h-full max-[900px]:hidden" onMouseEnter={() => setShowCategoriesFor('')}>
         {
           loading ? (
             <BarLoader color="#006964" />
-            
           ) : (
 
             !isAuthenticated ? (
@@ -168,21 +178,21 @@ function Navbar() {
           )
         }
       </div>
-      <div className="w-full h-10 absolute -bottom-10 flex flex-col items-start justify-between px-35 font-product bg-gray-200 border-t border-gray-400" style={{zIndex : "10"}}>
+      <div className="w-full h-10 absolute -bottom-10 flex flex-col items-start justify-between px-35 font-product bg-gray-200 border-t border-gray-400 max-[1030px]:hidden" style={{zIndex : "10"}}>
 
         <span className="w-35 h-full absolute left-0" onMouseEnter={() => setShowCategoriesFor('')}></span>
         <span className="w-35 h-full absolute right-0" onMouseEnter={() => setShowCategoriesFor('')}></span>
 
-        <div className="w-full h-full flex items-center justify-between">
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'electronics' ? 'border-primary' : ''} flex items-center justify-center w-50`} onMouseEnter={() => setShowCategoriesFor('electronics')}>Electronics</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'fashion-clothing' ? 'border-primary' : ''} flex items-center justify-center w-50`} onMouseEnter={() => setShowCategoriesFor('fashion-clothing')}>Fashion & Clothing</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'beauty-care' ? 'border-primary' : ''} flex items-center justify-center w-65`} onMouseEnter={() => setShowCategoriesFor('beauty-care')}>Beauty & Personal Care</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'home-kitchen' ? 'border-primary' : ''} flex items-center justify-center w-50`} onMouseEnter={() => setShowCategoriesFor('home-kitchen')}>Home & Kitchen</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'health-wellness' ? 'border-primary' : ''} flex items-center justify-center w-50`} onMouseEnter={() => setShowCategoriesFor('health-wellness')}>Health & Wellness</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'toys-games' ? 'border-primary' : ''} flex items-center justify-center w-50`} onMouseEnter={() => setShowCategoriesFor('toys-games')}>Toys & Games</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'automotive' ? 'border-primary' : ''} flex items-center justify-center w-35`} onMouseEnter={() => setShowCategoriesFor('automotive')}>Automotive</p>
-          <p className={`cursor-pointer h-full border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'office' ? 'border-primary' : ''} flex items-center justify-center w-50`} onMouseEnter={() => setShowCategoriesFor('office')}>Office Supplies</p>
-          <Link onMouseEnter={() => setShowCategoriesFor('')} className=" h-full border-b-2 transition-all duration-200 border-gray-200 hover:border-primary flex items-center justify-center w-30" to={`/product-categories`}>See All</Link>
+        <div className="w-full h-full flex items-center justify-around flex-wrap">
+          <p style={{fontSize : '1rem'}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'electronics' ? 'border-primary' : ''} flex items-center justify-center min-w-fit`} onMouseEnter={() => setShowCategoriesFor('electronics')}>Electronics</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'fashion-clothing' ? 'border-primary' : ''} flex items-center justify-center min-w-fit`} onMouseEnter={() => setShowCategoriesFor('fashion-clothing')}>Fashion & Clothing</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'beauty-care' ? 'border-primary' : ''} flex items-center justify-center min-w-fit`} onMouseEnter={() => setShowCategoriesFor('beauty-care')}>Beauty & Personal Care</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'home-kitchen' ? 'border-primary' : ''} flex items-center justify-center min-w-fit`} onMouseEnter={() => setShowCategoriesFor('home-kitchen')}>Home & Kitchen</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'health-wellness' ? 'border-primary' : ''} flex items-center justify-center min-w-fit`} onMouseEnter={() => setShowCategoriesFor('health-wellness')}>Health & Wellness</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'toys-games' ? 'border-primary' : ''} flex items-center justify-center min-w-fit max-[1250px]:hidden`} onMouseEnter={() => setShowCategoriesFor('toys-games')}>Toys & Games</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'automotive' ? 'border-primary' : ''} flex items-center justify-center min-w-fit max-[1450px]:hidden`} onMouseEnter={() => setShowCategoriesFor('automotive')}>Automotive</p>
+          <p style={{fontSize : "1rem"}} className={`cursor-pointer h-full mx-2 border-b-2 transition-all duration-200 border-gray-200 ${showSubCategoriesFor === 'office' ? 'border-primary' : ''} flex items-center justify-center min-w-fit max-[1500px]:hidden`} onMouseEnter={() => setShowCategoriesFor('office')}>Office Supplies</p>
+          <Link style={{fontSize : "1rem"}} onMouseEnter={() => setShowCategoriesFor('')} className=" h-full border-b-2 transition-all duration-200 border-gray-200 hover:border-primary flex items-center justify-center min-w-fit" to={`/product-categories`}>See All</Link>
         </div>
 
         <div className="w-full items-center justify-start relative">
