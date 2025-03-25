@@ -107,7 +107,7 @@ function Navbar() {
               <div className="w-full h-full flex items-center justify-start">
 
                 {
-                  isAuthenticated ? (
+                  !isAuthenticated ? (
 
                     <div className="w-full flex flex-col items-center justify-start h-full">
 
