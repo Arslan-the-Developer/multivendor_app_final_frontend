@@ -84,9 +84,8 @@ function Navbar() {
       <div className="w-1/2 max-[900px]:w-full relative flex items-center justify-center h-full mb-2" onMouseEnter={() => setShowCategoriesFor('')}>
         <button className="absolute left-5 hidden max-[900px]:flex" onClick={() => setResponsiveMenuOpen(!isResponsiveMenuOpen)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
-            <path d="M4 5L20 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M4 12L20 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M4 19L20 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 8.5L20 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 15.5L20 15.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
         <div className={`w-full hidden max-[900px]:flex absolute ${isResponsiveMenuOpen ? 'h-80 -bottom-80' : 'h-0 bottom-0'} bg-amber-100 transition-all`}>
@@ -101,8 +100,14 @@ function Navbar() {
             value={searchText}
             onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
           />
-          <button type="button" className="absolute right-0 bg-less-primary mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs flex items-center justify-center outline-none" aria-label="Search">
+          <button type="button" className="absolute right-0 bg-less-primary mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs flex items-center justify-center outline-none max-[900px]:hidden" aria-label="Search">
             {SearchBarUxText}
+          </button>
+          <button type="submit" className="absolute right-0 mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs items-center justify-center outline-none hidden max-[900px]:flex" aria-label="Search">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#006964"} fill={"none"}>
+                <path d="M17.5 17.5L22 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+            </svg>
           </button>
         </motion.form>
       </div>
