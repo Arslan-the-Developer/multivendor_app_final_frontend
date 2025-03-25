@@ -82,11 +82,19 @@ function Navbar() {
 
       {/* Search Bar */}
       <div className="w-1/2 max-[900px]:w-full relative flex items-center justify-center h-full mb-2" onMouseEnter={() => setShowCategoriesFor('')}>
-        <button className="absolute left-5 hidden max-[900px]:flex" onClick={() => setResponsiveMenuOpen(!isResponsiveMenuOpen)}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
-            <path d="M4 8.5L20 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M4 15.5L20 15.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <button className="absolute left-3 hidden max-[900px]:flex" onClick={() => setResponsiveMenuOpen(!isResponsiveMenuOpen)}>
+          {
+            isResponsiveMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+                  <path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+                <path d="M4 8.5L20 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M4 15.5L20 15.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )
+          }
         </button>
         <div className={`w-full hidden max-[900px]:flex absolute ${isResponsiveMenuOpen ? 'h-80 -bottom-80' : 'h-0 bottom-0'} bg-amber-100 transition-all`}>
 
