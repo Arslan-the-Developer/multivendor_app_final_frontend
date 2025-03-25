@@ -96,7 +96,54 @@ function Navbar() {
             )
           }
         </button>
-        <div className={`w-full hidden max-[900px]:flex absolute ${isResponsiveMenuOpen ? 'h-80 -bottom-80' : 'h-0 bottom-0'} bg-amber-100 transition-all`}>
+        <div className={`w-full flex-col items-center justify-start font-product hidden max-[900px]:flex p-3 absolute ${isResponsiveMenuOpen ? 'h-80 -bottom-80' : 'h-0 bottom-0 opacity-0'} bg-gray-200 transition-all`}>
+
+          {
+            isResponsiveMenuOpen ? (
+          
+              <div className="w-full flex items-center justify-start h-10">
+
+                {
+                  isAuthenticated ? (
+
+                    <div className="w-full h-full flex items-center justify-start">
+
+                      <Link>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+                            <path d="M8 16L16.7201 15.2733C19.4486 15.046 20.0611 14.45 20.3635 11.7289L21 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <path d="M6 6H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <circle cx="6" cy="20" r="2" stroke="currentColor" strokeWidth="1.5" />
+                            <circle cx="17" cy="20" r="2" stroke="currentColor" strokeWidth="1.5" />
+                            <path d="M8 20L15 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                            <path d="M2 2H2.966C3.91068 2 4.73414 2.62459 4.96326 3.51493L7.93852 15.0765C8.08887 15.6608 7.9602 16.2797 7.58824 16.7616L6.63213 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                        </svg>
+                      </Link>
+
+                    </div>
+
+                  ) : (
+
+                    <div className="w-full h-full flex items-center justify-between">
+
+                      <Link to={'/'} className="text-primary">
+                        <p className="font-lilita text-2xl">
+                          <span className="text-dull">Vend</span>ezy
+                        </p>
+                      </Link>
+
+                      <Link className="h-full w-1/4 bg-primary rounded-sm text-secondary tracking-wide flex items-center justify-center" to={'/user-login'}>
+                        Login
+                      </Link>
+
+                    </div>
+
+                  )
+                }
+
+              </div>
+
+            ) : ''
+          }
 
         </div>
         <motion.form initial={{y : 20, opacity : 0}} animate={{y : 0, opacity : 1}} className="w-9/12 flex items-center justify-center relative" onSubmit={HandleSearch}>
@@ -104,14 +151,14 @@ function Navbar() {
             id="search_box"
             type="text"
             placeholder="Search Products . . . ."
-            className="py-2 px-3 mt-2 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full"
+            className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full"
             value={searchText}
             onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
           />
           <button type="button" className="absolute right-0 bg-less-primary mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs flex items-center justify-center outline-none max-[900px]:hidden" aria-label="Search">
             {SearchBarUxText}
           </button>
-          <button type="submit" className="absolute right-0 mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs items-center justify-center outline-none hidden max-[900px]:flex" aria-label="Search">
+          <button type="submit" className="absolute right-0 mr-2 rounded-sm px-2 py-1 font-semibold text-center text-xs items-center justify-center outline-none hidden max-[900px]:flex" aria-label="Search">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#006964"} fill={"none"}>
                 <path d="M17.5 17.5L22 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
