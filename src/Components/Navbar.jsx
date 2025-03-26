@@ -185,9 +185,9 @@ function Navbar() {
 
                       </div>
 
-                      <div className="w-full flex items-center justify-between">
-                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center mt-2 text-primary bg-less-primary" style={{width : "49%"}}>All Categories</Link>
-                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center mt-2 text-primary bg-less-primary" style={{width : "49%"}}>Top Selling</Link>
+                      <div className={`w-full flex items-center justify-between ${isAuthenticated ? 'mt-2' : 'mt-6'}`}>
+                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center text-primary bg-less-primary" style={{width : "49%"}}>All Categories</Link>
+                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center text-primary bg-less-primary" style={{width : "49%"}}>Top Selling</Link>
                       </div>
 
                       {
