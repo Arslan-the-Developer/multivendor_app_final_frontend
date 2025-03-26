@@ -169,23 +169,26 @@ function Navbar() {
 
                       <div className="w-1/2 h-full flex flex-col items-center justify-around">
 
-                        <button type='button' className="w-7/10 flex items-center justify-start">Electronics</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start">Fashion & Clothing</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start">Beauty & Care</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start">Home & Kitchen</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Electronics</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Fashion & Clothing</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Beauty & Care</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Home & Kitchen</button>
 
                       </div>
 
                       <div className="w-1/2 h-full flex flex-col items-center justify-around">
 
-                        <button type='button' className="w-7/10 flex items-center justify-start">Health & Wellness</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start">Toys & Games</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start">Automotive</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start">Office Supplies</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Health & Wellness</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Toys & Games</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Automotive</button>
+                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Office Supplies</button>
 
                       </div>
 
-                      <Link to={'/product-categories'} className="py-2 flex items-center justify-center mt-2 text-primary border-y-2 border-primary" style={{width : "100%"}}>See All</Link>
+                      <div className="w-full flex items-center justify-between">
+                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center mt-2 text-primary bg-less-primary" style={{width : "49%"}}>All Categories</Link>
+                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center mt-2 text-primary bg-less-primary" style={{width : "49%"}}>Top Selling</Link>
+                      </div>
 
                       {
                         isAuthenticated ? (
