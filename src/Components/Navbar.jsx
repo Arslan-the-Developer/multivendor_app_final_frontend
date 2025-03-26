@@ -169,19 +169,19 @@ function Navbar() {
 
                       <div className="w-1/2 h-full flex flex-col items-center justify-around">
 
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Electronics</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Fashion & Clothing</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Beauty & Care</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Home & Kitchen</button>
+                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Electronics</button>
+                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Fashion & Clothing</button>
+                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Beauty & Care</button>
+                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Home & Kitchen</button>
 
                       </div>
 
                       <div className="w-1/2 h-full flex flex-col items-center justify-around">
 
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Health & Wellness</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Toys & Games</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Automotive</button>
-                        <button type='button' className="w-7/10 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Office Supplies</button>
+                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Health & Wellness</button>
+                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Toys & Games</button>
+                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Automotive</button>
+                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Office Supplies</button>
 
                       </div>
 
