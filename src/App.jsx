@@ -1,5 +1,6 @@
 import React, {Suspense, lazy} from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BarLoader, PuffLoader } from "react-spinners";
 
 
 const HomeScreen = lazy(() => import('./Screens/HomeScreen/HomeScreen'));
@@ -13,7 +14,13 @@ function App() {
   return (
     <Router>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={
+        <section className="w-full h-screen flex items-center justify-center">
+
+          <PuffLoader color="#006964" />
+
+        </section>
+        }>
 
         <Routes>
 
