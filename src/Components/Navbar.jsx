@@ -267,7 +267,7 @@ function Navbar() {
                                   <path d="M8 12L16 12M8 12C8 11.2998 9.9943 9.99153 10.5 9.5M8 12C8 12.7002 9.9943 14.0085 10.5 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                               </svg>
                             </button>
-                            <h2 className="capitalize text-xl">{selectedResponsiveCategory}</h2>
+                            <h2 className="capitalize text-xl text-primary">{selectedResponsiveCategory}</h2>
                           </div>
 
                           <div className="w-full px-3 pb-3 flex flex-col flex-wrap items-start justify-start" style={{maxHeight : "90%"}}>
