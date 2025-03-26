@@ -20,6 +20,7 @@ function Navbar() {
   const [searchText, setSearchText] = useState("");
   const [showSubCategoriesFor, setShowCategoriesFor] = useState('');
   const [SearchBarUxText, setSearchBarUxText] = useState('Shift + S');
+  const [selectedResponsiveCategory, setSelectedResponsiveCategory] = useState('');
 
 
   const keyRef = useRef(null);
@@ -70,6 +71,32 @@ function Navbar() {
     e.preventDefault();
 
     navigate(`/user-search/${searchText}`);
+    
+  }
+
+
+  function getSubCategories(parent_category) {
+
+    switch (parent_category) {
+
+      case 'electronics':
+
+        return [{show_name : 'Accessories', link : 'Accessories & Supplies'},{show_name : 'Camera & Photo', link : 'Camera & Photo'},{show_name : 'Vehicle Electronics', link : 'Car & Vehicle Electronics'},{show_name : 'Cell Phones', link : 'Cell Phones & Accessories'},{show_name : 'Computer Electronics', link : 'Computer Accessories'},{show_name : 'GPS & Navigation', link : 'GPS & Navigation'},{show_name : 'Headphones', link : 'Headphones'},{show_name : 'Home Audio', link : 'Home Audio'},{show_name : 'Office Electronics', link : 'Office Electronics'},{show_name : 'Portable Electronics', link : 'Portable Audio & Video'},{show_name : 'Security', link : 'Security & Survelliance'},{show_name : 'TV & Audio', link : 'Television & Audio'}]
+        break;
+        
+      case 'beauty & care':
+
+        return [{show_name : 'Makeup', link : 'Makeup'},{show_name : 'Skin Care', link : 'Skin Care'},{show_name : 'Hair Care', link : 'Hair Care'},{show_name : "Men's Fragrance", link : 'Fragrance - Men'},{show_name : "Women's Fragrance", link : 'Fragrance - Women'},{show_name : 'Beauty Tools', link : 'Beauty Tools'},{show_name : 'Hair Removal', link : 'Shave & Hair Removal'},{show_name : 'Baby Care', link : 'Baby Care'},{show_name : 'Oral Care', link : 'Oral Care'},{show_name : "Men's Care", link : 'Personal Care - Men'},{show_name : "Women's Care", link : 'Personal Care - Women'}]
+        break;
+      
+      case 'fashion & clothing':
+
+        return [{show_name : "Women's Clothes", link : 'Clothes - Women'},{show_name : "Women's Handbags", link : 'Handbags - Women'},{show_name : "Women's Shoes", link : 'Shoes - Women'},{show_name : "Women's Watches", link : 'Watches - Women'},{show_name : "Men's Clothing", link : 'Clothing - Men'},{show_name : "Men's Watches", link : 'Watches - Men'},{show_name : "Men's Shoes", link : 'Shoes - Men'},{show_name : "Children's Clothes", link : 'Clothes - Children'},{show_name : "Children's Shoes", link : 'Shoes - Children'}]
+        break;
+    
+      default:
+        break;
+    }
     
   }
 
@@ -165,41 +192,76 @@ function Navbar() {
 
                     <hr className="my-3 border border-less-primary w-full"/>
 
-                    <div className="w-full h-6/10 flex flex-wrap items-start justify-between">
+                    {
+                      selectedResponsiveCategory === '' ? (
 
-                      <div className="w-1/2 h-full flex flex-col items-center justify-around">
+                        <div className="w-full h-6/10 flex flex-wrap items-start justify-between">
 
-                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Electronics</button>
-                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Fashion & Clothing</button>
-                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Beauty & Care</button>
-                        <button type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Home & Kitchen</button>
+                          <div className="w-1/2 h-full flex flex-col items-center justify-around">
 
-                      </div>
+                            <button onClick={() => setSelectedResponsiveCategory('electronics')} type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Electronics</button>
+                            <button onClick={() => setSelectedResponsiveCategory('fashion & clothing')} type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Fashion & Clothing</button>
+                            <button onClick={() => setSelectedResponsiveCategory('beauty & care')} type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Beauty & Care</button>
+                            <button onClick={() => setSelectedResponsiveCategory('home & kitchen')} type='button' className="flex w-40 pl-2 items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Home & Kitchen</button>
 
-                      <div className="w-1/2 h-full flex flex-col items-center justify-around">
+                          </div>
 
-                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Health & Wellness</button>
-                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Toys & Games</button>
-                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Automotive</button>
-                        <button type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Office Supplies</button>
+                          <div className="w-1/2 h-full flex flex-col items-center justify-around">
 
-                      </div>
+                            <button onClick={() => setSelectedResponsiveCategory('health & wellness')} type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Health & Wellness</button>
+                            <button onClick={() => setSelectedResponsiveCategory('toys & games')} type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Toys & Games</button>
+                            <button onClick={() => setSelectedResponsiveCategory('automotive')} type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Automotive</button>
+                            <button onClick={() => setSelectedResponsiveCategory('office supplies')} type='button' className="w-40 pl-2 flex items-center justify-start border-s-2 border-transparent hover:border-primary transition-all hover:text-primary duration-300 px-2">Office Supplies</button>
 
-                      <div className={`w-full flex items-center justify-between ${isAuthenticated ? 'mt-2' : 'mt-6'}`}>
-                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center text-primary bg-less-primary" style={{width : "49%"}}>All Categories</Link>
-                        <Link to={'/product-categories'} className="py-3 flex items-center justify-center text-primary bg-less-primary" style={{width : "49%"}}>Top Selling</Link>
-                      </div>
+                          </div>
 
-                      {
-                        isAuthenticated ? (
+                          <div className={`w-full flex items-center justify-between ${isAuthenticated ? 'mt-2' : 'mt-6'}`}>
+                            <Link to={'/product-categories'} className="py-3 flex items-center justify-center text-primary bg-less-primary" style={{width : "49%"}}>All Categories</Link>
+                            <Link to={'/product-categories'} className="py-3 flex items-center justify-center text-primary bg-less-primary" style={{width : "49%"}}>Top Selling</Link>
+                          </div>
 
-                          <p className="text-xl font-lilita w-full flex items-center justify-center py-2 mt-1">Vend<span className="text-primary">ezy</span><span className="font-product text-sm ml-1 font-semibold tracking-wider"> - All Rights Reserved</span></p>
+                          {
+                            isAuthenticated ? (
 
-                        ) : ''
-                      }
+                              <p className="text-xl font-lilita w-full flex items-center justify-center py-2 mt-1">Vend<span className="text-primary">ezy</span><span className="font-product text-sm ml-1 font-semibold tracking-wider"> - All Rights Reserved</span></p>
+
+                            ) : ''
+                          }
 
 
-                    </div>
+                        </div>
+
+                      ) : (
+
+                        <motion.div initial={{opacity : 0, y : 10}} animate={{opacity : 1, y : 0}} className="w-full h-9/10 flex flex-col items-center justify-start overflow-hidden">
+
+                          <div className="w-full h-1/10 flex items-center justify-center relative">
+                            <button className="absolute left-2" onClick={() => setSelectedResponsiveCategory('')}>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+                                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                                  <path d="M8 12L16 12M8 12C8 11.2998 9.9943 9.99153 10.5 9.5M8 12C8 12.7002 9.9943 14.0085 10.5 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </button>
+                            <h2 className="capitalize text-xl">{selectedResponsiveCategory}</h2>
+                          </div>
+
+                          <div className="w-full px-3 pb-3 flex flex-col flex-wrap items-start justify-start" style={{maxHeight : "90%"}}>
+
+                            {
+                              getSubCategories(selectedResponsiveCategory).map((sub_cat) => (
+                                <Link className="mt-5 pl-2 border-s-2 border-transparent transition-all hover:border-primary hover:text-primary text-dull duration-300" to={`/product-category/${sub_cat.link}`}>
+                                  {sub_cat.show_name}
+                                </Link>
+                              ))
+                            }
+
+                          </div>
+
+
+                        </motion.div>
+                      )
+
+                    }
 
                   </div>
 
