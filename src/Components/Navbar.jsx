@@ -99,7 +99,7 @@ function Navbar() {
             )
           }
         </button>
-        <div className={`w-full flex-col items-center justify-start font-product hidden max-[900px]:flex p-3 absolute ${isResponsiveMenuOpen ? 'h-105 -bottom-105' : 'h-0 bottom-0 opacity-0'} bg-gray-200 transition-all`}>
+        <div className={`w-full flex-col items-center justify-start font-product hidden max-[900px]:flex p-3 absolute ${isResponsiveMenuOpen ? isAuthenticated ? 'h-110 -bottom-110' : 'h-100 -bottom-100' : 'h-0 bottom-0 opacity-0'} shadow-md transition-all`}>
 
           {
             isResponsiveMenuOpen ? (
@@ -193,7 +193,7 @@ function Navbar() {
                       {
                         isAuthenticated ? (
 
-                          <p className="text-xl font-lilita w-full flex items-center justify-center py-2">Vend<span className="text-primary">ezy</span><span className="font-product text-sm ml-1 font-semibold tracking-wider"> - All Rights Reserved</span></p>
+                          <p className="text-xl font-lilita w-full flex items-center justify-center py-2 mt-1">Vend<span className="text-primary">ezy</span><span className="font-product text-sm ml-1 font-semibold tracking-wider"> - All Rights Reserved</span></p>
 
                         ) : ''
                       }
