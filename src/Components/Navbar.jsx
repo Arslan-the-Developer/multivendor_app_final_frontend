@@ -93,6 +93,31 @@ function Navbar() {
 
         return [{show_name : "Women's Clothes", link : 'Clothes - Women'},{show_name : "Women's Handbags", link : 'Handbags - Women'},{show_name : "Women's Shoes", link : 'Shoes - Women'},{show_name : "Women's Watches", link : 'Watches - Women'},{show_name : "Men's Clothing", link : 'Clothing - Men'},{show_name : "Men's Watches", link : 'Watches - Men'},{show_name : "Men's Shoes", link : 'Shoes - Men'},{show_name : "Children's Clothes", link : 'Clothes - Children'},{show_name : "Children's Shoes", link : 'Shoes - Children'}]
         break;
+      
+      case 'home & kitchen':
+
+        return [{show_name : "Kitchen & Dining", link : 'Kitchen & Dining'},{show_name : "Bedding", link : 'Bedding'},{show_name : "Bath", link : 'Bath'},{show_name : "Event & Party", link : 'Event & Party'},{show_name : "Air Quality", link : 'Heating, Cooling & Air Quality'},{show_name : "Irons & Steamers", link : 'Irons & Steamers'},{show_name : "Floor Care", link : 'Vaccums & Floor Care'},{show_name : "Storage", link : 'Storage & Organization'},{show_name : "Cleaning Supplies", link : 'Cleaning Supplies'},{show_name : "Kitchen", link : 'Kitchen Accessories'},{show_name : "Cutlery", link : 'Cutlery'}]
+        break;
+      
+      case 'health & wellness':
+
+        return [{show_name : "Health Care", link : 'Health Care'},{show_name : "Vision Care", link : 'Vision Care'},{show_name : "Vitamins", link : 'Vitamins'},{show_name : "Medical Supplies", link : 'Medical Supplies'},{show_name : "First Aid", link : 'First Aid Accessories'},{show_name : "Nutrition", link : 'Nutrition'},{show_name : "Wellness", link : 'Wellness'},{show_name : "Dietry Supplies", link : 'Dietry Suppliments'},{show_name : "Relaxation", link : 'Relaxation'},{show_name : "Medical Equipments", link : 'Medical Accessories'}]
+        break;
+      
+      case 'toys & games':
+
+        return [{show_name : "Figures & Statues", link : 'Action Figures & Statues'},{show_name : "Arts & Crafts", link : 'Arts & Crafts'},{show_name : "Baby & Toddler Toys", link : 'Baby & Toddler Toys'},{show_name : "Dolls & Equipments", link : 'Dolls & Accessories'},{show_name : "Cosplay", link : 'Dress Up & Pretend Play'},{show_name : "Kids Electronics", link : 'Kids Electronics'},{show_name : "Games", link : 'Games'},{show_name : "Grown-Up Toys", link : 'Grown-Up Toys'},{show_name : "Puzzles", link : 'Puzzles'},{show_name : "Cycels & Scooters", link : 'Tricycles, Scooters & Wagons'},{show_name : "Video Games", link : 'Video Games'},{show_name : "RC Toys", link : 'RC Toys'}]
+        break;
+      
+      case 'automotive':
+
+        return [{show_name : "Car Care", link : 'Car Care'},{show_name : "Car Equipments", link : 'Car Electronics & Accessories'},{show_name : "Car Exterior", link : 'Exterior Accessories'},{show_name : "Car Interior", link : 'Interior Accessories'},{show_name : "Lightning Equipments", link : 'Lights & Lighting Accessories'},{show_name : "Motorcycle", link : 'Motorcycle & Powersports'},{show_name : "Oils & Fluids", link : 'Oils & Fluids'},{show_name : "Paint Supplies", link : 'Paint & Paint Supplies'},{show_name : "Replacement Parts", link : 'Replacement Parts'},{show_name : "Tires & Wheels", link : 'Tires & Wheels'},{show_name : "Tools & Equipment", link : 'Tools & Equipment'},{show_name : "RV Parts", link : 'RV Parts & Accessories'}]
+        break;
+      
+      case 'office supplies':
+
+        return [{show_name : "Files & Organization", link : 'Files & Organization'},{show_name : "General Supplies", link : 'General Office Supplies'},{show_name : "Office Equipment", link : 'Office Equipment'},{show_name : "Presentation Supplies", link : 'Presentation Supplies'},{show_name : "Paper Handling", link : 'Paper Handling'},{show_name : "Name Plates", link : 'Name Plates'},{show_name : "Shipping Supplies", link : 'Shipping Supplies'},{show_name : "Office Instruments", link : 'Office Instruments'},{show_name : "Impulse Sealers", link : 'Impulse Sealers'},{show_name : "Book Accessories", link : 'Book Accessories'},{show_name : "Office Stamps", link : 'Office Stamps'}]
+        break;
     
       default:
         break;
