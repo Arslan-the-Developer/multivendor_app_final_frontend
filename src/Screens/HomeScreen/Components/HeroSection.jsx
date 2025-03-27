@@ -13,12 +13,12 @@ function HeroSection() {
 
             <motion.div initial={{opacity : 0, y : 40}} animate={{opacity : 1, y : 0, transition : {duration : 0.3}}} className='bg-center bg-cover bg-[url(https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)] h-full p-2 flex flex-col items-center justify-center rounded-md max-[1160px]:w-full w-1/2 mr-1'>
 
-                <motion.div initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1, transition : {delay : 0.3}}} className='w-full h-full bg-[#ffffffbf] rounded-md flex flex-col items-start justify-center px-4 relative'>
+                <motion.div initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1, transition : {delay : 0.3}}} className='w-full h-full bg-[#ffffffbf] rounded-md flex flex-col items-start max-[600px]:items-center justify-center max-[600px]:justify-start px-4 py-3 relative'>
                     
-                    <motion.h1 initial={{opacity : 0, y : -10}} animate={{opacity : 1, y : 0, transition : {delay : 0.5}}} className='font-semibold text-2xl max-[600px]:text-base font-product mb-2 text-primary tracking-wide'>Winter Season Is In</motion.h1>
-                    <motion.p initial={{opacity : 0, x : 20}} animate={{opacity : 1, x : 0, transition : {delay : 0.5}}} className='w-6/10 font-product max-[600px]:text-xs'>Shop Now, from the Best & Verified Sellers Nationwide & Express Yourself With Your Loved Ones With Latest Fabric Trends</motion.p>
+                    <motion.h1 initial={{opacity : 0, y : -10}} animate={{opacity : 1, y : 0, transition : {delay : 0.5}}} className='font-semibold text-2xl max-[600px]:text-xl font-product mb-2 text-primary tracking-wide'>Winter Season Is In</motion.h1>
+                    <motion.p initial={{opacity : 0, x : 20}} animate={{opacity : 1, x : 0, transition : {delay : 0.5}}} className='w-6/10 font-product max-[600px]:text-sm max-[600px]:text-center'>Shop Now, from the Best & Verified Sellers Nationwide & Express Yourself With Your Loved Ones With Latest Fabric Trends</motion.p>
 
-                    <motion.button initial={{opacity : 0, scale : 0.8}} animate={{opacity : 1, scale : 1, transition : {delay : 0.5}}} className='absolute right-8 font-product border-y-2 py-2 px-4 flex items-center justify-center transition-all hover:py-3 hover:text-primary hover:border-primary'>
+                    <motion.button initial={{opacity : 0, scale : 0.8}} animate={{opacity : 1, scale : 1, transition : {delay : 0.5}}} className='absolute right-8 max-[600px]:right-45 max-[600px]:bottom-2 font-product border-y-2 py-2 px-4 flex items-center justify-center transition-all hover:py-3 hover:text-primary hover:border-primary'>
                         <Link>
                             Shop Now
                         </Link>
