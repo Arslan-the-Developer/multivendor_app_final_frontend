@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BarLoader } from 'react-spinners';
+import { motion } from 'motion/react';
 
 
 function UserRegistrationScreen() {
@@ -101,7 +102,7 @@ function UserRegistrationScreen() {
                 <p class="text-sm mt-12 text-slate-500 max-md:hidden">Already A Member? <Link to={'/user-login'} class="text-primary font-medium hover:underline ml-1">Login here</Link></p>
               </div>
 
-              <form class="max-w-md md:ml-auto w-full" onSubmit={handleRegister}>
+              <motion.form initial={{opacity : 0, y : -30}} animate={{opacity : 1, y : 0}} class="max-w-md md:ml-auto w-full" onSubmit={handleRegister}>
 
                 <h3 class="text-slate-900 lg:text-3xl text-2xl font-bold mb-5 max-md:hidden">
                   Create Account
@@ -144,7 +145,9 @@ function UserRegistrationScreen() {
                   </button>
                 </div>
 
-              </form>
+                <p className='w-full hidden items-center justify-center mt-5 max-md:flex'>Have An Account? <Link to={'/user-login'} className='text-primary ml-1 hover:underline'>Login Here</Link></p>
+
+              </motion.form>
             </div>
           </div>
 

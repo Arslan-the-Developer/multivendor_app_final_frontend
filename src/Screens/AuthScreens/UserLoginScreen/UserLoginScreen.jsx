@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BarLoader } from 'react-spinners';
-
+import { motion } from 'motion/react';
 
 function UserLoginScreen() {
 
@@ -156,7 +156,7 @@ function UserLoginScreen() {
                 <p class="text-sm mt-12 text-slate-500 max-md:hidden">Don't have an account <Link to={'/user-register'} class="text-primary font-medium hover:underline ml-1">Register here</Link></p>
               </div>
 
-              <form class="max-w-md md:ml-auto w-full" onSubmit={handleLogin}>
+              <motion.form initial={{opacity : 0, y : -30}} animate={{opacity : 1, y : 0}} class="max-w-md md:ml-auto w-full" onSubmit={handleLogin}>
 
                 {loginError && <p id="login_err" className='py-3 bg-red-500 text-center text-white -top-16 w-full absolute'>{loginError}</p>}
 
@@ -173,11 +173,16 @@ function UserLoginScreen() {
                     <label class='text-sm text-slate-800 font-medium mb-2 block'>Password</label>
                     <input name="password" type="password" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Enter Password" />
                   </div>
-                  <div class="flex flex-wrap items-center justify-start gap-4">
+                  <div class="flex flex-wrap items-center justify-between gap-4">
                     <div class="text-sm">
-                      <a href="jajvascript:void(0);" class="text-primary hover:text-green-600 transition-all font-medium">
+                      <Link class="text-primary hover:text-green-600 transition-all font-medium">
                         Forgot your password?
-                      </a>
+                      </Link>
+                    </div>
+                    <div class="text-sm hidden max-md:flex">
+                      <Link to={`/user-register`} class="text-primary hover:text-green-600 transition-all font-medium">
+                        Create Account
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -188,7 +193,7 @@ function UserLoginScreen() {
                   </button>
                 </div>
 
-              </form>
+              </motion.form>
             </div>
           </div>
 
