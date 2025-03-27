@@ -7,7 +7,7 @@ function HeroSection() {
 
   return (
 
-    <section className='w-full h-[65vh] flex flex-col items-center justify-start p-4 max-[1160px]:p-2 bg-amber-100'>
+    <section className='w-full h-[65vh] flex flex-col items-center justify-start p-4 max-[1160px]:p-2'>
 
         <div className='w-full h-5/10 mt-9 max-[1160px]:mt-0 rounded-sm flex items-center justify-between'>
 
