@@ -3,6 +3,7 @@ import axios from 'axios';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
+import HeroSection from './Components/HeroSection';
 
 
 
@@ -14,6 +15,7 @@ function HomeScreen() {
 
     <>
      <Navbar />
+     <HeroSection />
     </>
 
   )
