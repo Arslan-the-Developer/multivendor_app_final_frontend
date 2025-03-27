@@ -17,7 +17,7 @@ function HeroSection() {
                     
                     <div className='flex flex-col items-start justify-center h-full max-[600px]:items-center max-[600px]:justify-start'>
                         <motion.h1 initial={{opacity : 0, y : -10}} animate={{opacity : 1, y : 0, transition : {delay : 0.5}}} className='font-semibold text-2xl max-[600px]:text-xl font-product mb-2 text-primary tracking-wide'>Winter Season Is In</motion.h1>
-                        <motion.p initial={{opacity : 0, x : 20}} animate={{opacity : 1, x : 0, transition : {delay : 0.5}}} className='w-6/10 font-product max-[600px]:text-sm max-[600px]:text-center max-[600px]:w-8/10'>Shop Now, from the Best & Verified Sellers Nationwide & Express Yourself With Your Loved Ones With Latest Fabric Trends</motion.p>
+                        <motion.p initial={{opacity : 0, x : 20}} animate={{opacity : 1, x : 0, transition : {delay : 0.5}}} className='w-6/10 font-product max-[600px]:text-sm max-[600px]:text-center max-[600px]:w-full'>Shop Now, from the Best & Verified Sellers Nationwide & Express Yourself With Your Loved Ones With Latest Fabric Trends</motion.p>
                     </div>
 
                     <div>
