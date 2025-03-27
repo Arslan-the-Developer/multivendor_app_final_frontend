@@ -21,7 +21,7 @@ function HeroSection() {
                     </div>
 
                     <div className=''>
-                        <motion.button initial={{opacity : 0, scale : 0.8}} animate={{opacity : 1, scale : 1, transition : {delay : 0.5}}} className='max-[600px]:text-sm max-[600px]:mb-1 font-product border-y-2 py-2 max-[600px]:py-1 max-[600px]:border-y-2 px-4 flex items-center justify-center transition-all hover:py-3 hover:text-primary hover:border-primary'>
+                        <motion.button initial={{opacity : 0, scale : 0.8}} animate={{opacity : 1, scale : 1, transition : {delay : 0.5}}} className='max-[600px]:text-sm max-[600px]:mb-1 font-product border-y-2 py-2 max-[600px]:py-1 max-[600px]:border-y-0 max-[600px]:border-b-2 max-[600px]:rounded-md px-4 flex items-center justify-center transition-all hover:py-3 hover:text-primary hover:border-primary'>
                             <Link>
                                 Shop Now
                             </Link>
