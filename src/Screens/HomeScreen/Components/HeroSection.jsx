@@ -15,13 +15,13 @@ function HeroSection() {
 
                 <motion.div initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1, transition : {delay : 0.3}}} className='w-full h-full bg-[#ffffffbf] rounded-md flex max-[600px]:flex-col items-start max-[600px]:items-center justify-center max-[600px]:justify-start px-4 py-3 relative'>
                     
-                    <div className='flex flex-col items-start justify-center h-full max-[600px]:items-center max-[600px]:justify-start'>
+                    <div className='flex flex-col items-start justify-center h-full max-[600px]:items-center max-[600px]:justify-start max-[600px]:w-full'>
                         <motion.h1 initial={{opacity : 0, y : -10}} animate={{opacity : 1, y : 0, transition : {delay : 0.5}}} className='font-semibold text-2xl max-[600px]:text-xl font-product mb-2 text-primary tracking-wide'>Winter Season Is In</motion.h1>
                         <motion.p initial={{opacity : 0, x : 20}} animate={{opacity : 1, x : 0, transition : {delay : 0.5}}} className='w-6/10 font-product max-[600px]:text-sm max-[600px]:text-center max-[600px]:w-full'>Shop Now, from the Best & Verified Sellers Nationwide & Express Yourself With Your Loved Ones With Latest Fabric Trends</motion.p>
                     </div>
 
                     <div>
-                        <motion.button initial={{opacity : 0, scale : 0.8}} animate={{opacity : 1, scale : 1, transition : {delay : 0.5}}} className='max-[600px]:text-sm font-product border-y-2 py-2 max-[600px]:py-1 px-4 flex items-center justify-center transition-all hover:py-3 hover:text-primary hover:border-primary'>
+                        <motion.button initial={{opacity : 0, scale : 0.8}} animate={{opacity : 1, scale : 1, transition : {delay : 0.5}}} className='max-[600px]:text-sm font-product border-y-2 py-2 max-[600px]:py-1 max-[600px]:border-y-1 px-4 flex items-center justify-center transition-all hover:py-3 hover:text-primary hover:border-primary'>
                             <Link>
                                 Shop Now
                             </Link>
