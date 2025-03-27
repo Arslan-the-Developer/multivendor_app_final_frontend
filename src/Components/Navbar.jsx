@@ -127,7 +127,7 @@ function Navbar() {
 
 
   return (
-    <nav className="flex items-center justify-between w-full h-18 relative" onMouseLeave={() => setShowCategoriesFor('')}>
+    <nav className="flex items-center justify-between w-full h-18 relative" onMouseLeave={() => setShowCategoriesFor('')} style={{zIndex : '20'}}>
       {/* Logo Section */}
       <div className="w-1/4 flex items-center justify-center h-full max-[900px]:hidden" onMouseEnter={() => setShowCategoriesFor('')}>
         <Link to="/" className="text-3xl font-lilita">
@@ -156,7 +156,7 @@ function Navbar() {
           {
             isResponsiveMenuOpen ? (
           
-              <div className="w-full h-full flex items-center justify-start">
+              <div className="w-full h-full flex items-center justify-start bg-secondary">
 
                   <div className="w-full flex flex-col items-center justify-start h-full">
 
