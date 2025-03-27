@@ -7,11 +7,11 @@ function HeroSection() {
 
   return (
 
-    <section className='w-full h-[65vh] flex flex-col items-center justify-start p-4 max-[1160px]:p-2'>
+    <section className='w-full h-[65vh] flex flex-col items-start justify-start p-4 max-[1160px]:px-2'>
 
-        <div className='w-full h-5/10 mt-9 max-[1160px]:mt-0 rounded-sm flex items-center justify-between'>
+        <div className='w-full h-5/10 max-[600px]:h-4/10 mt-9 max-[1160px]:mt-0 rounded-sm flex items-center justify-between '>
 
-            <motion.div initial={{opacity : 0, y : 40}} animate={{opacity : 1, y : 0, transition : {duration : 0.3}}} className='bg-center bg-cover bg-[url(https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)] h-full max-[600px]:h-8/10 p-2 flex flex-col items-center justify-center rounded-md max-[1160px]:w-full w-1/2 mr-1'>
+            <motion.div initial={{opacity : 0, y : 40}} animate={{opacity : 1, y : 0, transition : {duration : 0.3}}} className='bg-center bg-cover bg-[url(https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)] h-full p-2 flex flex-col items-center justify-center rounded-md max-[1160px]:w-full w-1/2 mr-1'>
 
                 <motion.div initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1, transition : {delay : 0.3}}} className='w-full h-full bg-[#ffffffbf] rounded-md flex max-[600px]:flex-col items-center max-[600px]:items-center justify-between max-[600px]:justify-start px-4 py-3 relative'>
                     
