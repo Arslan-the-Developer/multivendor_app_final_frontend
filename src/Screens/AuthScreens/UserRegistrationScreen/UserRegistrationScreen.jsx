@@ -87,33 +87,70 @@ function UserRegistrationScreen() {
 
   return (
 
-    <section className='w-full h-screen flex flex-col items-center justify-center'>
+    <>
 
-        <form onSubmit={handleRegister} className='shadow-md flex flex-col items-center justify-center border-2 border-primary p-4 bg-white relative' style={{width : "25rem"}}>
-            
-            <p id="register_err" className='py-3 bg-red-500 text-center text-white -top-16 w-full absolute transition opacity-0'></p>
+    <section className='w-full h-screen relative flex items-center justify-center'>
 
-            <Link to={"/"} className="text-4xl font-lilita mb-6">Vend<span className="text-primary">ezy</span></Link>
+      <div class="min-h-screen w-full flex flex-col items-center justify-center py-6 px-4 font-product">
+            <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
+              <div>
+                <h2 class="lg:text-5xl text-3xl font-bold lg:leading-[57px] text-dull max-md:hidden">Create Your</h2>
+                <p className='font-lilita font-light lg:text-5xl text-3xl lg:leading-[57px] text-dull max-md:w-full max-md:text-4xl max-md:text-center max-md:flex max-md:items-center max-md:justify-center'><p className='font-product text-2xl max-md:flex mr-3 hidden'>Register To</p>Vend<span className='text-primary'>ezy</span></p>
+                <h2 class="lg:text-5xl text-3xl font-bold lg:leading-[57px] text-dull max-md:hidden">Account</h2>
+                <p class="text-sm mt-6 text-slate-500 leading-relaxed max-md:hidden">Create your free vendezy account and join explore the storm of products from best & verified sellers gathered together on one platform and Happy Shopping!</p>
+                <p class="text-sm mt-12 text-slate-500 max-md:hidden">Already A Member? <Link to={'/user-login'} class="text-primary font-medium hover:underline ml-1">Login here</Link></p>
+              </div>
 
-            <input name='username' type="text" placeholder='Username' className='w-full px-2 py-3 placeholder:text-primary text-primary outline-none border-2 border-primary mb-4' required />
-            
-            <input name='email' type="email" placeholder='Email' className='w-full px-2 py-3 placeholder:text-primary text-primary outline-none border-2 border-primary' required />
+              <form class="max-w-md md:ml-auto w-full" onSubmit={handleRegister}>
 
-            <input name='password' type="password" placeholder='Password' className='w-full px-2 py-3 placeholder:text-primary text-primary outline-none border-2 border-primary mt-4 font-verdana placeholder:font-monty' required/>
-            
-            <input name='password2' type="password" placeholder='Confirm Password' className='w-full px-2 py-3 placeholder:text-primary text-primary outline-none border-2 border-primary mt-4 font-verdana placeholder:font-monty' required/>
+                <h3 class="text-slate-900 lg:text-3xl text-2xl font-bold mb-5 max-md:hidden">
+                  Create Account
+                </h3>
 
-            <hr className='w-full border border-gray-300 my-4' />
+                <div class="space-y-6">
+                  <div>
+                    <label class='text-sm text-slate-800 font-medium block'>Username</label>
+                    <input name="name" type="text" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Enter Username"/>
+                  </div>
+                  <div>
+                    <label class='text-sm text-slate-800 font-medium block'>Email</label>
+                    <input name="email" type="email" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Enter Email" />
+                  </div>
+                  <div>
+                    <label class='text-sm text-slate-800 font-medium block'>Password</label>
+                    <input name="password" type="password" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Enter Password" />
+                  </div>
+                  <div>
+                    <label class='text-sm text-slate-800 font-medium block'>Re-enter Password</label>
+                    <input name="password" type="password" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Confirm Password" />
+                  </div>
+                </div>
 
-            <Link to={"http://localhost:8000/authentication/login/google/"} className='flex items-center justify-center w-full py-3 rounded-sm font-bold text-2xl text-primary transition font-product border-none shadow-md tracking-wider' style={{boxShadow : "0 0 5px 0px rgba(0,0,0,.2)"}}> <span className='text-blue-400'>G</span><span className='text-red-400'>o</span><span className='text-yellow-400'>o</span><span className='text-blue-400'>g</span><span className='text-green-500'>l</span><span className='text-red-400'>e</span> </Link>
+                <div className='w-full flex flex-col items-center justify-center'>
 
-            <button type="submit" disabled={isSubmitButtonDisabled} className='w-full mt-5 h-12 bg-primary text-secondary transition outline-none flex items-center justify-center'>{isSubmitButtonDisabled ? <BarLoader color="#ffffff" /> : "Register"}</button>
+                  <div className='w-full flex items-center justify-between text-primary my-3'>
+                    <hr className='border border-less-primary' style={{width : "46%"}} />
+                    <p>or</p>
+                    <hr className='border border-less-primary' style={{width : "46%"}} />
+                  </div>
 
-            <p className='mt-4 text-sm text-primary'>Have An Account??<Link to={"/user-login"} className='ml-1 underline hover:text-dull focus:text-dull outline-none'>Login</Link></p>
+                  <Link to={`${import.meta.env.VITE_API_URL}/authentication/login/google/`} className='flex items-center justify-center w-full py-3 rounded-sm font-bold text-2xl text-primary transition font-product border-none shadow-md tracking-wider' style={{boxShadow : "0 0 5px 0px rgba(0,0,0,.2)"}}> <span className='text-blue-400'>G</span><span className='text-red-400'>o</span><span className='text-yellow-400'>o</span><span className='text-blue-400'>g</span><span className='text-green-500'>l</span><span className='text-red-400'>e</span> </Link>
 
-        </form>
+                </div>
+
+                <div class="!mt-8">
+                  <button disabled={isSubmitButtonDisabled} type="submitt" class="w-full shadow-xl py-4 tracking-wider cursor-pointer px-4 text-sm font-semibold rounded text-white bg-primary hover:bg-[#015956] transition-all focus:outline-none">
+                    {isSubmitButtonDisabled ? <BarLoader color="#ffffff" /> : "Register"}
+                  </button>
+                </div>
+
+              </form>
+            </div>
+          </div>
 
     </section>
+
+    </>
 
   )
 
