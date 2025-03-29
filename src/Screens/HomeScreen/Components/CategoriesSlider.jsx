@@ -37,7 +37,7 @@ function CategoriesSlider() {
     >
         <SwiperSlide className='flex items-center justify-center h-full py-1'>
             <motion.div initial={{opacity : 0, x : 30}} animate={{opacity : 1, x : 0 ,transition : {duration : 0.5}}} className='w-full h-full flex items-start justify-start group relative'>
-                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white transition-all shadow-lg'> 
+                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white transition-all shadow-lg max-sm:border-2 max-sm:border-white max-sm:hover:border-primary'> 
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#006964"} fill={"none"}>
                         <path d="M4 12C4 8.22876 4 6.34315 5.17157 5.17157C6.34315 4 8.22876 4 12 4C15.7712 4 17.6569 4 18.8284 5.17157C20 6.34315 20 8.22876 20 12C20 15.7712 20 17.6569 18.8284 18.8284C17.6569 20 15.7712 20 12 20C8.22876 20 6.34315 20 5.17157 18.8284C4 17.6569 4 15.7712 4 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -57,7 +57,7 @@ function CategoriesSlider() {
 
         <SwiperSlide className='flex items-center justify-center h-full py-1'>
             <motion.div initial={{opacity : 0, x : 30}} animate={{opacity : 1, x : 0, transition : {duration : 0.5}}} className='w-full h-full flex items-start justify-start group relative'>
-                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white shadow-lg'> 
+                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white shadow-lg max-sm:border-2 max-sm:border-white max-sm:hover:border-primary'> 
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#006964"} fill={"none"}>
                         <path d="M14 12.6483L16.3708 10.2775C16.6636 9.98469 16.81 9.83827 16.8883 9.68032C17.0372 9.3798 17.0372 9.02696 16.8883 8.72644C16.81 8.56849 16.6636 8.42207 16.3708 8.12923C16.0779 7.83638 15.9315 7.68996 15.7736 7.61169C15.473 7.46277 15.1202 7.46277 14.8197 7.61169C14.6617 7.68996 14.5153 7.83638 14.2225 8.12923L11.8517 10.5M14 12.6483L5.77754 20.8708C5.4847 21.1636 5.33827 21.31 5.18032 21.3883C4.8798 21.5372 4.52696 21.5372 4.22644 21.3883C4.06849 21.31 3.92207 21.1636 3.62923 20.8708C3.33639 20.5779 3.18996 20.4315 3.11169 20.2736C2.96277 19.973 2.96277 19.6202 3.11169 19.3197C3.18996 19.1617 3.33639 19.0153 3.62923 18.7225L11.8517 10.5M14 12.6483L11.8517 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -78,7 +78,7 @@ function CategoriesSlider() {
 
         <SwiperSlide className='flex items-center justify-center h-full py-1'>
             <motion.div initial={{opacity : 0, x : 30}} animate={{opacity : 1, x : 0, transition : {duration : 0.5}}} className='w-full h-full flex items-start justify-start group relative'>
-                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white shadow-lg'> 
+                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white shadow-lg max-sm:border-2 max-sm:border-white max-sm:hover:border-primary'> 
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#006964"} fill={"none"}>
                         <path d="M5.5 18V21M18.5 18V21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -101,7 +101,7 @@ function CategoriesSlider() {
 
         <SwiperSlide className='flex items-center justify-center h-full py-1'>
             <motion.div initial={{opacity : 0, x : 30}} animate={{opacity : 1, x : 0, transition : {duration : 0.5}}} className='w-full h-full flex items-start justify-start group relative'>
-                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white shadow-lg'> 
+                <Link className='w-full h-full flex items-center justify-start py-4 px-5 rounded-xl bg-white shadow-lg max-sm:border-2 max-sm:border-white max-sm:hover:border-primary'> 
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#006964"} fill={"none"}>
                         <path d="M6.37726 16H5.08354C3.22665 16 2.84168 15.6255 3.05142 13.7791L3.41559 10.5731C3.75345 7.59878 4.43808 6.75874 7.23391 5.66482L8.93305 5V2C9.90622 2.31731 10.9677 2.83772 12 2.83772C13.0323 2.83772 14.0938 2.31731 15.067 2V5L16.7661 5.66482C19.5619 6.75874 20.2466 7.59878 20.5844 10.5731L20.9486 13.7791C21.1583 15.6255 20.7734 16 18.9165 16H17.6227" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
