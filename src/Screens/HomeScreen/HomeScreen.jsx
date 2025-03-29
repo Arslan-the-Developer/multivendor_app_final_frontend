@@ -4,6 +4,7 @@ import useCheckAuthentication from '../../Components/Hooks/useCheckAuthenticatio
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
 import HeroSection from './Components/HeroSection';
+import ProductsSlider from './Components/ProductsSlider';
 
 
 
@@ -16,6 +17,7 @@ function HomeScreen() {
     <>
      <Navbar />
      <HeroSection />
+     <ProductsSlider />
     </>
 
   )
