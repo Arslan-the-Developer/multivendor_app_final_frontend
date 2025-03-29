@@ -1,4 +1,3 @@
-import { DrawingProvider } from '@mui/x-charts/internals';
 import axios from 'axios';
 import { delay, motion } from 'motion/react';
 import React, { useEffect, useState } from 'react'
