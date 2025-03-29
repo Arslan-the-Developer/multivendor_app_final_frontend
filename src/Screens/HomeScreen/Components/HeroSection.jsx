@@ -8,9 +8,9 @@ function HeroSection() {
 
   return (
 
-    <section className='w-full h-[50vh] flex flex-col items-start justify-start p-4 max-[1160px]:px-2 bg-amber-100'>
+    <section className='w-full h-[50vh] flex flex-col items-start justify-start p-4 max-[1160px]:px-2'>
 
-        <div className='w-full h-7/10 max-[600px]:h-5/10 mt-9 max-[1160px]:mt-0 max-[1000px]:h-6/10 rounded-sm flex items-center justify-between '>
+        <div className='w-full h-7/10 max-[600px]:h-5/10 mt-9 max-[1160px]:mt-0 max-[1000px]:h-6/10 rounded-sm flex items-center justify-between mb-2'>
 
             <motion.div initial={{opacity : 0, y : 40}} animate={{opacity : 1, y : 0, transition : {duration : 0.3}}} className='bg-center bg-cover bg-[url(https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)] h-full p-2 flex flex-col items-center justify-center rounded-md max-[1160px]:w-full w-1/2 mr-1'>
 
@@ -53,7 +53,7 @@ function HeroSection() {
 
         </div>
 
-        <div className='w-full h-3/10 flex items-start justify-start content-start py-3 mt-2'>
+        <div className='w-full h-3/10 flex items-start justify-start content-start mt-2'>
 
             <CategoriesSlider />
 
