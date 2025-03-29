@@ -47,7 +47,7 @@ function CategoriesSlider() {
 
                     <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all max-sm:text-base '>Electronics</h2>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 max-sm:hidden'>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                         <path d="M9.5 10.5C9.99153 9.9943 11.2998 8 12 8M14.5 10.5C14.0085 9.9943 12.7002 8 12 8M12 8V16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -68,7 +68,7 @@ function CategoriesSlider() {
 
                     <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all max-sm:text-base '>Beauty & Care</h2>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 max-sm:hidden'>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                         <path d="M9.5 10.5C9.99153 9.9943 11.2998 8 12 8M14.5 10.5C14.0085 9.9943 12.7002 8 12 8M12 8V16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -91,7 +91,7 @@ function CategoriesSlider() {
 
                     <h2 className='ml-3 font-product text-xl group-hover:text-primary max-sm:text-base transition-all '>Home & Decor</h2>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 max-sm:hidden'>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                         <path d="M9.5 10.5C9.99153 9.9943 11.2998 8 12 8M14.5 10.5C14.0085 9.9943 12.7002 8 12 8M12 8V16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -113,7 +113,7 @@ function CategoriesSlider() {
 
                     <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all max-sm:text-base'>Clothing</h2>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 max-sm:hidden'>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
                         <path d="M9.5 10.5C9.99153 9.9943 11.2998 8 12 8M14.5 10.5C14.0085 9.9943 12.7002 8 12 8M12 8V16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
