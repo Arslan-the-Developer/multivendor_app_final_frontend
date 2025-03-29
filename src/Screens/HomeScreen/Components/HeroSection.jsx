@@ -53,7 +53,7 @@ function HeroSection() {
 
         </div>
 
-        <div className='w-full h-3/10 flex items-start justify-start content-start mt-2'>
+        <div className='w-full h-3/10 max-sm:h-2/8 flex items-start justify-start content-start mt-2'>
 
             <CategoriesSlider />
 
