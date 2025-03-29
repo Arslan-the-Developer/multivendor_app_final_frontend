@@ -45,7 +45,7 @@ function CategoriesSlider() {
                         <path d="M8 2V4M16 2V4M12 2V4M8 20V22M12 20V22M16 20V22M22 16H20M4 8H2M4 16H2M4 12H2M22 8H20M22 12H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
 
-                    <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all '>Electronics</h2>
+                    <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all max-sm:text-base '>Electronics</h2>
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100'>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
@@ -66,7 +66,7 @@ function CategoriesSlider() {
                         <path d="M10.5 2.5L10.3895 2.79873C10.2445 3.19044 10.172 3.38629 10.0292 3.52917C9.88629 3.67204 9.69044 3.74452 9.29873 3.88946L9 4L9.29873 4.11054C9.69044 4.25548 9.88629 4.32796 10.0292 4.47083C10.172 4.61371 10.2445 4.80956 10.3895 5.20127L10.5 5.5L10.6105 5.20127C10.7555 4.80956 10.828 4.61371 10.9708 4.47083C11.1137 4.32796 11.3096 4.25548 11.7013 4.11054L12 4L11.7013 3.88946C11.3096 3.74452 11.1137 3.67204 10.9708 3.52917C10.828 3.38629 10.7555 3.19044 10.6105 2.79873L10.5 2.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                     </svg>
 
-                    <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all '>Beauty & Care</h2>
+                    <h2 className='ml-3 font-product text-xl group-hover:text-primary transition-all max-sm:text-base '>Beauty & Care</h2>
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"} className='absolute right-5 transition-all opacity-0 translate-y-3 group-hover:translate-y-0 group-hover:opacity-100'>
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
