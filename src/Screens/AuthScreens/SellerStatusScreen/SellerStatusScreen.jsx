@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useRefreshTokens from "../../../Components/useRefreshTokens";
 import clockIcon from '../../../assets/clock.gif'
+import useRefreshTokens from "../../../Components/Hooks/useRefreshTokens";
 
 
 function SellerStatusScreen() {
