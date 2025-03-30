@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react'
-import useFetchData from "../../../Components/useFetchData"
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import useRefreshTokens from '../../../Components/useRefreshTokens';
 import { useNavigate } from 'react-router-dom';
