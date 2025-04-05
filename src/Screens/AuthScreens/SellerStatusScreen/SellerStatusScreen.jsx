@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import clockIcon from '../../../assets/clock.gif'
+import clockIcon from '../../../../src/assets/clock.gif';
 import useRefreshTokens from "../../../Components/Hooks/useRefreshTokens";
 
 
@@ -17,7 +17,7 @@ function SellerStatusScreen() {
     const fetchSellerStatus = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000/authentication/check_seller_status",
+          `${import.meta.env.VITE_API_URL}/authentication/check_seller_status`,
           {
             withCredentials: true,
             headers: {
@@ -39,7 +39,45 @@ function SellerStatusScreen() {
   }, []);
 
   if (loading) {
-    return <div className="text-center">Loading...</div>;
+    return <section className="text-center w-full h-screen flex flex-col items-center justify-start">
+
+      <div className="w-full flex items-center justify-start py-4">
+
+        <div className="w-1/4 h-25 flex flex-col items-center justify-around animate-pulse">
+
+          <span className="w-12 h-12 bg-gray-200 rounded-full"></span>
+          <span className="w-1/2 h-6 bg-gray-200"></span>
+
+        </div>
+        <div className="w-1/4 h-25 flex flex-col items-center justify-around animate-pulse">
+
+          <span className="w-12 h-12 bg-gray-200 rounded-full"></span>
+          <span className="w-1/2 h-6 bg-gray-200"></span>
+
+        </div>
+        <div className="w-1/4 h-25 flex flex-col items-center justify-around animate-pulse">
+
+          <span className="w-12 h-12 bg-gray-200 rounded-full"></span>
+          <span className="w-1/2 h-6 bg-gray-200"></span>
+
+        </div>
+        <div className="w-1/4 h-25 flex flex-col items-center justify-around animate-pulse">
+
+          <span className="w-12 h-12 bg-gray-200 rounded-full"></span>
+          <span className="w-1/2 h-6 bg-gray-200"></span>
+
+        </div>
+
+      </div>
+
+      <div className="w-full h-full flex flex-col items-center justify-center">
+
+        <span className="w-1/2 h-10 bg-gray-200 animate-pulse"></span>
+        <span className="w-1/5 h-14 bg-gray-200 mt-6 animate-pulse"></span>
+
+      </div>
+      
+    </section>;
   }
 
   if (!steps || steps.length === 0) {
@@ -113,7 +151,7 @@ function SellerStatusScreen() {
                           Your Store Needs You To Be Ready
                         </p>
                         <Link
-                          to="/store-details"
+                          to="/store-basic-details"
                           className="px-8 py-4 mt-8 border-2 border-primary text-primary hover:bg-primary hover:text-secondary"
                         >
                           Enter Store Details

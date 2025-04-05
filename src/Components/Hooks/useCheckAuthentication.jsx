@@ -1,67 +1,101 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
-
 function useCheckAuthentication() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
+  const [isApprovedSeller, setIsApprovedSeller] = useState(false);
+  const [isStoreBasicInfoAdded, setStoreBasicInfoAdded] = useState(false);
+  const [isStoreIDInfoAdded, setStoreIDInfoAdded] = useState(false);
+  const [isStoreRejected, setStoreRejected] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const didRun = useRef(false); // To prevent multiple invocations
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isSeller, setIsSeller] = useState(false);
-    const [isApprovedSeller, setIsApprovedSeller] = useState(false);
-    const [loading, setLoading] = useState(true);
+  async function CheckSellerStatus() {
+    try {
+      const sellerStatusResponse = await axios.get(
+        `${import.meta.env.VITE_API_URL}/authentication/check_seller_status`,
+        { withCredentials: true }
+      );
+      setStoreBasicInfoAdded(sellerStatusResponse.data.is_basic_info_added);
+      setStoreIDInfoAdded(sellerStatusResponse.data.is_id_info_added);
+      setStoreRejected(sellerStatusResponse.data.is_rejected);
+    } catch (error) {
+      console.error("checkSellerStatus error:", error);
+      // Set defaults to prevent undefined values
+      setStoreBasicInfoAdded(false);
+      setStoreIDInfoAdded(false);
+      setStoreRejected(false);
+    }
+  }
 
+  async function CheckSeller() {
+    try {
+      const sellerResponse = await axios.get(
+        `${import.meta.env.VITE_API_URL}/authentication/check_seller`,
+        { withCredentials: true }
+      );
+      setIsSeller(sellerResponse.data.is_seller);
+      setIsApprovedSeller(sellerResponse.data.is_approved_seller);
+      if (sellerResponse.data.is_seller) {
+        await CheckSellerStatus();
+      }
+    } catch (error) {
+      console.error("CheckSeller error:", error);
+      setIsSeller(false);
+      setIsApprovedSeller(false);
+    }
+  }
 
-    async function CheckSeller() {
+  async function checkAuthentication() {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/authentication/check_user_authentication`,
+        { withCredentials: true }
+      );
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+        await CheckSeller();
+      }
+    } catch (error) {
+      if (error.response?.status === 403) {
+        setIsAuthenticated(false);
+      }
+      console.error("checkAuthentication error:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
-        try{
+  useEffect(() => {
+    if (typeof window === 'undefined' || didRun.current) return;
+    
+    // Define a function to be called when the page is fully loaded and cookies are available.
+    const onLoad = () => {
+      // Optionally, you can check for a specific cookie here:
+      // if(document.cookie.includes("myCookieName=")) { ... }
+      checkAuthentication();
+    };
 
-            const seller_response = await axios.get(`${import.meta.env.VITE_API_URL}/authentication/check_seller`,{ withCredentials : true });
-
-            setIsSeller(seller_response.data.is_seller);
-            setIsApprovedSeller(seller_response.data.is_approved_seller);
-
-        } catch(seller_check_error){
-
-            setIsSeller(false);
-            setIsApprovedSeller(false);
-
-        }
-        
+    if (document.readyState === 'complete') {
+      onLoad();
+    } else {
+      window.addEventListener('load', onLoad);
+      return () => window.removeEventListener('load', onLoad);
     }
 
-    async function checkAuthentication() {
+    didRun.current = true;
+  }, []);
 
-        try {
-
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/authentication/check_user_authentication`,{ withCredentials: true });
-
-            if (response.status === 200) {
-
-                setIsAuthenticated(true);
-
-                CheckSeller();
-
-            }
-
-        } catch (error) {
-
-            if (error.response?.status === 403) {
-                setIsAuthenticated(false);
-            }
-
-        } finally {
-
-            setLoading(false);
-
-        }
-    }
-
-    useEffect(() => {
-
-        checkAuthentication();
-
-    }, []);
-
-    return { isAuthenticated, isSeller, isApprovedSeller ,loading };
+  return { 
+    isAuthenticated, 
+    isSeller, 
+    isApprovedSeller, 
+    isStoreBasicInfoAdded, 
+    isStoreIDInfoAdded, 
+    isStoreRejected, 
+    loading 
+  };
 }
 
 export default useCheckAuthentication;

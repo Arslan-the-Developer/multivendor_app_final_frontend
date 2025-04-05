@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { LineChart } from '@mui/x-charts/LineChart';
+// import { LineChart } from '@mui/x-charts/LineChart';
 import { BarChart } from '@mui/x-charts/BarChart';
-import useFetchData from '../../../Components/useFetchData';
+// import useFetchData from '../../../Components/useFetchData';
 import axios from 'axios';
 
 

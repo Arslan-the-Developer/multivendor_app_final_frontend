@@ -13,7 +13,7 @@ function Navbar() {
 
   const navigate = useNavigate();
 
-  const { isAuthenticated, isSeller, isApprovedSeller ,loading } = useCheckAuthentication();
+  const { isAuthenticated, isSeller, isApprovedSeller, isStoreBasicInfoAdded, isStoreIDInfoAdded, isStoreRejected, loading } = useCheckAuthentication();
 
   const [isAccountMenuOpen, setAccountMenuOpen] = useState(false);
   const [isResponsiveMenuOpen, setResponsiveMenuOpen] = useState(false);

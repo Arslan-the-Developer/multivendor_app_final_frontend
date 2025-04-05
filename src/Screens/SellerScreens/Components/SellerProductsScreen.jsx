@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import useFetchData from '../../../Components/useFetchData';
+// import useFetchData from '../../../Components/useFetchData';
 
 import SellerProductDetails from './SellerProductDetails';
 import SellerAddNewProduct from './SellerAddNewProduct';
 import { use } from 'react';
+import axios from 'axios';
 
 
 
 function SellerProductsScreen() {
 
-  const { data: sellerData, error: sellerError, loading: sellerLoading } = useFetchData("api/get_seller_details", "get", null, 1);
 
   // State to hold the store products data
+  const [loading, setLoading] = useState(true);
+  const [StoreID, setStoreID] = useState(null);
   const [storeProducts, setStoreProducts] = useState([]);
   const [productsError, setProductsError] = useState(null);
   const [productsLoading, setProductsLoading] = useState(false);
@@ -37,7 +39,7 @@ function SellerProductsScreen() {
     if (!storeId) return; // Guard clause to avoid unnecessary calls
     setProductsLoading(true);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/get_store_products", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/get_store_products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,19 +53,39 @@ function SellerProductsScreen() {
 
       const data = await response.json();
       setStoreProducts(data);
+      setLoading(false);
     } catch (error) {
       setProductsError(error.message);
+      setLoading(false);
     } finally {
       setProductsLoading(false);
+      setLoading(false);
     }
   };
 
+  async function GetSellerDetils() {
+
+    try{
+
+      const details_response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get_seller_details`, {withCredentials : true});
+
+      setStoreID(details_response.store_id);
+
+    }catch(error){
+      console.log(error);
+    }
+    
+  }
+
   // Fetch store products when sellerData.store_id changes
   useEffect(() => {
-    if (sellerData?.store_id) {
-      fetchStoreProducts({ storeId: sellerData.store_id });
+
+    GetSellerDetils();
+
+    if (StoreID) {
+      fetchStoreProducts({ storeId: StoreID });
     }
-  }, [sellerData?.store_id]);
+  }, [StoreID]);
 
   const backToSellerProductList = () => {
     setSelectedProduct(null);
@@ -109,13 +131,13 @@ function SellerProductsScreen() {
 
       ) : isAddingNewProduct ? (
 
-        <SellerAddNewProduct onSuccess = {backToSellerProductList} productFetchFunction = {fetchStoreProducts} storeIDForFunction = {sellerData?.store_id} />
+        <SellerAddNewProduct onSuccess = {backToSellerProductList} productFetchFunction = {fetchStoreProducts} storeIDForFunction = {StoreID} />
 
       ) : (
       
       selectedProduct ? (
 
-        <SellerProductDetails selectedProd={selectedProduct} onSuccess={backToSellerProductList} productFetchFunction={fetchStoreProducts} storeIdForFunction={sellerData?.store_id} />
+        <SellerProductDetails selectedProd={selectedProduct} onSuccess={backToSellerProductList} productFetchFunction={fetchStoreProducts} storeIdForFunction={StoreID} />
 
       ) : (
 

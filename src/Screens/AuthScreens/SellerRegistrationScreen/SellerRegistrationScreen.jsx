@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
-import useRefreshTokens from '../../../Components/useRefreshTokens';
 import { useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
+import useRefreshTokens from '../../../Components/Hooks/useRefreshTokens';
 
 
 
@@ -29,7 +29,7 @@ function SellerRegistrationScreen() {
     try {
       const response = await axios({
         method: "post",
-        url: "http://127.0.0.1:8000/authentication/seller_registration",
+        url: `${import.meta.env.VITE_API_URL}/authentication/seller_registration`,
         data: data_to_send, // Send the form data
         withCredentials : true,
         headers: {
@@ -119,7 +119,7 @@ function SellerRegistrationScreen() {
       const response = await axios({
         method: "post",
         withCredentials : true,
-        url: "http://127.0.0.1:8000/authentication/seller_otp_verify",
+        url: `${import.meta.env.VITE_API_URL}/authentication/seller_otp_verify`,
         data,
         headers: {
           "Content-Type": "application/json",
@@ -189,7 +189,7 @@ function SellerRegistrationScreen() {
 
       const response = await axios({
         method : "post",
-        url : "http://127.0.0.1:8000/authentication/set_two_step_pin",
+        url : `${import.meta.env.VITE_API_URL}/authentication/set_two_step_pin`,
         withCredentials : true,
         data : {
           two_factor_pin : pin
@@ -348,7 +348,7 @@ function SellerRegistrationScreen() {
             <h1 className="text-2xl font-monty mb-4 text-secondary">Two Factor PIN</h1>
 
             <p className='text-sm text-secondary w-full text-center mb-1 font-product tracking-wider'>Set A 5 Digit PIN To Secure Your Account</p>
-            <p className='text-sm text-secondary w-full text-center mb-8 font-product text-yellow-400 tracking-wider'>You'll Be Prompted To Enter This PIN On Every Login</p>
+            <p className='text-sm w-full text-center mb-8 font-product text-yellow-400 tracking-wider'>You'll Be Prompted To Enter This PIN On Every Login</p>
 
             <div className="w-full flex items-center justify-between">
               {[0, 1, 2, 3, 4].map((_, index) => (

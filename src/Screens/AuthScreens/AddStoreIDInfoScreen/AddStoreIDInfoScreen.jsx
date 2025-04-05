@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import useRefreshTokens from '../../../Components/useRefreshTokens';
+import useRefreshTokens from '../../../Components/Hooks/useRefreshTokens';
 import { BarLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
 
@@ -97,7 +97,7 @@ function AddStoreIDInfoScreen() {
 
             const response = await axios({
                 method : "post",
-                url : "http://127.0.0.1:8000/authentication/add_seller_id_info",
+                url : `${import.meta.env.VITE_API_URL}/authentication/add_seller_id_info`,
                 data : formData,
                 withCredentials : true,
                 headers : {

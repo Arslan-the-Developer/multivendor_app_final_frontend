@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import useFetchData from '../../../Components/useFetchData';
+// import useFetchData from '../../../Components/useFetchData';
 import axios from 'axios';
 
 
@@ -7,9 +7,7 @@ import axios from 'axios';
 
 function SellerDashboard() {
 
-  const { data: detailsData, error: detailsError, loading: detailsLoading } = useFetchData("authentication/get_user_details", "get", null, 1);
-  const { data: sellerData, error: sellerError, loading: sellerLoading } = useFetchData("api/get_seller_details", "get", null, 1);
-
+  const [loading, setLoading] = useState(true);
   let [dashboardData, setDashboardData] = useState(null);
 
   async function GetSellerDashboardData(storeID) {
@@ -20,7 +18,7 @@ function SellerDashboard() {
 
       const response = await axios({
         method : "post",
-        url : "http://127.0.0.1:8000/api/get_seller_dashboard_details",
+        url : `${import.meta.env.VITE_API_URL}/api/get_seller_dashboard_details`,
         withCredentials : true,
         data : {
           store_id : sellerData?.store_id
@@ -34,25 +32,47 @@ function SellerDashboard() {
 
       console.log(response.data);
 
+      setLoading(false);
+
     } catch (error) {
 
       console.log(error);
+
+      setLoading(false);
 
     }
 
     
     
   }
+
+  async function GetUserDetails() {
+
+    try{
+
+      const details_response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get_seller_details`, {withCredentials : true});
+
+      return details_response.store_id;
+
+    }catch(error){
+
+      console.log(error);
+
+    }
+    
+  }
   
   useEffect(() => {
 
-    if (sellerData?.store_id) {
+    let store_ID = GetUserDetails();
+
+    if (store_ID) {
       
-      GetSellerDashboardData({ storeID: sellerData.store_id });
+      GetSellerDashboardData({ storeID: store_ID });
 
     }
 
-  }, [sellerData?.store_id]);
+  }, []);
 
   return (
 

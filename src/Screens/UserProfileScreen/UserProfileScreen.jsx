@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Navbar from '../HomeScreen/Components/Navbar'
-import useFetchData from '../../Components/useFetchData';
-import useRefreshTokens from '../../Components/useRefreshTokens';
+import Navbar from '../../Components/Navbar';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import axios from 'axios';
 import { BarLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
