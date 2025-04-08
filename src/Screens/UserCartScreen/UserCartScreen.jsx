@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../HomeScreen/Components/Navbar'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import QuantityInputForCart from '../../Components/QuantityInputForCart';
 import { BarLoader } from 'react-spinners';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
+import Navbar from '../../Components/Navbar';
 
 
 function UserCartScreen() {
