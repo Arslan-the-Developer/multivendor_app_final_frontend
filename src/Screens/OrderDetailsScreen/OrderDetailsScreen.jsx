@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../HomeScreen/Components/Navbar';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import useRefreshTokens from '../../Components/useRefreshTokens';
+import Navbar from '../../Components/Navbar';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 
 
 function OrderDetailsScreen() {
