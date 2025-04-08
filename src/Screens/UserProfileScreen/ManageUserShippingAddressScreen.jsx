@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../HomeScreen/Components/Navbar'
 import { BarLoader } from 'react-spinners';
-import useRefreshTokens from '../../Components/useRefreshTokens';
 import axios from 'axios';
+import Navbar from '../../Components/Navbar';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 
 
 
