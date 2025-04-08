@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import Navbar from '../HomeScreen/Components/Navbar';
+import Navbar from '../../Components/Navbar';
 import axios from 'axios';
-import useRefreshTokens from '../../Components/useRefreshTokens';
-import { motion } from "motion/react";
-import AddProductToWishlistButtonInCard from '../../Components/AddProductToWishlistButtonInCard';
-import AddProductToCartButtonInCard from '../../Components/AddProductToCartButtonInCard';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import ProductCard from '../../Components/ProductCard';
 
 
@@ -24,7 +21,7 @@ function UserSearchScreen() {
 
       const resopnse = await axios({
         method : "get",
-        url : `http://127.0.0.1:8000/api/user_search_products/${word_to_search_for}`,
+        url : `${import.meta.env.VITE_API_URL}/api/user_search_products/${word_to_search_for}`,
         withCredentials : true,
       });
 
@@ -57,7 +54,7 @@ function UserSearchScreen() {
 
     <>
       <Navbar />
-      <section className='flex flex-col items-center justify-start px-8 py-16'>
+      <section className='flex flex-col items-center justify-start px-8 py-12'>
 
         <h1 className='w-full font-product text-primary font-semibold tracking-wider mb-6'>Search Results For : "{keyword}"</h1>
 

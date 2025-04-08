@@ -6,23 +6,24 @@ import axios from 'axios';
 
 
 
-function SellerSalesTab() {
+function SellerSalesTab({STORE_ID}) {
 
-  const { data: sellerData, error: sellerError, loading: sellerLoading } = useFetchData("api/get_seller_details", "get", null, 1);
 
   let [revenueMonths, setRevenueMonths] = useState([]);
+  const [loading, setLaoding] = useState(true);
   let [monthNames, setMonthNames] = useState([]);
   let [revenueEarnings, setRevenueEarnings] = useState([]);
 
+
   async function GetSellerRevenue({storeID}) {
 
-    if (!storeID) return; // Guard clause to avoid unnecessary calls
+    if (!storeID) return;
     
     try{
   
       const revenueResponse = await axios({
         method : "post",
-        url : "http://127.0.0.1:8000/api/get_seller_revenue_months",
+        url : `${import.meta.env.VITE_API_URL}/api/get_seller_revenue_months`,
         withCredentials : true,
         data : {
           store_id : storeID,
@@ -42,22 +43,30 @@ function SellerSalesTab() {
 
       setMonthNames(tempMonthList);
       setRevenueEarnings(tempEarningsList);
+
+      setLaoding(false);
   
     } catch (error){
   
       console.log(error);
+
+      setLaoding(false);
   
     }
 
   }
 
   useEffect(() => {
-      if (sellerData?.store_id) {
-        GetSellerRevenue({ storeID: sellerData.store_id });
-      }
-    }, [sellerData?.store_id]);
 
-  return (
+    
+    GetSellerRevenue({ storeID: STORE_ID });
+    
+
+  }, [STORE_ID]);
+
+  return loading ? (
+    <h1>Loading....</h1>
+  ) : (
 
     <section className='w-full p-10'>
 

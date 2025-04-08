@@ -2,9 +2,9 @@ import axios from 'axios';
 import { delay, motion } from 'motion/react';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import useRefreshTokens from '../../Components/useRefreshTokens';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import { BarLoader } from 'react-spinners'
-import Navbar from '../HomeScreen/Components/Navbar';
+import Navbar from '../../Components/Navbar';
 
 
 

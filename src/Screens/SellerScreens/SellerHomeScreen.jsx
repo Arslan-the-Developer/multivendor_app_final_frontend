@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 
+import axios from 'axios';
+
 import SellerDashboard from './Components/SellerDashboard';
 import SellerProductsScreen from './Components/SellerProductsScreen';
 import SellerSalesTab from './Components/SellerSalesTab';
@@ -15,6 +17,8 @@ import { PuffLoader } from 'react-spinners';
 
 function SellerHomeScreen() {
 
+    const [StoreID, setStoreID] = useState('');
+    const [detailsLoading, setDetailsLoading] = useState(true);
     const [isDashboardTabActive, setDashboardTabActive] = useState(true);
     const [isProductsTabActive, setProductsTabActive] = useState(false);
     const [isSalesTabActive, setSalesTabActive] = useState(false);
@@ -82,8 +86,30 @@ function SellerHomeScreen() {
         
     }
 
-
     const { isAuthenticated, isSeller, isApprovedSeller, isStoreBasicInfoAdded, isStoreIDInfoAdded, isStoreRejected, loading } = useCheckAuthentication();
+    
+
+    async function GetSellerDetails() {
+      
+        try{
+    
+            const details_response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get_seller_details`, {withCredentials : true});
+        
+            setStoreID(details_response.data.store_id);
+
+            setDetailsLoading(false);
+    
+        }catch(error){
+
+            console.log(error);
+
+            setDetailsLoading(false);
+
+        }
+        
+    }
+
+
 
 
     // console.log(isSeller, isAuthenticated);
@@ -94,6 +120,9 @@ function SellerHomeScreen() {
     const keyRef = useRef(null);
 
     useEffect(() => {
+
+        GetSellerDetails();
+
         const handleKeyDown = (event) => {
         keyRef.current = event.keyCode;
 
@@ -224,38 +253,33 @@ function SellerHomeScreen() {
 
                     </div>
 
-
                     {
-                        isDashboardTabActive ? (
+                        detailsLoading ? (
 
-                            <SellerDashboard />
+                            <h1>Loading...</h1>
 
-                        ) : ""
+                        ) : (
 
-                    }
+                            isDashboardTabActive ? (
 
-                    {
-                        isProductsTabActive ? (
+                                <SellerDashboard STORE_ID={StoreID} />
+    
+                            ) : isProductsTabActive ? (
 
-                            <SellerProductsScreen />
+                                <SellerProductsScreen STORE_ID={StoreID} />
+    
+                            ) : isSalesTabActive ? (
 
-                        ) : ""
-                    }
+                                <SellerSalesTab STORE_ID={StoreID} />
+    
+                            ) : isOrdersTabActive ? (
 
-                    {
-                        isSalesTabActive ? (
+                                <SellerOrdersScreen />
+    
+                            ) : ""
 
-                            <SellerSalesTab />
-
-                        ) : ""
-                    }
-
-                    {
-                        isOrdersTabActive ? (
-
-                            <SellerOrdersScreen />
-
-                        ) : ""
+                        )
+                        
                     }
 
 

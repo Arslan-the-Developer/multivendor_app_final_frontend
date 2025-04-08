@@ -5,12 +5,14 @@ import axios from 'axios';
 
 
 
-function SellerDashboard() {
+function SellerDashboard({ STORE_ID }) {
 
   const [loading, setLoading] = useState(true);
   let [dashboardData, setDashboardData] = useState(null);
 
   async function GetSellerDashboardData(storeID) {
+
+    console.log("Fetching Dashboard Details");
 
     if (!storeID) return;
 
@@ -21,7 +23,7 @@ function SellerDashboard() {
         url : `${import.meta.env.VITE_API_URL}/api/get_seller_dashboard_details`,
         withCredentials : true,
         data : {
-          store_id : sellerData?.store_id
+          store_id : storeID
         },
         headers : {
           'Content-Type' : 'application/json'
@@ -41,40 +43,22 @@ function SellerDashboard() {
       setLoading(false);
 
     }
-
-    
     
   }
 
-  async function GetUserDetails() {
-
-    try{
-
-      const details_response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get_seller_details`, {withCredentials : true});
-
-      return details_response.store_id;
-
-    }catch(error){
-
-      console.log(error);
-
-    }
-    
-  }
   
   useEffect(() => {
 
-    let store_ID = GetUserDetails();
+      GetSellerDashboardData(STORE_ID);
 
-    if (store_ID) {
-      
-      GetSellerDashboardData({ storeID: store_ID });
+  }, [STORE_ID]);
 
-    }
 
-  }, []);
 
-  return (
+
+  return loading ? (
+    <h1>Loading...</h1>
+  ) : (
 
     <div className='p-8 flex flex-col items-center justify-start'>
 

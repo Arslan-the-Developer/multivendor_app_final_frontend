@@ -8,12 +8,11 @@ import axios from 'axios';
 
 
 
-function SellerProductsScreen() {
+function SellerProductsScreen({STORE_ID}) {
 
 
   // State to hold the store products data
   const [loading, setLoading] = useState(true);
-  const [StoreID, setStoreID] = useState(null);
   const [storeProducts, setStoreProducts] = useState([]);
   const [productsError, setProductsError] = useState(null);
   const [productsLoading, setProductsLoading] = useState(false);
@@ -63,29 +62,13 @@ function SellerProductsScreen() {
     }
   };
 
-  async function GetSellerDetils() {
-
-    try{
-
-      const details_response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get_seller_details`, {withCredentials : true});
-
-      setStoreID(details_response.store_id);
-
-    }catch(error){
-      console.log(error);
-    }
-    
-  }
 
   // Fetch store products when sellerData.store_id changes
   useEffect(() => {
-
-    GetSellerDetils();
-
-    if (StoreID) {
-      fetchStoreProducts({ storeId: StoreID });
-    }
-  }, [StoreID]);
+    
+    fetchStoreProducts({ storeId: STORE_ID });
+    
+  }, [STORE_ID]);
 
   const backToSellerProductList = () => {
     setSelectedProduct(null);
@@ -131,13 +114,13 @@ function SellerProductsScreen() {
 
       ) : isAddingNewProduct ? (
 
-        <SellerAddNewProduct onSuccess = {backToSellerProductList} productFetchFunction = {fetchStoreProducts} storeIDForFunction = {StoreID} />
+        <SellerAddNewProduct onSuccess = {backToSellerProductList} productFetchFunction = {fetchStoreProducts} storeIDForFunction = {STORE_ID} />
 
       ) : (
       
       selectedProduct ? (
 
-        <SellerProductDetails selectedProd={selectedProduct} onSuccess={backToSellerProductList} productFetchFunction={fetchStoreProducts} storeIdForFunction={StoreID} />
+        <SellerProductDetails selectedProd={selectedProduct} onSuccess={backToSellerProductList} productFetchFunction={fetchStoreProducts} storeIdForFunction={STORE_ID} />
 
       ) : (
 
