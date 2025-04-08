@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../HomeScreen/Components/Navbar'
 import { Link, useNavigate } from 'react-router-dom';
-import useFetchData from '../../Components/useFetchData';
 import axios from 'axios';
-import useRefreshTokens from '../../Components/useRefreshTokens';
 import QuantityInputForCart from '../../Components/QuantityInputForCart';
 import { BarLoader } from 'react-spinners';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
+import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
+
 
 
 function UserCartScreen() {
@@ -22,9 +23,7 @@ function UserCartScreen() {
   let [cartTotal, setCartTotal] = useState(0);
   let [totalCartProducts, setTotalCartProducts] = useState(0);
 
-  const { data: authData, error: authError, loading: authLoading } = useFetchData("authentication/check_user_authentication", "get", null, 1);
-
-  const isAuthenticated = !authError || authError.status !== 403;
+  const { isAuthenticated, isSeller, isApprovedSeller, isStoreBasicInfoAdded, isStoreIDInfoAdded, isStoreRejected, loading } = useCheckAuthentication();
 
   async function UpdateCartTotal() {
 
