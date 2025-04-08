@@ -8,7 +8,6 @@ import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 
 
-
 function UserCartScreen() {
 
   useRefreshTokens();
