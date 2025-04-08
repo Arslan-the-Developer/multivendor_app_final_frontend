@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../HomeScreen/Components/Navbar';
 import axios from 'axios';
-import useRefreshTokens from '../../Components/useRefreshTokens';
 import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
+import Navbar from '../../Components/Navbar';
 
 
 function UserOrdersScreen() {

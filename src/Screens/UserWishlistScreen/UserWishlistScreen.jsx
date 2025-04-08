@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../HomeScreen/Components/Navbar'
-import useFetchData from '../../Components/useFetchData';
 import { Link, useNavigate } from 'react-router-dom';
-import useRefreshTokens from '../../Components/useRefreshTokens';
 import axios from 'axios';
+import Navbar from '../../Components/Navbar';
+import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
+import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 
 
 function UserWishlistScreen() {
@@ -14,9 +14,7 @@ function UserWishlistScreen() {
     const [wishlistProducts, setWishlistProducts] = useState([]);
     let [loadingProducts, setLoadingProducts] = useState(false);
 
-    const { data: authData, error: authError, loading: authLoading } = useFetchData("authentication/check_user_authentication", "get", null, 1);
-    const isAuthenticated = !authError || authError.status !== 403;
-
+    const { isAuthenticated, isSeller, isApprovedSeller, isStoreBasicInfoAdded, isStoreIDInfoAdded, isStoreRejected, loading } = useCheckAuthentication();
 
     async function FetchWishlistProducts() {
 
@@ -52,7 +50,7 @@ function UserWishlistScreen() {
 
             const response = await axios({
                 method : "post",
-                url : `http://127.0.0.1:8000/api/add_remove_wishlist_product`,
+                url : `${import.meta.env.VITE_API_URL}/api/add_remove_wishlist_product`,
                 withCredentials : true,
                 data : {
                 product_id : product_id
@@ -74,14 +72,13 @@ function UserWishlistScreen() {
     
     useEffect(() => {
         FetchWishlistProducts();
+        
+        if (!isAuthenticated){
+
+            return navigate("/user-login");
+        
+        }
     }, []);
-
-    
-    if (!isAuthenticated){
-
-        return navigate("/user-login");
-    
-    }
 
     return (
         
