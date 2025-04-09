@@ -3,8 +3,8 @@ import axios from 'axios';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
-import HeroSection from './Components/HeroSection';
 import ProductsSlider from './Components/ProductsSlider';
+import FirstSection from './Components/FirstSection';
 
 
 
@@ -16,8 +16,7 @@ function HomeScreen() {
 
     <>
      <Navbar />
-     <HeroSection />
-     <ProductsSlider />
+     <FirstSection />
     </>
 
   )
