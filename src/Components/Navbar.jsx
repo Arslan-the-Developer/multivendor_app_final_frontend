@@ -151,7 +151,7 @@ function Navbar() {
             )
           }
         </motion.button>
-        <div className={`w-full flex-col items-center justify-start font-product hidden max-[900px]:flex p-3 absolute ${isResponsiveMenuOpen ? isAuthenticated ? 'h-110 -bottom-110' : 'h-100 -bottom-100' : 'h-0 bottom-0 opacity-0'} shadow-md transition-all`}>
+        <div className={`w-full flex-col bg-secondary items-center justify-start font-product hidden max-[900px]:flex p-3 absolute ${isResponsiveMenuOpen ? isAuthenticated ? 'h-110 -bottom-110' : 'h-100 -bottom-100' : 'h-0 bottom-0 opacity-0'} shadow-md transition-all`}>
 
           {
             isResponsiveMenuOpen ? (
@@ -274,7 +274,7 @@ function Navbar() {
 
                             {
                               getSubCategories(selectedResponsiveCategory).map((sub_cat) => (
-                                <Link className="mt-5 pl-2 border-s-2 border-transparent transition-all hover:border-primary hover:text-primary text-dull duration-300" to={`/product-category/${sub_cat.link}`}>
+                                <Link className="mt-5 pl-2 border-s-2 border-transparent transition-all hover:border-primary hover:text-primary text-dull duration-300" to={`/products/${sub_cat.link}`}>
                                   {sub_cat.show_name}
                                 </Link>
                               ))
