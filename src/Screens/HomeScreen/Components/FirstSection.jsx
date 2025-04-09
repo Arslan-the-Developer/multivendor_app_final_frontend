@@ -24,7 +24,7 @@ function FirstSection() {
 
               <h3 className='font-product mt-4 font-extrabold tracking-wider'>Winter Season Is In</h3>
 
-              <p className='text-xs w-6/10 font-monty text-center mt-2'>What Suits You This Winter Season? Shop The Latest Fashion Trends For Winter Apparel From Trusted Sellers Across The Nation</p>
+              <p className='text-xs w-7/10 font-monty text-center mt-2'>What Suits You This Winter Season? Shop The Latest Fashion Trends For Winter Apparel From Trusted Sellers Across The Nation</p>
 
               <Link to={'/user-search/winter clothes'} className='px-4 py-1 text-xs mt-4 border-x-1'>Shop Now</Link>
 
@@ -43,7 +43,7 @@ function FirstSection() {
 
               <h3 className='font-product mt-4 font-extrabold tracking-wider'>There's Nothing Like Home</h3>
 
-              <p className='text-xs w-6/10 font-monty text-center mt-2'>Want To Decorate Your Home So That It Will Be A Place Of Peace? Shop The Home Decors To Make Your Home More Beautiful</p>
+              <p className='text-xs w-7/10 font-monty text-center mt-2'>Want To Decorate Your Home So That It Will Be A Place Of Peace? Shop The Home Decors To Make Your Home More Beautiful</p>
 
               <Link to={'/user-search/winter clothes'} className='px-4 py-1 text-xs mt-4 border-x-1'>Shop Now</Link>
 
