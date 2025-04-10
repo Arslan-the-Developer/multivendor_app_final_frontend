@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
 import ProductsSlider from './Components/ProductsSlider';
 import FirstSection from './Components/FirstSection';
+import CategoriesSection from './Components/CategoriesSection';
 
 
 
@@ -17,6 +18,7 @@ function HomeScreen() {
     <>
      <Navbar />
      <FirstSection />
+     <CategoriesSection />
     </>
 
   )

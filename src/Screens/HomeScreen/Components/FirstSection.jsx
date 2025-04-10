@@ -12,9 +12,9 @@ function FirstSection() {
   return (
 
 
-    <section className='flex items-center justify-center h-[25vh] p-2'>
+    <section className='flex items-center justify-center p-2'>
 
-      <Swiper className='w-full h-full flex items-center justify-center min-lg:mt-25' slidesPerView={1} onSlideChange={() => console.log("Slide Changed")} onSwiper={(swiper) => console.log(swiper)} autoplay={{delay : 3500, disableOnInteraction : true}} spaceBetween={10} breakpoints={{ 800: {slidesPerView : 2, spaceBetween : 20} }} modules={[Autoplay]} loop={true}>
+      <Swiper className='w-full flex items-center justify-center min-lg:mt-12 h-43' slidesPerView={1} onSlideChange={() => console.log("Slide Changed")} onSwiper={(swiper) => console.log(swiper)} autoplay={{delay : 3500, disableOnInteraction : true}} spaceBetween={10} breakpoints={{ 800: {slidesPerView : 2, spaceBetween : 20} }} modules={[Autoplay]} loop={true}>
 
         <SwiperSlide className='w-full h-full flex items-center justify-center'>
 
