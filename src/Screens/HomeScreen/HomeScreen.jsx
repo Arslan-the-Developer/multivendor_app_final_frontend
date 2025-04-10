@@ -6,6 +6,7 @@ import Navbar from '../../Components/Navbar';
 import ProductsSlider from './Components/ProductsSlider';
 import FirstSection from './Components/FirstSection';
 import CategoriesSection from './Components/CategoriesSection';
+import TrendingProductsSlider from './Components/TrendingProductsSlider';
 
 
 
@@ -19,6 +20,7 @@ function HomeScreen() {
      <Navbar />
      <FirstSection />
      <CategoriesSection />
+     <TrendingProductsSlider />
     </>
 
   )

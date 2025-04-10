@@ -115,7 +115,7 @@ return (
 
         <Swiper className='w-full relative flex items-center justify-center' 
             navigation={{nextEl : '#nextSlide', prevEl : '#prevSlide'}} 
-            modules={[Navigation]} 
+            modules={[Navigation]}
             spaceBetween={45}
             slidesPerView={5}
             onSlideChange={() => console.log('slide change')}
