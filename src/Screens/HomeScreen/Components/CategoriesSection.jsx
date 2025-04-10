@@ -1,4 +1,6 @@
 import React from 'react'
+import { motion } from 'motion/react'
+import { Link } from 'react-router-dom'
 
 
 
@@ -8,55 +10,64 @@ function CategoriesSection() {
 
     <section className='w-full grid grid-cols-4 max-[950px]:grid-cols-2 gap-4 p-2'>
 
-        <div className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
+        <Link to={'/electronics/sub-categories'}>
+            <motion.div initial={{ opacity : 0, y : 30 }} animate={{ opacity : 1, y : 0 }} className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
 
-            <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Electronics</h3>
+                <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Electronics</h3>
 
-            <span className='absolute right-2 bottom-2 scale-300 group-hover:scale-250 max-sm:scale-200 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/chip-stroke-standard.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
-                    <path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    <path d="M16 7H8C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44771 17 8 17H13.808C14.0732 17 14.3276 16.8946 14.5151 16.7071L16.7071 14.5151C16.8946 14.3276 17 14.0732 17 13.808V8C17 7.44772 16.5523 7 16 7Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    <path d="M8 2V4M16 2V4M12 2V4M8 20V22M12 20V22M16 20V22M22 16H20M4 8H2M4 16H2M4 12H2M22 8H20M22 12H20" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                </svg>
-            </span>
+                <span className='absolute right-2 bottom-2 scale-300 group-hover:scale-250 max-sm:scale-200 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/chip-stroke-standard.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
+                        <path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M16 7H8C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44771 17 8 17H13.808C14.0732 17 14.3276 16.8946 14.5151 16.7071L16.7071 14.5151C16.8946 14.3276 17 14.0732 17 13.808V8C17 7.44772 16.5523 7 16 7Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M8 2V4M16 2V4M12 2V4M8 20V22M12 20V22M16 20V22M22 16H20M4 8H2M4 16H2M4 12H2M22 8H20M22 12H20" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                    </svg>
+                </span>
 
-            <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:left-1 group-hover:top-1  duration-300'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/chip-stroke-standard.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
-                    <path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    <path d="M16 7H8C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44771 17 8 17H13.808C14.0732 17 14.3276 16.8946 14.5151 16.7071L16.7071 14.5151C16.8946 14.3276 17 14.0732 17 13.808V8C17 7.44772 16.5523 7 16 7Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    <path d="M8 2V4M16 2V4M12 2V4M8 20V22M12 20V22M16 20V22M22 16H20M4 8H2M4 16H2M4 12H2M22 8H20M22 12H20" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                </svg>
-            </span>
+                <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:left-1 group-hover:top-1  duration-300'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/chip-stroke-standard.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
+                        <path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M16 7H8C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44771 17 8 17H13.808C14.0732 17 14.3276 16.8946 14.5151 16.7071L16.7071 14.5151C16.8946 14.3276 17 14.0732 17 13.808V8C17 7.44772 16.5523 7 16 7Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M8 2V4M16 2V4M12 2V4M8 20V22M12 20V22M16 20V22M22 16H20M4 8H2M4 16H2M4 12H2M22 8H20M22 12H20" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                    </svg>
+                </span>
 
 
-        </div>
-        <div className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
+            </motion.div>
+        </Link>
 
-            <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Home & Kitchen</h3>
+        <Link to={`/Home & Kitchen/sub-categories`}>
 
-            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/cabinet-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
-                    <path d="M5.5 18.5V21.5M18.5 18.5V21.5" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
-                    <path d="M3 18.5V2.5H21V18.5H3Z" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
-                    <path d="M3 10.5L21 10.5" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    <path d="M10 14.5H14" stroke="#006964" strokeWidth="1.5"></path>
-                    <path d="M10 6.5H14" stroke="#006964" strokeWidth="1.5"></path>
-                </svg>
-            </span>
-            
-            <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/cabinet-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
-                    <path d="M5.5 18.5V21.5M18.5 18.5V21.5" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
-                    <path d="M3 18.5V2.5H21V18.5H3Z" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
-                    <path d="M3 10.5L21 10.5" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    <path d="M10 14.5H14" stroke="#006964" strokeWidth="1.5"></path>
-                    <path d="M10 6.5H14" stroke="#006964" strokeWidth="1.5"></path>
-                </svg>
-            </span>
+            <motion.div initial={{ opacity : 0, y : 30 }} animate={{ opacity : 1, y : 0}} transition={{delay : 0.1}} className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
 
-        </div>
+                <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Home & Kitchen</h3>
 
-        <div className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
+                <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/cabinet-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
+                        <path d="M5.5 18.5V21.5M18.5 18.5V21.5" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
+                        <path d="M3 18.5V2.5H21V18.5H3Z" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
+                        <path d="M3 10.5L21 10.5" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M10 14.5H14" stroke="#006964" strokeWidth="1.5"></path>
+                        <path d="M10 6.5H14" stroke="#006964" strokeWidth="1.5"></path>
+                    </svg>
+                </span>
+                
+                <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/cabinet-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
+                        <path d="M5.5 18.5V21.5M18.5 18.5V21.5" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
+                        <path d="M3 18.5V2.5H21V18.5H3Z" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
+                        <path d="M3 10.5L21 10.5" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+                        <path d="M10 14.5H14" stroke="#006964" strokeWidth="1.5"></path>
+                        <path d="M10 6.5H14" stroke="#006964" strokeWidth="1.5"></path>
+                    </svg>
+                </span>
+
+            </motion.div>
+
+        </Link>
+
+        <Link to={`/Fashion & Clothing/sub-categories`}>
+
+        <motion.div initial={{ opacity : 0, y : 30 }} animate={{ opacity : 1, y : 0}} transition={{delay : 0.2}} className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
 
             <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Apparel</h3>
 
@@ -78,9 +89,13 @@ function CategoriesSection() {
                 </svg>
             </span>
 
-        </div>
+        </motion.div>
 
-        <div className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
+        </Link>
+
+        <Link to={'/Sports & Outdoors/sub-categories'}>
+
+        <motion.div initial={{ opacity : 0, y : 30 }} animate={{ opacity : 1, y : 0}} transition={{delay : 0.3}} className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
 
             <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Sports</h3>
 
@@ -102,7 +117,9 @@ function CategoriesSection() {
                 </svg>
             </span>
 
-        </div>
+        </motion.div>
+
+        </Link>
 
     </section>
 
