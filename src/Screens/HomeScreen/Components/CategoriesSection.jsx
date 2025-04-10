@@ -8,7 +8,7 @@ function CategoriesSection() {
 
   return (
 
-    <section className='w-full grid grid-cols-4 max-[950px]:grid-cols-2 gap-4 p-2'>
+    <section className='w-full grid grid-cols-4 max-[950px]:grid-cols-2 gap-4 p-2 max-[950px]:gap-2'>
 
         <Link to={'/electronics/sub-categories'}>
             <motion.div initial={{ opacity : 0, y : 30 }} animate={{ opacity : 1, y : 0 }} className='h-20 w-full bg-white rounded-sm shadow-sm flex items-center justify-center relative overflow-hidden p-5 font-product group transition-all'>
