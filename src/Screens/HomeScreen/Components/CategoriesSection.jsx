@@ -12,7 +12,7 @@ function CategoriesSection() {
 
             <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Electronics</h3>
 
-            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
+            <span className='absolute right-2 bottom-2 scale-300 group-hover:scale-250 max-sm:scale-200 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/chip-stroke-standard.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
                     <path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
                     <path d="M16 7H8C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44771 17 8 17H13.808C14.0732 17 14.3276 16.8946 14.5151 16.7071L16.7071 14.5151C16.8946 14.3276 17 14.0732 17 13.808V8C17 7.44772 16.5523 7 16 7Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -20,7 +20,7 @@ function CategoriesSection() {
                 </svg>
             </span>
 
-            <span className='absolute left-2 top-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:left-1 group-hover:top-1  duration-300'>
+            <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:left-1 group-hover:top-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/chip-stroke-standard.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
                     <path d="M18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
                     <path d="M16 7H8C7.44772 7 7 7.44772 7 8V16C7 16.5523 7.44771 17 8 17H13.808C14.0732 17 14.3276 16.8946 14.5151 16.7071L16.7071 14.5151C16.8946 14.3276 17 14.0732 17 13.808V8C17 7.44772 16.5523 7 16 7Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -34,7 +34,7 @@ function CategoriesSection() {
 
             <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Home & Kitchen</h3>
 
-            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
+            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/cabinet-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
                     <path d="M5.5 18.5V21.5M18.5 18.5V21.5" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
                     <path d="M3 18.5V2.5H21V18.5H3Z" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
@@ -44,7 +44,7 @@ function CategoriesSection() {
                 </svg>
             </span>
             
-            <span className='absolute left-2 top-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
+            <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/cabinet-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
                     <path d="M5.5 18.5V21.5M18.5 18.5V21.5" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
                     <path d="M3 18.5V2.5H21V18.5H3Z" stroke="#006964" strokeWidth="1.5" strokeLinejoin="round"></path>
@@ -60,7 +60,7 @@ function CategoriesSection() {
 
             <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Apparel</h3>
 
-            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
+            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/kurta-twotone-rounded.svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
                     <path d="M6.37726 16H5.08354C3.22665 16 2.84168 15.6255 3.05142 13.7791L3.41559 10.5731C3.75345 7.59878 4.43808 6.75874 7.23391 5.66482L8.93305 5V2C9.90622 2.31731 10.9677 2.83772 12 2.83772C13.0323 2.83772 14.0938 2.31731 15.067 2V5L16.7661 5.66482C19.5619 6.75874 20.2466 7.59878 20.5844 10.5731L20.9486 13.7791C21.1583 15.6255 20.7734 16 18.9165 16H17.6227" stroke="#006964" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M9 5L11.0513 5.68377C11.6671 5.88904 12.3329 5.88904 12.9487 5.68377L15 5" stroke="#006964" stroke-width="1.5" stroke-linecap="round"></path>
@@ -69,7 +69,7 @@ function CategoriesSection() {
                 </svg>
             </span>
             
-            <span className='absolute left-2 top-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
+            <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/kurta-twotone-rounded.svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="#006964">
                     <path d="M6.37726 16H5.08354C3.22665 16 2.84168 15.6255 3.05142 13.7791L3.41559 10.5731C3.75345 7.59878 4.43808 6.75874 7.23391 5.66482L8.93305 5V2C9.90622 2.31731 10.9677 2.83772 12 2.83772C13.0323 2.83772 14.0938 2.31731 15.067 2V5L16.7661 5.66482C19.5619 6.75874 20.2466 7.59878 20.5844 10.5731L20.9486 13.7791C21.1583 15.6255 20.7734 16 18.9165 16H17.6227" stroke="#006964" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                     <path d="M9 5L11.0513 5.68377C11.6671 5.88904 12.3329 5.88904 12.9487 5.68377L15 5" stroke="#006964" stroke-width="1.5" stroke-linecap="round"></path>
@@ -84,7 +84,7 @@ function CategoriesSection() {
 
             <h3 className='font-semibold tracking-wider text-primary max-sm:text-sm'>Sports</h3>
 
-            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
+            <span className='absolute right-2 bottom-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:bottom-1 group-hover:right-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
                     <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="1.5" />
                     <path d="M11.7077 9.34893C11.882 9.21702 12.118 9.21702 12.2923 9.34893L14.545 11.054C14.7193 11.1859 14.7922 11.4197 14.7256 11.6332L13.8652 14.3921C13.7986 14.6055 13.6077 14.75 13.3923 14.75H10.6077C10.3923 14.75 10.2014 14.6055 10.1348 14.3921L9.27437 11.6332C9.20781 11.4197 9.28073 11.1859 9.45499 11.054L11.7077 9.34893Z" stroke="currentColor" strokeWidth="1.5" />
@@ -93,7 +93,7 @@ function CategoriesSection() {
                 </svg>
             </span>
             
-            <span className='absolute left-2 top-2 scale-300 max-sm:scale-250 group-hover:scale-250 max-sm:group-hover:scale-200 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
+            <span className='absolute left-2 top-2 scale-300 max-sm:scale-200 group-hover:scale-250 max-sm:group-hover:scale-150 opacity-15 transition-all group-hover:opacity-40 group-hover:top-1 group-hover:left-1  duration-300'>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
                     <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" strokeWidth="1.5" />
                     <path d="M11.7077 9.34893C11.882 9.21702 12.118 9.21702 12.2923 9.34893L14.545 11.054C14.7193 11.1859 14.7922 11.4197 14.7256 11.6332L13.8652 14.3921C13.7986 14.6055 13.6077 14.75 13.3923 14.75H10.6077C10.3923 14.75 10.2014 14.6055 10.1348 14.3921L9.27437 11.6332C9.20781 11.4197 9.28073 11.1859 9.45499 11.054L11.7077 9.34893Z" stroke="currentColor" strokeWidth="1.5" />

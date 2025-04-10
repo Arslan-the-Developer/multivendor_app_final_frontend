@@ -62,7 +62,7 @@ function FirstSection() {
 
               <h3 className='font-product mt-4 font-extrabold tracking-wider'>Let's Play & Say Yay!</h3>
 
-              <p className='text-xs w-8/10 font-monty text-center mt-2 min-[800px]:w-8/10 min-lg:w-5/10 capitalize'>Encouraging Your children to play is essential for their development. Explore toys and games that foster creativity and joy in your child's playtime</p>
+              <p className='text-xs w-8/10 font-monty text-center mt-2 min-[800px]:w-8/10 min-lg:w-5/10 capitalize'>Playing is essential for Your Kids' development. Explore toys and games that foster creativity and joy in your child's playtime</p>
 
               <Link to={'/user-search/winter clothes'} className='px-4 py-1 text-xs mt-4 border-x-1'>Shop Now</Link>
 
