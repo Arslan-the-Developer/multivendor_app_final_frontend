@@ -36,8 +36,8 @@ function TrendingProductsSlider() {
     <section className="w-full h-70 flex items-center justify-center mt-2 px-2">
       <Swiper
         modules={[Autoplay]}
-        spaceBetween={20}
-        slidesPerView={2}
+        spaceBetween={10}
+        slidesPerView={1}
         loop={true}
         autoplay={{ delay: 5000 }}
         breakpoints={{
