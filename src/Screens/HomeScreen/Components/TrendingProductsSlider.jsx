@@ -15,6 +15,7 @@ function TrendingProductsSlider() {
     { id: 3, name: 'Product 3', price: 199.99, vendor: 'Vendor 3', image: 'https://via.placeholder.com/300' },
     { id: 4, name: 'Product 4', price: 79.99, vendor: 'Vendor 4', image: 'https://via.placeholder.com/300' },
     { id: 5, name: 'Product 5', price: 299.99, vendor: 'Vendor 5', image: 'https://via.placeholder.com/300' },
+    { id: 5, name: 'Product 5', price: 299.99, vendor: 'Vendor 5', image: 'https://via.placeholder.com/300' },
   ];
 
   useEffect(() => {
@@ -33,9 +34,28 @@ function TrendingProductsSlider() {
   }, []);
 
   return (
-    <section className="w-full h-70 flex items-center justify-center mt-2 px-2">
+    <section className="w-full h-70 flex items-center relative justify-center mt-1 px-2 max-sm:px-24">
+
+      <button id='back_button' className='absolute left-8 max-sm:flex hidden'>
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#006964"} fill={"none"}>
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M8 12L16 12M8 12C8 11.2998 9.9943 9.99153 10.5 9.5M8 12C8 12.7002 9.9943 14.0085 10.5 14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+      </button>
+      
+      <button id='next_button' className='absolute right-8 max-sm:flex hidden'>
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#006964"} fill={"none"}>
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M16 12L8 12M16 12C16 12.7002 14.0057 14.0085 13.5 14.5M16 12C16 11.2998 14.0057 9.99153 13.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+      </button>
       <Swiper
-        modules={[Autoplay]}
+        modules={[Autoplay, Navigation]}
+        navigation={{nextEl : "#next_button", prevEl : "#back_button"}}
         spaceBetween={10}
         slidesPerView={1}
         loop={true}
