@@ -8,6 +8,15 @@ import 'swiper/css';
 function TrendingProductsSlider() {
   const [products, setProducts] = useState([]);
 
+  const sampleproducts = [
+    // Replace with your actual product data
+    { id: 1, name: 'Product 1', price: 99.99, vendor: 'Vendor 1', image: 'https://via.placeholder.com/300' },
+    { id: 2, name: 'Product 2', price: 149.99, vendor: 'Vendor 2', image: 'https://via.placeholder.com/300' },
+    { id: 3, name: 'Product 3', price: 199.99, vendor: 'Vendor 3', image: 'https://via.placeholder.com/300' },
+    { id: 4, name: 'Product 4', price: 79.99, vendor: 'Vendor 4', image: 'https://via.placeholder.com/300' },
+    { id: 5, name: 'Product 5', price: 299.99, vendor: 'Vendor 5', image: 'https://via.placeholder.com/300' },
+  ];
+
   useEffect(() => {
     async function GetTrendingProducts() {
       try {
@@ -24,172 +33,46 @@ function TrendingProductsSlider() {
   }, []);
 
   return (
-    <section className="w-full flex items-center justify-center mt-2 px-2">
+    <section className="w-full h-70 flex items-center justify-center mt-2 px-2">
       <Swiper
         modules={[Autoplay]}
-        spaceBetween={15}
-        autoplay={{ delay: 3000 }}
-        className="w-full h-70"
+        spaceBetween={20}
+        slidesPerView={2}
+        loop={true}
+        autoplay={{ delay: 5000 }}
         breakpoints={{
-          // when window width is >= 320px
-          320: {
-            slidesPerView: 1,
-          },
-          // when window width is >= 480px
-          480: {
-            slidesPerView: 2,
-          },
-          // when window width is >= 640px
-          640: {
-            slidesPerView: 2,
-          },
-          // when window width is >= 768px
-          768: {
-            slidesPerView: 3,
-          },
-          // when window width is >= 1024px
-          1024: {
-            slidesPerView: 4,
-          },
-          // when window width is >= 1280px
-          1280: {
-            slidesPerView: 5,
-          },
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1280: { slidesPerView: 5 },
         }}
+        className="relative h-full mt-2"
       >
-            <SwiperSlide className="flex justify-center">
-              <div className="w-[240px] bg-white rounded-sm shadow-sm">
-                <div className="w-full h-40 flex items-center justify-center">
-                  <img
-                    className="w-full h-full object-contain"
-                    src={
-                      'https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133'
-                    }
-                    alt={'Product Image'}
-                  />
-                </div>
-                <div className="w-full flex flex-col font-product items-center justify-center p-2">
+        {sampleproducts.map((product) => (
+          <SwiperSlide key={product.id} className='h-full w-full'>
 
-                  <h3 className="font-semibold">Space Earbuds</h3>
+            <div className="h-full group bg-white rounded-sm shadow-sm overflow-hidden">
 
-                  <p className="text-sm text-primary my-1">- Tech Mania -</p>
+              <div className='w-full h-6/10 flex items-center justify-center overflow-hidden'>
 
-                  <h3>150 Sold This Week</h3>
-                  
-                </div>
+                <img className='w-full h-full object-center object-contain' src="https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133" alt="" />
+
               </div>
-            </SwiperSlide>
-            <SwiperSlide className="flex justify-center">
-              <div className="w-[240px] bg-white rounded-sm shadow-sm">
-                <div className="w-full h-40 flex items-center justify-center">
-                  <img
-                    className="w-full h-full object-contain"
-                    src={
-                      'https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133'
-                    }
-                    alt={'Product Image'}
-                  />
-                </div>
-                <div className="w-full flex flex-col font-product items-center justify-center p-2">
+              
+              <div className='w-full h-6/10 flex flex-col items-center justify-start font-product'>
 
-                  <h3 className="font-semibold">Space Earbuds</h3>
+                <h2 className='font-semibold mt-3'>Space Earbuds</h2>
 
-                  <p className="text-sm text-primary my-1">- Tech Mania -</p>
+                <h5 className='my-1 text-sm text-primary'>- Tech Mania -</h5>
 
-                  <h3>150 Sold This Week</h3>
+                <p>150 Sold This Week</p>
 
-                </div>
               </div>
-            </SwiperSlide>
-            <SwiperSlide className="flex justify-center">
-              <div className="w-[240px] bg-white rounded-sm shadow-sm">
-                <div className="w-full h-40 flex items-center justify-center">
-                  <img
-                    className="w-full h-full object-contain"
-                    src={
-                      'https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133'
-                    }
-                    alt={'Product Image'}
-                  />
-                </div>
-                <div className="w-full flex flex-col font-product items-center justify-center p-2">
+              
+            </div>
 
-                  <h3 className="font-semibold">Space Earbuds</h3>
-
-                  <p className="text-sm text-primary my-1">- Tech Mania -</p>
-
-                  <h3>150 Sold This Week</h3>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="flex justify-center">
-              <div className="w-[240px] bg-white rounded-sm shadow-sm">
-                <div className="w-full h-40 flex items-center justify-center">
-                  <img
-                    className="w-full h-full object-contain"
-                    src={
-                      'https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133'
-                    }
-                    alt={'Product Image'}
-                  />
-                </div>
-                <div className="w-full flex flex-col font-product items-center justify-center p-2">
-
-                  <h3 className="font-semibold">Space Earbuds</h3>
-
-                  <p className="text-sm text-primary my-1">- Tech Mania -</p>
-
-                  <h3>150 Sold This Week</h3>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="flex justify-center">
-              <div className="w-[240px] bg-white rounded-sm shadow-sm">
-                <div className="w-full h-40 flex items-center justify-center">
-                  <img
-                    className="w-full h-full object-contain"
-                    src={
-                      'https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133'
-                    }
-                    alt={'Product Image'}
-                  />
-                </div>
-                <div className="w-full flex flex-col font-product items-center justify-center p-2">
-
-                  <h3 className="font-semibold">Space Earbuds</h3>
-
-                  <p className="text-sm text-primary my-1">- Tech Mania -</p>
-
-                  <h3>150 Sold This Week</h3>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide className="flex justify-center">
-              <div className="w-[240px] bg-white rounded-sm shadow-sm">
-                <div className="w-full h-40 flex items-center justify-center">
-                  <img
-                    className="w-full h-full object-contain"
-                    src={
-                      'https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133'
-                    }
-                    alt={'Product Image'}
-                  />
-                </div>
-                <div className="w-full flex flex-col font-product items-center justify-center p-2">
-
-                  <h3 className="font-semibold">Space Earbuds</h3>
-
-                  <p className="text-sm text-primary my-1">- Tech Mania -</p>
-
-                  <h3>150 Sold This Week</h3>
-
-                </div>
-              </div>
-            </SwiperSlide>
-            
+          </SwiperSlide>
+        ))}
       </Swiper>
     </section>
   );
