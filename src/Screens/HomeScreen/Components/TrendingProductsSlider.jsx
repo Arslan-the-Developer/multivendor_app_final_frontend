@@ -34,7 +34,7 @@ function TrendingProductsSlider() {
   }, []);
 
   return (
-    <section className="w-full h-70 flex items-center relative justify-center mt-1 px-2 max-sm:px-24">
+    <section className="w-full h-70 flex items-center relative justify-center mt-1 px-2 max-sm:px-18">
 
       <button id='back_button' className='absolute left-8 max-sm:flex hidden'>
 
