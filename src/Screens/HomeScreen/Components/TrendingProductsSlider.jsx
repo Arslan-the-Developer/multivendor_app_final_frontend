@@ -3,13 +3,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import axios from 'axios';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
+import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
+
 
 
 function TrendingProductsSlider() {
   const [products, setProducts] = useState([]);
 
   const sampleproducts = [
-    // Replace with your actual product data
     { id: 1, name: 'Product 1', price: 99.99, vendor: 'Vendor 1', image: 'https://via.placeholder.com/300' },
     { id: 2, name: 'Product 2', price: 149.99, vendor: 'Vendor 2', image: 'https://via.placeholder.com/300' },
     { id: 3, name: 'Product 3', price: 199.99, vendor: 'Vendor 3', image: 'https://via.placeholder.com/300' },
@@ -34,7 +36,21 @@ function TrendingProductsSlider() {
   }, []);
 
   return (
-    <section className="w-full h-70 flex items-center relative justify-center mt-1 px-2 max-sm:px-18">
+    <section className="w-full h-90 flex flex-col items-center relative justify-center mt-1 px-2 max-sm:px-18">
+
+      <div className='w-full flex items-center justify-center my-2'>
+
+        <span className='w-2/10 rounded-full bg-linear-to-l from-primary max-sm:hidden to-secondary to-80%' style={{height : "0.2rem"}}></span>
+
+        <p className='hidden max-sm:flex'>-</p>
+
+        <h1 className='text-primary text-center max-sm:text-sm max-sm:w-8/10 font-product text-xl font-semibold tracking-wider mx-10'>Trending This Week</h1>
+
+        <p className='hidden max-sm:flex'>-</p>
+
+        <span className='w-2/10 rounded-full bg-linear-to-r from-primary max-sm:hidden to-secondary to-80%' style={{height : "0.2rem"}}></span>
+
+      </div>
 
       <button id='back_button' className='absolute left-8 max-sm:flex hidden'>
 
@@ -66,34 +82,38 @@ function TrendingProductsSlider() {
           1024: { slidesPerView: 4 },
           1280: { slidesPerView: 5 },
         }}
-        className="relative h-full mt-2"
+        className="relative h-full mt-2 w-full"
       >
         {sampleproducts.map((product) => (
           <SwiperSlide key={product.id} className='h-full w-full'>
 
-            <div className="h-full group bg-white rounded-sm shadow-sm overflow-hidden">
+            <Link to={`/product-details/${product.id}`}>
 
-              <div className='w-full h-6/10 flex items-center justify-center overflow-hidden'>
+              <motion.div initial={{opacity : 0, y : 15}} animate={{y : 0, opacity : 1}} transition={{duration : 0.5}} className="h-full group bg-white rounded-sm shadow-sm transition-all border-3 border-b-primary border-white hover:border-primary hover:border-2 hover:scale-98 hover:shadow-none">
 
-                <img className='w-full h-full object-center object-contain' src="https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133" alt="" />
+                <div className='w-full h-6/10 flex items-center justify-center'>
 
-              </div>
-              
-              <div className='w-full h-6/10 flex flex-col items-center justify-start font-product'>
+                  <img className='w-full h-full object-center object-contain' src="https://games4u.pk/cdn/shop/files/tfygv.jpg?v=1726053133" alt="" />
 
-                <h2 className='font-semibold mt-3'>Space Earbuds</h2>
+                </div>
+                
+                <div className='w-full h-6/10 flex flex-col items-center justify-start font-product'>
 
-                <h5 className='my-1 text-sm text-primary'>- Tech Mania -</h5>
+                  <h2 className='font-semibold mt-3'>Space Earbuds</h2>
 
-                <p>150 Sold This Week</p>
+                  <h5 className='my-1 text-sm text-primary'>- Tech Mania -</h5>
 
-              </div>
-              
-            </div>
+                  <p>150 Sold This Week</p>
+
+                </div>
+                
+              </motion.div>
+            </Link>
 
           </SwiperSlide>
         ))}
       </Swiper>
+
     </section>
   );
 }
