@@ -2,7 +2,7 @@ import React from 'react'
 import Squares from '../../../Components/ReactBitComponents/Squares/Squares'
 
 
-function FourthSection() {
+function TrustSection() {
 
   return (
 
@@ -30,4 +30,4 @@ function FourthSection() {
 
 }
 
-export default FourthSection
+export default TrustSection

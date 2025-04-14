@@ -7,7 +7,8 @@ import ProductsSlider from './Components/ProductsSlider';
 import FirstSection from './Components/FirstSection';
 import CategoriesSection from './Components/CategoriesSection';
 import TrendingProductsSlider from './Components/TrendingProductsSlider';
-import FourthSection from './Components/FourthSection';
+import TrustSection from './Components/TrustSection';
+import ShopBySellersSection from './Components/ShopBySellersSection';
 
 
 
@@ -22,7 +23,8 @@ function HomeScreen() {
      <FirstSection />
      <CategoriesSection />
      <TrendingProductsSlider />
-     <FourthSection />
+     <TrustSection />
+     <ShopBySellersSection />
     </>
 
   )
