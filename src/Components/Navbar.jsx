@@ -158,11 +158,15 @@ function Navbar() {
           
               <div className="w-full h-full flex items-center justify-start bg-secondary">
 
+                {
+                  loading ? "loading..." : isAuthenticated ? "Authenticated" : "Not Authen"
+                }
+
                   <div className="w-full flex flex-col items-center justify-start h-full">
 
                     {
                       loading ? (
-                        
+
                         <BarLoader color="#006964" />
                       
                       ) : (
