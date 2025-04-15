@@ -113,7 +113,7 @@ function UserLoginScreen() {
       // Make the login request
       const response = await axios({
         method: "post",
-        url: "http://127.0.0.1:8000/authentication/verify_two_step_pin",
+        url: `${import.meta.env.VITE_API_URL}/authentication/verify_two_step_pin`,
         data: data, // Send the form data
         withCredentials: true, // Include credentials such as cookies
         headers: {
