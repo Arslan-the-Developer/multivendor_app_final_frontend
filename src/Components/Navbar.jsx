@@ -23,22 +23,6 @@ function Navbar() {
   const [SearchBarUxText, setSearchBarUxText] = useState('Shift + S');
   const [selectedResponsiveCategory, setSelectedResponsiveCategory] = useState('');
 
-  async function CheckNgrok() {
-
-    try{
-
-      const response = axios.get('https://79c9-58-27-197-114.ngrok-free.app/authentication/check_user_authentication', {withCredentials : true, 'headers' : {'ngrok-skip-browser-warning' : '1'}});
-
-      console.log(response.data);
-
-    } catch(error){
-
-      console.log("Error Status for Ngrok : ",error.response.status);
-
-    }
-    
-  }
-
 
   const keyRef = useRef(null);
 
@@ -66,8 +50,6 @@ function Navbar() {
 
 
   useEffect(() => {
-
-    CheckNgrok();
 
     const handleScroll = () => {
       
