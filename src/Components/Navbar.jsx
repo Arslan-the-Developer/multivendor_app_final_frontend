@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import useCheckAuthentication from "./Hooks/useCheckAuthentication";
 import { BarLoader } from "react-spinners";
 import useRefreshTokens from "./Hooks/useRefreshTokens";
+import axios from "axios";
 
 
 
@@ -21,6 +22,22 @@ function Navbar() {
   const [showSubCategoriesFor, setShowCategoriesFor] = useState('');
   const [SearchBarUxText, setSearchBarUxText] = useState('Shift + S');
   const [selectedResponsiveCategory, setSelectedResponsiveCategory] = useState('');
+
+  async function CheckNgrok() {
+
+    try{
+
+      const response = axios.get('https://79c9-58-27-197-114.ngrok-free.app/authentication/check_user_authentication', {withCredentials : true});
+
+      console.log(response.data);
+
+    } catch(error){
+
+      console.log("Error Status for Ngrok : ",error.response.status);
+
+    }
+    
+  }
 
 
   const keyRef = useRef(null);
@@ -49,6 +66,8 @@ function Navbar() {
 
 
   useEffect(() => {
+
+    CheckNgrok();
 
     const handleScroll = () => {
       
