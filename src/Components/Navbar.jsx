@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "motion/react";
 import useCheckAuthentication from "./Hooks/useCheckAuthentication";
 import { BarLoader } from "react-spinners";
 import useRefreshTokens from "./Hooks/useRefreshTokens";
-import axios from "axios";
 
 
 

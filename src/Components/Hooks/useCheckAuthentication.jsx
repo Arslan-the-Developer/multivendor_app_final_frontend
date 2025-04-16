@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import api from '../../axios';
 
 function useCheckAuthentication() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,10 +14,7 @@ function useCheckAuthentication() {
 
   async function CheckSellerStatus() {
     try {
-      const sellerStatusResponse = await axios.get(
-        `${import.meta.env.VITE_API_URL}/authentication/check_seller_status`,
-        { withCredentials: true }
-      );
+      const sellerStatusResponse = await api.get(`/authentication/check_seller_status`);
       setStoreBasicInfoAdded(sellerStatusResponse.data.is_basic_info_added);
       setStoreIDInfoAdded(sellerStatusResponse.data.is_id_info_added);
       setStoreRejected(sellerStatusResponse.data.is_rejected);
@@ -31,10 +29,7 @@ function useCheckAuthentication() {
 
   async function CheckSeller() {
     try {
-      const sellerResponse = await axios.get(
-        `${import.meta.env.VITE_API_URL}/authentication/check_seller`,
-        { withCredentials: true }
-      );
+      const sellerResponse = await api.get(`/authentication/check_seller`);
       setIsSeller(sellerResponse.data.is_seller);
       setIsApprovedSeller(sellerResponse.data.is_approved_seller);
       if (sellerResponse.data.is_seller) {
@@ -49,10 +44,7 @@ function useCheckAuthentication() {
 
   async function checkAuthentication() {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/authentication/check_user_authentication`,
-        { withCredentials: true }
-      );
+      const response = await api.get(`${import.meta.env.VITE_API_URL}/authentication/check_user_authentication`);
       if (response.status === 200) {
         setIsAuthenticated(true);
         await CheckSeller();
