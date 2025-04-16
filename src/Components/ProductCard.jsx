@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import AddProductToCartButtonInCard from '../Components/AddProductToCartInCardButton'
 import AddProductToWishlistButtonInCard from '../Components/AddProductToWishlistButtonInCard';
 import axios from 'axios';
+import api from '../axios';
 import { Link } from 'react-router-dom';
 
 
@@ -15,17 +16,9 @@ function ProductCard({ product }) {
 
         try{
     
-            const response = await axios({
-                    method : "post",
-                    url : `http://127.0.0.1:8000/api/add_modify_cart_product`,
-                    withCredentials : true,
-                    data : {
-                    product_id : product_id
-                }
-            });
+            const response = await api.post(`/api/add_modify_cart_product`, {product_id : product_id});
             
             console.log(response.data);
-            
             
             let msg = document.getElementById(`cart_msg_${product_id}`);
             msg.classList.remove("h-0");
@@ -51,14 +44,7 @@ function ProductCard({ product }) {
 
         try{
   
-            const response = await axios({
-                method : "post",
-                url : `http://127.0.0.1:8000/api/add_remove_wishlist_product`,
-                withCredentials : true,
-                data : {
-                product_id : product_id
-                }
-            });
+            const response = await api.post(`/api/add_remove_wishlist_product`, {product_id : product_id});
   
             console.log(response.data);
   

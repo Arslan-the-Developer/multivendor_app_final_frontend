@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../axios';
 import { delay, motion } from 'motion/react';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -31,17 +31,7 @@ function ProductDetailsScreen() {
 
         try
         {
-            const response = await axios({
-                method : "post",
-                url : "http://127.0.0.1:8000/api/get_product_details",
-                withCredentials : true,
-                data : {
-                    product_id : product_id
-                },
-                headers : {
-                    'Content-Type' : 'application/json'
-                }
-            });
+            const response = await api.post("/api/get_product_details", {product_id : product_id});
 
             setProductDetails(response.data);
 
@@ -65,18 +55,7 @@ function ProductDetailsScreen() {
 
         try{
 
-            const response = await axios({
-                method : "post",
-                url : "http://127.0.0.1:8000/api/create_user_product_order",
-                withCredentials : true,
-                data : {
-
-                    product_id : productDetails.id,
-                    order_product_quantity : productBuyQuantity,
-                    order_delivery_address : selectedAddress,
-
-                }
-            })
+            const response = await api.post("/api/create_user_product_order", {product_id : productDetails.id,order_product_quantity : productBuyQuantity,order_delivery_address : selectedAddress})
 
             console.log(response.data);
 
@@ -98,11 +77,7 @@ function ProductDetailsScreen() {
 
         try{
 
-            const response = await axios({
-                method : "get",
-                url : "http://127.0.0.1:8000/api/get_user_delivery_addresses",
-                withCredentials : true,
-            })
+            const response = await api.get("/api/get_user_delivery_addresses");
 
             console.log(response.data);
 

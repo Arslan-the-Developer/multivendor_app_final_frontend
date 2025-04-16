@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
-import axios from 'axios';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import ProductCard from '../../Components/ProductCard';
+import api from '../../axios';
 
 
 
@@ -19,11 +19,7 @@ function UserSearchScreen() {
 
     try{
 
-      const resopnse = await axios({
-        method : "get",
-        url : `${import.meta.env.VITE_API_URL}/api/user_search_products/${word_to_search_for}`,
-        withCredentials : true,
-      });
+      const resopnse = await api.get(`/api/user_search_products/${word_to_search_for}`);
 
       setSearchResults(resopnse.data.results);
 

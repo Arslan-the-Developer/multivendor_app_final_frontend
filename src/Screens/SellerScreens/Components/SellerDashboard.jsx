@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // import useFetchData from '../../../Components/useFetchData';
 import axios from 'axios';
+import api from '../../../axios';
 
 
 
@@ -18,17 +19,7 @@ function SellerDashboard({ STORE_ID }) {
 
     try{
 
-      const response = await axios({
-        method : "post",
-        url : `${import.meta.env.VITE_API_URL}/api/get_seller_dashboard_details`,
-        withCredentials : true,
-        data : {
-          store_id : storeID
-        },
-        headers : {
-          'Content-Type' : 'application/json'
-        }
-      })
+      const response = await api.post(`/api/get_seller_dashboard_details`, {store_id : storeID});
 
       setDashboardData(response.data);
 

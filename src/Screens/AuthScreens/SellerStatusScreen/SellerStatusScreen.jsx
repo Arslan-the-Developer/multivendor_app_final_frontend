@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import clockIcon from '../../../../src/assets/clock.gif';
 import useRefreshTokens from "../../../Components/Hooks/useRefreshTokens";
+import api from "../../../axios";
 
 
 function SellerStatusScreen() {
@@ -16,15 +16,7 @@ function SellerStatusScreen() {
   useEffect(() => {
     const fetchSellerStatus = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/authentication/check_seller_status`,
-          {
-            withCredentials: true,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await api.get(`/authentication/check_seller_status`);
         setSteps(response.data.progress_steps);
         setRejected(response.data.is_rejected);
         setRejectedReason(response.data.rejection_reason);

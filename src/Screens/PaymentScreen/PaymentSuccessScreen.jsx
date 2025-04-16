@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
+import api from '../../axios';
 
 
 function PaymentSuccessScreen() {
@@ -13,14 +13,7 @@ function PaymentSuccessScreen() {
 
     try{
 
-      const response = await axios({
-        method : "post",
-        url : "http://127.0.0.1:8000/api/mark_order_as_paid",
-        withCredentials : true,
-        data : {
-          order_id : orderID
-        }
-      })
+      const response = await api.post("/api/mark_order_as_paid", {order_id : orderID})
 
       console.log(response.data);
 

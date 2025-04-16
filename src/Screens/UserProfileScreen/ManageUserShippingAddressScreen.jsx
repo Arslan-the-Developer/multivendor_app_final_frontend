@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { BarLoader } from 'react-spinners';
-import axios from 'axios';
 import Navbar from '../../Components/Navbar';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
+import api from '../../axios';
 
 
 
@@ -19,11 +19,7 @@ function ManageUserShippingAddressScreen() {
 
     try{
 
-      const response = await axios({
-        method : "get",
-        url : "http://127.0.0.1:8000/api/get_user_delivery_addresses",
-        withCredentials : true,
-      });
+      const response = await api.get("/api/get_user_delivery_addresses");
 
       if(response.data['exists']){
 
@@ -54,12 +50,7 @@ function ManageUserShippingAddressScreen() {
 
     try{
 
-      const response = await axios({
-        method : "post",
-        url : "http://127.0.0.1:8000/api/create_user_delivery_address",
-        withCredentials : true,
-        data : formData,
-      })
+      const response = await api.post("/api/create_user_delivery_address", formData);
 
       console.log(response.data);
 
@@ -86,14 +77,8 @@ function ManageUserShippingAddressScreen() {
   async function deleteUserAddress(addressID) {
 
     try{
-      const response = await axios({
-        method : "post",
-        url : "http://127.0.0.1:8000/api/delete_user_delivery_address",
-        withCredentials : true,
-        data : {
-          address_ID : addressID
-        }
-      });
+      
+      const response = await api.post("/api/delete_user_delivery_address", {address_ID : addressID});
       
       console.log(response.data);
 

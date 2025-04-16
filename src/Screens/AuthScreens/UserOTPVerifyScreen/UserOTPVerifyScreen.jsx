@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../../axios";
 
 function UserOTPVerifyScreen() {
   const navigate = useNavigate();
@@ -22,15 +22,7 @@ function UserOTPVerifyScreen() {
       };
 
       // Make the verification request
-      const response = await axios({
-        method: "post",
-        url: `${import.meta.env.VITE_API_URL}/authentication/user_otp_verify`,
-        data,
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await api.post(`/authentication/user_otp_verify`, data);
 
       console.log("OTP Verification Successful:", response.data);
 

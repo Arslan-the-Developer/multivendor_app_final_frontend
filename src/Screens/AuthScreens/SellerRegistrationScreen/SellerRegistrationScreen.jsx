@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import useRefreshTokens from '../../../Components/Hooks/useRefreshTokens';
+import api from '../../../axios';
 
 
 
@@ -27,15 +27,8 @@ function SellerRegistrationScreen() {
     const data_to_send = Object.fromEntries(data_from_form.entries()); // Convert FormData to an object
 
     try {
-      const response = await axios({
-        method: "post",
-        url: `${import.meta.env.VITE_API_URL}/authentication/seller_registration`,
-        data: data_to_send, // Send the form data
-        withCredentials : true,
-        headers: {
-          "Content-Type": "application/json", // Adjust the content type if needed
-        },
-      });
+
+      const response = await api.post(`/authentication/seller_registration`, data_to_send);
       
       localStorage.setItem("verification_token",`${response.data.verification_token}`);
       
@@ -116,15 +109,7 @@ function SellerRegistrationScreen() {
       };
       
       // Make the verification request
-      const response = await axios({
-        method: "post",
-        withCredentials : true,
-        url: `${import.meta.env.VITE_API_URL}/authentication/seller_otp_verify`,
-        data,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await api.post(`/authentication/seller_otp_verify`, data);
 
       console.log(response.data);
 
@@ -187,14 +172,7 @@ function SellerRegistrationScreen() {
 
     try{
 
-      const response = await axios({
-        method : "post",
-        url : `${import.meta.env.VITE_API_URL}/authentication/set_two_step_pin`,
-        withCredentials : true,
-        data : {
-          two_factor_pin : pin
-        }
-      })
+      const response = await api.post(`/authentication/set_two_step_pin`, {two_factor_pin : pin});
 
       console.log(response.data);
 

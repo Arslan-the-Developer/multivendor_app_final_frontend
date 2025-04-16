@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import Navbar from '../../Components/Navbar';
+import api from '../../axios';
 
 
 function UserOrdersScreen() {
@@ -19,11 +20,7 @@ function UserOrdersScreen() {
 
         try{
 
-            const response = await axios({
-                method : "get",
-                url : "http://127.0.0.1:8000/api/get_user_orders",
-                withCredentials : true
-            })
+            const response = await api.get("/api/get_user_orders");
 
             setOrders(response.data);
 

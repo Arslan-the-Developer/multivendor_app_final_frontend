@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { BarLoader } from 'react-spinners';
 import { motion } from 'motion/react';
+import api from '../../../axios';
 
 
 function UserRegistrationScreen() {
@@ -57,15 +57,7 @@ function UserRegistrationScreen() {
   
     try {
       // Make the login request
-      const response = await axios({
-        method: "post",
-        url: `${import.meta.env.VITE_API_URL}/authentication/user_registration`,
-        data: data, // Send the form data
-        withCredentials: true, // Include credentials such as cookies
-        headers: {
-          "Content-Type": "application/json", // Adjust the content type if needed
-        },
-      });
+      const response = await api.post(`/authentication/user_registration`, data);
   
       // Handle the response
       console.log(response.data);

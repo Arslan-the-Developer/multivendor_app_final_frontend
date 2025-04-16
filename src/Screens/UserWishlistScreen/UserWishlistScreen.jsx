@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import Navbar from '../../Components/Navbar';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
+import api from '../../axios';
 
 
 function UserWishlistScreen() {
@@ -22,11 +22,7 @@ function UserWishlistScreen() {
 
         try{
 
-            const response = await axios({
-                method : "get",
-                url : "http://127.0.0.1:8000/api/get_user_wishlist",
-                withCredentials : true,
-            })
+            const response = await api.get("/api/get_user_wishlist");
     
             console.log(response.data.products);
 
@@ -48,14 +44,7 @@ function UserWishlistScreen() {
 
         try{
 
-            const response = await axios({
-                method : "post",
-                url : `${import.meta.env.VITE_API_URL}/api/add_remove_wishlist_product`,
-                withCredentials : true,
-                data : {
-                product_id : product_id
-                }
-            });
+            const response = await api.post(`/api/add_remove_wishlist_product`, {product_id : product_id});
 
             console.log(response.data);
 

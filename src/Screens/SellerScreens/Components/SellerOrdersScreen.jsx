@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { motion } from 'motion/react'
+import api from '../../../axios';
 
 
 
@@ -16,13 +16,7 @@ function SellerOrdersScreen() {
 
     try{
       
-      const response = await axios({
-
-        method : "get",
-        url : "http://127.0.0.1:8000/api/get_seller_orders",
-        withCredentials : true,
-
-      });
+      const response = await api.get("/api/get_seller_orders");
 
       response.data.forEach(element => {
 

@@ -6,7 +6,7 @@ import useRefreshTokens from '../../../../Components/Hooks/useRefreshTokens';
 
 import DashboardScreen from './Components/DashboardScreen';
 import SellerApplicationsScreen from './Components/SellerApplicationsScreen';
-import axios from 'axios';
+import api from '../../../../axios';
 
 
 
@@ -29,7 +29,7 @@ function AdminHomeScreen() {
 
         try{
 
-            const response = await axios.get(`${import.meta.env.VITE_API_URL}/authentication/get_user_details`, {withCredentials : true});
+            const response = await api.get(`/authentication/get_user_details`);
 
             setIsAdmin(response.data.is_admin);
             setIsManager(response.data.is_manager);

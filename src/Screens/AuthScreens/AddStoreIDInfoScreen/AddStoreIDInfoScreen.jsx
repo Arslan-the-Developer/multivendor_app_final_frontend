@@ -3,6 +3,7 @@ import axios from 'axios'
 import useRefreshTokens from '../../../Components/Hooks/useRefreshTokens';
 import { BarLoader } from 'react-spinners';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../axios';
 
 
 function AddStoreIDInfoScreen() {
@@ -95,15 +96,7 @@ function AddStoreIDInfoScreen() {
 
         try{
 
-            const response = await axios({
-                method : "post",
-                url : `${import.meta.env.VITE_API_URL}/authentication/add_seller_id_info`,
-                data : formData,
-                withCredentials : true,
-                headers : {
-                    'Content-Type' : 'multipart/form-data'
-                }
-            });
+            const response = await api.post(`/authentication/add_seller_id_info`, formData);
 
             console.log(response);
 

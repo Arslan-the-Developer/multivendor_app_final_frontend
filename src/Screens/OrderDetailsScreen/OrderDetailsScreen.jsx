@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../axios';
 import Navbar from '../../Components/Navbar';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 
@@ -18,14 +18,7 @@ function OrderDetailsScreen() {
 
         try{
 
-            const response = await axios({
-                method : "post",
-                url : "http://127.0.0.1:8000/api/get_user_order_details",
-                withCredentials : true,
-                data : {
-                    order_id : orderID
-                }
-            })
+            const response = await api.post("/api/get_user_order_details", {order_id : orderID});
 
             setDetails(response.data);
 

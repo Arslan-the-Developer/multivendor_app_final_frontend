@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import api from '../../axios';
+
 
 function useCheckAuthentication() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,7 +44,7 @@ function useCheckAuthentication() {
 
   async function checkAuthentication() {
     try {
-      const response = await api.get(`${import.meta.env.VITE_API_URL}/authentication/check_user_authentication`);
+      const response = await api.get(`/authentication/check_user_authentication`);
       if (response.status === 200) {
         setIsAuthenticated(true);
         await CheckSeller();

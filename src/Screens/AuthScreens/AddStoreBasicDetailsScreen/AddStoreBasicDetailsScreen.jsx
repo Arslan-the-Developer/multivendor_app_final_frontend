@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import {BarLoader} from 'react-spinners'
 import useRefreshTokens from '../../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../../Components/Hooks/useCheckAuthentication';
+import api from '../../../axios';
 
 
 
@@ -95,15 +95,7 @@ function AddStoreBasicDetailsScreen() {
 
         try{
 
-            const response = await axios({
-                method: "post",
-                url: `${import.meta.env.VITE_API_URL}/authentication/seller_info_update`,
-                data: data_to_send, // Send the form data
-                withCredentials: true, // Include credentials such as cookies
-                headers: {
-                  "Content-Type": "multipart/form-data", // Adjust the content type if needed
-                },
-            });
+            const response = await api.post(`/authentication/seller_info_update`, data_to_send);
     
             console.log(response.data);
 

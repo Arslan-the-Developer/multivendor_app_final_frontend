@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react'
 import { BarLoader } from 'react-spinners';
+import api from '../../../axios';
 
 
 
@@ -18,13 +18,13 @@ function SellerProductDetails({selectedProd, onSuccess, productFetchFunction, st
 
     const getImageSrc = (index, element) => {
       if (index === 0) {
-        return firstFormImage === "" ? `http://127.0.0.1:8000/${element.image}` : firstFormImage;
+        return firstFormImage === "" ? `${import.meta.env.VITE_API_URL}/${element.image}` : firstFormImage;
       }
       if (index === 1) {
-        return secondFormImage === "" ? `http://127.0.0.1:8000/${element.image}` : secondFormImage;
+        return secondFormImage === "" ? `${import.meta.env.VITE_API_URL}/${element.image}` : secondFormImage;
       }
       if (index === 2) {
-        return thirdFormImage === "" ? `http://127.0.0.1:8000/${element.image}` : thirdFormImage;
+        return thirdFormImage === "" ? `${import.meta.env.VITE_API_URL}/${element.image}` : thirdFormImage;
       }
       return "";
     };
@@ -60,15 +60,7 @@ function SellerProductDetails({selectedProd, onSuccess, productFetchFunction, st
 
       try{
 
-        const response = await axios({
-          method : "delete",
-          url : `http://127.0.0.1:8000/api/modify_product/${productId}`,
-          withCredentials : "true",
-          headers : {
-            'Content-Type' : 'application/json'
-          }
-
-        });
+        const response = await api.delete(`/api/modify_product/${productId}`);
 
         setDeleteButtonDisabled(false);
 
@@ -100,7 +92,7 @@ function SellerProductDetails({selectedProd, onSuccess, productFetchFunction, st
 
       setUpdateButtonDisabled(true);
 
-      console.log(`Product Update Request To 'http://127.0.0.1:8000/api/modify_product/${product_id}`);
+      console.log(`Product Update Request To '${import.meta.env.VITE_API_URL}/api/modify_product/${product_id}`);
 
       let updated_data_to_send = new FormData(e.target);
 
@@ -129,14 +121,7 @@ function SellerProductDetails({selectedProd, onSuccess, productFetchFunction, st
 
       try{
 
-        const response = await axios({
-          method : "put",
-          url : `http://127.0.0.1:8000/api/modify_product/${product_id}`,
-          withCredentials : true,
-          headers : {
-            'Content-Type' : 'multipart/form-data'
-          }
-        })
+        const response = await api.put(`/api/modify_product/${product_id}`);
 
         setUpdateButtonDisabled(false);
 

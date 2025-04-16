@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import QuantityInputForCart from '../../Components/QuantityInputForCart';
 import { BarLoader } from 'react-spinners';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import Navbar from '../../Components/Navbar';
+import api from '../../axios';
 
 
 function UserCartScreen() {
@@ -39,11 +39,7 @@ function UserCartScreen() {
 
       setLoadingProducts(true);
 
-      const response = await axios({
-        method : "get",
-        url : "http://127.0.0.1:8000/api/get_user_cart_products",
-        withCredentials : true,
-      })
+      const response = await api.get("/api/get_user_cart_products");
 
       console.log(response.data);
       
@@ -82,14 +78,7 @@ function UserCartScreen() {
 
       setRemoveButtonDisabled(true);
 
-      const response = await axios({
-        method : "delete",
-        url : "http://127.0.0.1:8000/api/add_modify_cart_product",
-        withCredentials : true,
-        data : {
-          product_id : product_id,
-        }
-      })
+      const response = await api.delete("/api/add_modify_cart_product", {product_id : product_id});
 
       console.log(response.data);
 
@@ -112,15 +101,7 @@ function UserCartScreen() {
 
     try{
 
-      const response = await axios({
-        method : "put",
-        url : "http://127.0.0.1:8000/api/add_modify_cart_product",
-        withCredentials : true,
-        data : {
-          product_id : product_id,
-          product_quantity : product_quantity,
-        }
-      })
+      const response = await api.put("/api/add_modify_cart_product", {product_id : product_id, product_quantity : product_quantity});
 
       console.log(response.data);
 
@@ -140,11 +121,7 @@ function UserCartScreen() {
 
     try{
       
-      const response = await axios({
-        method : "get",
-        url : "http://127.0.0.1:8000/api/clear_user_cart",
-        withCredentials : true,
-      });
+      const response = await api.get("/api/clear_user_cart");
 
       console.log(response.data);
 
@@ -171,11 +148,7 @@ function UserCartScreen() {
 
     try{
 
-      const response = await axios({
-        method : "post",
-        url : "http://127.0.0.1:8000/api/create_user_cart_order",
-        withCredentials : true,
-      })
+      const response = await api.post("/api/create_user_cart_order");
 
       console.log(response.data);
 

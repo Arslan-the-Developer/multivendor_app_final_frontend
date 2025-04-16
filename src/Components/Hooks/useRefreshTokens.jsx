@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import api from "../../axios";
+
 
 function useRefreshTokens() {
   const [shouldRefreshToken, setShouldRefreshToken] = useState(false);
@@ -51,7 +52,7 @@ function useRefreshTokens() {
 
       setIsRefreshing(true);
       try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/authentication/refresh_user_tokens`, {
+        const response = await api.get(`/authentication/refresh_user_tokens`, {
           withCredentials: true,
           headers: { "Content-Type": "application/json" },
         });

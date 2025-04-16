@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {format} from 'date-fns'
+import api from '../../../../../axios';
 
 
 function SellerApplicationsScreen() {
@@ -15,14 +16,7 @@ function SellerApplicationsScreen() {
 
   async function fetchSellerApplications(){
     try {
-      const response = await axios({
-        method: 'get',
-        url: 'http://127.0.0.1:8000/admin.api/get_all_seller_applications',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await api.get('/admin.api/get_all_seller_applications');
       setApplications(response.data);
     } catch (error) {
       console.error('Error fetching seller status:', error);
@@ -58,17 +52,7 @@ function SellerApplicationsScreen() {
 
     try{
 
-      const approval_response = await axios({
-        method: 'post',
-        url: 'http://127.0.0.1:8000/admin.api/approve_reject_seller_application',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data : JSON.stringify({
-          application_id : id_of_application,
-        })
-      });
+      const approval_response = await api.post('/admin.api/approve_reject_seller_application', JSON.stringify({application_id : id_of_application}));
 
       console.log(approval_response);
 
@@ -95,18 +79,7 @@ function SellerApplicationsScreen() {
 
       let reject_reason = document.getElementById('rejection_reason').value;
 
-      const rejection_response = await axios({
-        method: 'delete',
-        url: 'http://127.0.0.1:8000/admin.api/approve_reject_seller_application',
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data : JSON.stringify({
-          application_id : id_of_application,
-          reason_to_reject : reject_reason,
-        })
-      });
+      const rejection_response = await api.delete('/admin.api/approve_reject_seller_application',JSON.stringify({application_id : id_of_application,reason_to_reject : reject_reason,}));
 
       console.log(rejection_response);
 

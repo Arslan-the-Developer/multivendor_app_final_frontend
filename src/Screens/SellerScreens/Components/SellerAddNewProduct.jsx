@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import {BarLoader} from 'react-spinners'
+import api from '../../../axios';
 
 
 
@@ -32,11 +32,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
 
     try{
 
-      const response = await axios({
-        method : "get",
-        url : "http://127.0.0.1:8000/api/get_product_subcategories",
-        withCredentials : true
-      })
+      const response = await api.get("/api/get_product_subcategories");
 
       console.log(response.data);
 
@@ -60,15 +56,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
 
     try{
 
-      const response = await axios({
-        method : "post",
-        url : "http://127.0.0.1:8000/api/create_product",
-        withCredentials : true,
-        data : newProductData,
-        headers : {
-          'Content-Type' : 'multipart/form-data',
-        }
-      })
+      const response = await api.post("/api/create_product", newProductData);
 
       setSubmitButtonDisabled(false);
 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { BarChart } from '@mui/x-charts/BarChart';
 // import useFetchData from '../../../Components/useFetchData';
 import axios from 'axios';
+import api from '../../../axios';
 
 
 
@@ -21,17 +22,7 @@ function SellerSalesTab({STORE_ID}) {
     
     try{
   
-      const revenueResponse = await axios({
-        method : "post",
-        url : `${import.meta.env.VITE_API_URL}/api/get_seller_revenue_months`,
-        withCredentials : true,
-        data : {
-          store_id : storeID,
-        },
-        headers : {
-          'Content-Type' : "application/json",
-        }
-      })
+      const revenueResponse = await api.post(`/api/get_seller_revenue_months`, {store_id : storeID,});
 
       console.log(revenueResponse.data);
 

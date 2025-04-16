@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Elements, useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import axios from 'axios';
 import { BarLoader } from 'react-spinners';
+import api from '../../axios';
 
 
 const stripePromise = loadStripe('pk_test_51PvydsI9dAJ6SNVqO5TGglKqEsVIpTavrFcyNQkNFh9Y4tc1SSafaws8S1X6ncfRltyNqa9xzeZps5GnEzr9Tilh00PjUONFkM');
@@ -19,12 +19,10 @@ function PaymentScreen() {
   useEffect(() => {
     async function verifyAccessAndFetchSecret() {
       try {
+
         // Check access
-        const accessResponse = await axios.post(
-          'http://127.0.0.1:8000/api/validate_payment_page',
-          { order_id: orderID },
-          { withCredentials: true }
-        );
+        const accessResponse = await api.post('/api/validate_payment_page',{ order_id: orderID });
+
         const accessAllowed = accessResponse.data.allow_access;
         setAllowAccess(accessAllowed);
 
@@ -34,12 +32,10 @@ function PaymentScreen() {
         }
 
         // Fetch client secret if access is allowed
-        const secretResponse = await axios.post(
-          'http://127.0.0.1:8000/api/get_client_secret',
-          { order_id: orderID },
-          { withCredentials: true }
-        );
+        const secretResponse = await api.post('/api/get_client_secret', { order_id: orderID });
+
         setClientSecret(secretResponse.data.client_secret);
+        
       } catch (error) {
         console.error(error);
         // Optionally set an error state here

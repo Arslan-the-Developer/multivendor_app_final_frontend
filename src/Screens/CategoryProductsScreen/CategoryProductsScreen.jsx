@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../../Components/Navbar';
 import { PuffLoader } from 'react-spinners';
-import axios from 'axios';
+import api from '../../axios';
 import ProductCard from '../../Components/ProductCard'
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 
@@ -23,11 +23,7 @@ function CategoryProductsScreen() {
 
         try{
 
-            const response = await axios({
-                method : "get",
-                url : `${import.meta.env.VITE_API_URL}/api/get_category_products/${sub_category}`,
-                withCredentials : true
-            })
+            const response = await api.get(`/api/get_category_products/${sub_category}`);
 
             console.log(response.data);
 

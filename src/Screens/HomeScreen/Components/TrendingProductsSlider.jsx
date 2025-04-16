@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import axios from 'axios';
+import api from '../../../axios';
 import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import { Link } from 'react-router-dom';
@@ -23,10 +23,7 @@ function TrendingProductsSlider() {
   useEffect(() => {
     async function GetTrendingProducts() {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/get_all_products/`,
-          { withCredentials: true }
-        );
+        const response = await api.get(`/api/get_all_products/`);
         setProducts(response.data.results);
       } catch (error) {
         console.error(error);

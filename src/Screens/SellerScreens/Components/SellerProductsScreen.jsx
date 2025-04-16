@@ -3,8 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import SellerProductDetails from './SellerProductDetails';
 import SellerAddNewProduct from './SellerAddNewProduct';
-import { use } from 'react';
-import axios from 'axios';
+import api from '../../../axios';
 
 
 
@@ -38,13 +37,7 @@ function SellerProductsScreen({STORE_ID}) {
     if (!storeId) return; // Guard clause to avoid unnecessary calls
     setProductsLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/get_store_products`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ store_id: storeId }),
-      });
+      const response = await api.post(`/api/get_store_products`, JSON.stringify({ store_id: storeId }));
 
       if (!response.ok) {
         throw new Error("Failed to fetch store products");

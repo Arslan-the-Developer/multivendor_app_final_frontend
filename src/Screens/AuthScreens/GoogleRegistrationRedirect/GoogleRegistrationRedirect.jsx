@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { PuffLoader } from 'react-spinners';
+import api from '../../../axios';
 
 function GoogleRegistrationRedirect() {
   const navigate = useNavigate();
@@ -20,15 +20,7 @@ function GoogleRegistrationRedirect() {
       }
 
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/authentication/get_authorization_tokens/${String(verification_token)}`,
-          {
-            withCredentials: true, // Include credentials such as cookies
-            headers: {
-              'Content-Type': 'application/json', // Adjust the content type if needed
-            },
-          }
-        );
+        const response = await api.get(`/authentication/get_authorization_tokens/${String(verification_token)}`);
 
         if (response.status === 200) {
 

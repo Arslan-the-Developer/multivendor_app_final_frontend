@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import api from '../../../axios';
 import { BarLoader } from 'react-spinners';
 import { motion } from 'motion/react';
+import { config } from 'dotenv';
 
 function UserLoginScreen() {
 
@@ -43,15 +45,7 @@ function UserLoginScreen() {
   
     try {
       // Make the login request
-      const response = await axios({
-        method: "post",
-        url: `${import.meta.env.VITE_API_URL}/authentication/user_login`,
-        data: data, // Send the form data
-        withCredentials: true, // Include credentials such as cookies
-        headers: {
-          "Content-Type": "application/json", // Adjust the content type if needed
-        },
-      });
+      const response = await api.post(`/authentication/user_login`, data);
   
       // Handle the response
       console.log("Login successful:", response.data);
@@ -111,15 +105,7 @@ function UserLoginScreen() {
   
     try {
       // Make the login request
-      const response = await axios({
-        method: "post",
-        url: `${import.meta.env.VITE_API_URL}/authentication/verify_two_step_pin`,
-        data: data, // Send the form data
-        withCredentials: true, // Include credentials such as cookies
-        headers: {
-          "Content-Type": "application/json", // Adjust the content type if needed
-        },
-      });
+      const response = await api.post(`/authentication/verify_two_step_pin`, data);
 
       console.log(response.data);
 

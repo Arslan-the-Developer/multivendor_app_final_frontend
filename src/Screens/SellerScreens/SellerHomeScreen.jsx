@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 
-import axios from 'axios';
 
 import SellerDashboard from './Components/SellerDashboard';
 import SellerProductsScreen from './Components/SellerProductsScreen';
 import SellerSalesTab from './Components/SellerSalesTab';
 import SellerOrdersScreen from './Components/SellerOrdersScreen';
 import { PuffLoader } from 'react-spinners';
+import api from '../../axios';
 
 
 
@@ -93,7 +93,7 @@ function SellerHomeScreen() {
       
         try{
     
-            const details_response = await axios.get(`${import.meta.env.VITE_API_URL}/api/get_seller_details`, {withCredentials : true});
+            const details_response = await api.get(`/api/get_seller_details`);
         
             setStoreID(details_response.data.store_id);
 

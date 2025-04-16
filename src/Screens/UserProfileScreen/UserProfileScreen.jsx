@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../../Components/Navbar';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
-import axios from 'axios';
 import { BarLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
+import api from '../../axios';
 
 
 function UserProfileScreen() {
@@ -24,11 +24,7 @@ function UserProfileScreen() {
 
         try{
 
-            const response = await axios({
-                method : "get",
-                url : "http://127.0.0.1:8000/authentication/get_user_details",
-                withCredentials : true,
-            })
+            const response = await api.get("/authentication/get_user_details");
 
             console.log(response.data);
 
@@ -74,15 +70,7 @@ function UserProfileScreen() {
 
         try {
             // Make the login request
-            const response = await axios({
-              method: "post",
-              url: "http://127.0.0.1:8000/authentication/set_two_step_pin",
-              data: data, // Send the form data
-              withCredentials: true, // Include credentials such as cookies
-              headers: {
-                "Content-Type": "application/json", // Adjust the content type if needed
-              },
-            });
+            const response = await api.post("/authentication/set_two_step_pin", data);
       
             console.log(response.data);
       
