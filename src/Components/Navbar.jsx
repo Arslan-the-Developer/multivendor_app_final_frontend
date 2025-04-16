@@ -27,7 +27,7 @@ function Navbar() {
 
     try{
 
-      const response = axios.get('https://79c9-58-27-197-114.ngrok-free.app/authentication/check_user_authentication', {withCredentials : true});
+      const response = axios.get('https://79c9-58-27-197-114.ngrok-free.app/authentication/check_user_authentication', {withCredentials : true, 'headers' : {'ngrok-skip-browser-warning' : '1'}});
 
       console.log(response.data);
 
