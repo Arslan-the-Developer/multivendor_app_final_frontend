@@ -36,19 +36,21 @@ function SellerProductsScreen({STORE_ID}) {
   const fetchStoreProducts = async ({ storeId }) => {
     if (!storeId) return; // Guard clause to avoid unnecessary calls
     setProductsLoading(true);
+
     try {
-      const response = await api.post(`/api/get_store_products`, JSON.stringify({ store_id: storeId }));
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch store products");
-      }
+      const response = await api.post(`/api/get_store_products`, { store_id: storeId });
 
-      const data = await response.json();
-      setStoreProducts(data);
+      setStoreProducts(response.data);
+
       setLoading(false);
+
     } catch (error) {
+
       setProductsError(error.message);
+
       setLoading(false);
+      
     } finally {
       setProductsLoading(false);
       setLoading(false);
