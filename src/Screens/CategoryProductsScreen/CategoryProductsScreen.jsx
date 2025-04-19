@@ -51,9 +51,9 @@ function CategoryProductsScreen() {
 
     <>
         <Navbar />
-        <section className={`h-screen w-full flex flex-col items-start justify-start content-start py-18 px-10 max-md:px-2`} style={{height : "90vh"}}>
+        <section className={`h-screen w-full flex flex-col items-start justify-start content-start py-18 px-10 max-md:px-2 max-md:py-2`} style={{height : "90vh"}}>
 
-            <h2 className='font-product text-primary font-semibold tracking-wider mb-6 max-md:ml-5'>Products - {productSubCategory}</h2>
+            <h2 className='font-product text-primary font-semibold tracking-wider mb-6 max-md:ml-0 max-md:w-full max-md:text-center'>{productSubCategory}</h2>
 
             <div className='w-full flex flex-wrap items-start justify-start'>
 

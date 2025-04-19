@@ -281,7 +281,7 @@ function Navbar() {
 
                             {
                               getSubCategories(selectedResponsiveCategory).map((sub_cat) => (
-                                <Link className="mt-5 pl-2 border-s-2 border-transparent transition-all hover:border-primary hover:text-primary text-dull duration-300" to={`/products/${sub_cat.link}`}>
+                                <Link onClick={() => {setResponsiveMenuOpen(false); setSelectedResponsiveCategory('')}} className="mt-5 pl-2 border-s-2 border-transparent transition-all hover:border-primary hover:text-primary text-dull duration-300" to={`/products/${sub_cat.link}`}>
                                   {sub_cat.show_name}
                                 </Link>
                               ))

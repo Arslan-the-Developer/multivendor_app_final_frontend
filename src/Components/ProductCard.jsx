@@ -91,7 +91,7 @@ function ProductCard({ product }) {
 
         <h3 className='text-dull max-sm:text-[12px] text-center'>
             <h2 className='h-4'>{product.product_name.slice(0,15)}...</h2>
-            <span className='flex items-center justify-between w-full mt-2 max-sm:mt-1 max-sm:justify-center'>
+            <span className='flex items-center justify-between w-full mt-2 max-sm:justify-center'>
 
             <Link to={`/store-details/${product.product_store.id}`} className='text-gray-500 text-xs transition-all max-sm:hidden hover:text-primary'>{product.product_store.store_name}</Link>
             <hr className='border border-gray-200 w-2 max-sm:hidden' />
