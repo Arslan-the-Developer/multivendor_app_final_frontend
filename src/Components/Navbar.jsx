@@ -81,7 +81,7 @@ function Navbar() {
 
       case 'electronics':
 
-        return [{show_name : 'Accessories', link : 'Accessories & Supplies'},{show_name : 'Camera & Photo', link : 'Camera & Photo'},{show_name : 'Vehicle Electronics', link : 'Car & Vehicle Electronics'},{show_name : 'Cell Phones', link : 'Cell Phones & Accessories'},{show_name : 'Computer Electronics', link : 'Computer Accessories'},{show_name : 'GPS & Navigation', link : 'GPS & Navigation'},{show_name : 'Headphones', link : 'Headphones'},{show_name : 'Home Audio', link : 'Home Audio'},{show_name : 'Office Electronics', link : 'Office Electronics'},{show_name : 'Portable Electronics', link : 'Portable Audio & Video'},{show_name : 'Security', link : 'Security & Survelliance'},{show_name : 'TV & Audio', link : 'Television & Audio'}]
+        return [{show_name : 'Accessories', link : 'Accessories & Supplies'},{show_name : 'Camera & Photo', link : 'Camera & Photo'},{show_name : 'Vehicle Electronics', link : 'Car & Vehicle Electronics'},{show_name : 'Cell Phones', link : 'Cell Phones & Accessories'},{show_name : 'Computer Electronics', link : 'Computer Accessories'},{show_name : 'GPS & Navigation', link : 'GPS & Navigation'},{show_name : 'Headphones', link : 'Headphones'},{show_name : 'Home Audio', link : 'Home Audio'},{show_name : 'Office Electronics', link : 'Office Electronics'},{show_name : 'Portable Electronics', link : 'Portable Video & Audio'},{show_name : 'Security', link : 'Security & Survelliance'},{show_name : 'TV & Audio', link : 'Television & Audio'}]
         break;
         
       case 'beauty & care':
