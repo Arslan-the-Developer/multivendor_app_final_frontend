@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import QuantityInputForCart from '../../Components/QuantityInputForCart';
-import { BarLoader } from 'react-spinners';
+import { BarLoader, PuffLoader } from 'react-spinners';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import Navbar from '../../Components/Navbar';
@@ -166,13 +166,14 @@ function UserCartScreen() {
     
   }
 
-  if (!isAuthenticated){
 
-    return navigate("/user-login");
+  return loading ? (
 
-  }
+    <div className='w-full h-screen flex items-center justify-center'>
+      <PuffLoader color='#006964' />
+    </div>
 
-  return (
+  ) : !isAuthenticated ? navigate("/user-login") : (
 
     <>
         <Navbar />
@@ -214,7 +215,7 @@ function UserCartScreen() {
 
                         <div className='w-3/12 h-full flex items-start justify-start'>
 
-                          <img className='w-full h-full object-contain object-center' src={`http://127.0.0.1:8000${product.product.product_images[0].image}`} alt="" />
+                          <img className='w-full h-full object-contain object-center' src={`${product.product.product_images[0].image}`} alt="" />
 
                         </div>
 

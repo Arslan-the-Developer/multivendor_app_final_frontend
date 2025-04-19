@@ -168,7 +168,7 @@ function ProductDetailsScreen() {
                         {
                             productDetails.product_images?.length > 0 ? (
 
-                                <img className='w-30 h-30 object-contain object-center' src={`http://127.0.0.1:8000${productDetails.product_images[0].image}`} alt={productDetails.product_name}/>
+                                <img className='w-30 h-30 object-contain object-center' src={`${productDetails.product_images[0].image}`} alt={productDetails.product_name}/>
 
                             ) : (
                                 <p>No images available for this product.</p>
@@ -297,7 +297,7 @@ function ProductDetailsScreen() {
             {
             productDetails.product_images.map((image) => (
 
-                <img className='w-56 h-56' src={`http://127.0.0.1:8000${image.image}`} alt={productDetails.product_name}/>
+                <img className='w-56 h-56' src={`${image.image}`} alt={productDetails.product_name}/>
 
             ))
             }

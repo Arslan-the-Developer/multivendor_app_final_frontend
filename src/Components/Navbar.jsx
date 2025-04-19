@@ -158,10 +158,6 @@ function Navbar() {
           
               <div className="w-full h-full flex items-center justify-start bg-secondary">
 
-                {
-                  loading ? "loading..." : isAuthenticated ? "Authenticated" : "Not Authen"
-                }
-
                   <div className="w-full flex flex-col items-center justify-start h-full">
 
                     {
@@ -174,7 +170,7 @@ function Navbar() {
                         isAuthenticated ? (
       
                           <div className="w-full flex items-center justify-center h-1/9">
-                            <Link className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
+                            <Link to={"/user-profile"} className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
                                   <path d="M7.78256 17.1112C6.68218 17.743 3.79706 19.0331 5.55429 20.6474C6.41269 21.436 7.36872 22 8.57068 22H15.4293C16.6313 22 17.5873 21.436 18.4457 20.6474C20.2029 19.0331 17.3178 17.743 16.2174 17.1112C13.6371 15.6296 10.3629 15.6296 7.78256 17.1112Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                   <path d="M15.5 10C15.5 11.933 13.933 13.5 12 13.5C10.067 13.5 8.5 11.933 8.5 10C8.5 8.067 10.067 6.5 12 6.5C13.933 6.5 15.5 8.067 15.5 10Z" stroke="currentColor" strokeWidth="1.5" />
@@ -182,7 +178,7 @@ function Navbar() {
                               </svg>
                             </Link>
                             
-                            <Link className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
+                            <Link to={"/user-cart"} className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
                                   <path d="M8 16L16.7201 15.2733C19.4486 15.046 20.0611 14.45 20.3635 11.7289L21 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                                   <path d="M6 6H22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -192,7 +188,7 @@ function Navbar() {
                                   <path d="M2 2H2.966C3.91068 2 4.73414 2.62459 4.96326 3.51493L7.93852 15.0765C8.08887 15.6608 7.9602 16.2797 7.58824 16.7616L6.63213 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                               </svg>
                             </Link>
-                            <Link className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
+                            <Link to={'/user-orders'} className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
                                   <path d="M2 13.4286V8H22V13.4286C22 17.4692 22 19.4895 20.6983 20.7447C19.3965 22 17.3014 22 13.1111 22H10.8889C6.69863 22 4.6035 22 3.30175 20.7447C2 19.4895 2 17.4692 2 13.4286Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                   <path d="M2 8L2.96154 5.69231C3.70726 3.90257 4.08013 3.0077 4.8359 2.50385C5.59167 2 6.56112 2 8.5 2H15.5C17.4389 2 18.4083 2 19.1641 2.50385C19.9199 3.0077 20.2927 3.90257 21.0385 5.69231L22 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -200,7 +196,7 @@ function Navbar() {
                                   <path d="M10 12H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                               </svg>
                             </Link>
-                            <Link className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
+                            <Link to={'/user-wishlist'} className="w-1/4 bg-less-primary flex items-center justify-center py-3 transition-all border-b-2 border-transparent hover:border-primary">
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
                                   <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                               </svg>

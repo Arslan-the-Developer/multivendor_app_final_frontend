@@ -4,6 +4,7 @@ import Navbar from '../../Components/Navbar';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import useCheckAuthentication from '../../Components/Hooks/useCheckAuthentication';
 import api from '../../axios';
+import { PuffLoader } from 'react-spinners';
 
 
 function UserWishlistScreen() {
@@ -60,16 +61,20 @@ function UserWishlistScreen() {
     }
     
     useEffect(() => {
+        
         FetchWishlistProducts();
         
-        if (!isAuthenticated){
-
-            return navigate("/user-login");
-        
-        }
     }, []);
 
-    return (
+    return loading ? (
+
+        <div className='w-full h-screen flex items-center justify-center'>
+
+            <PuffLoader color='#006964' />
+
+        </div>
+
+    ) : !isAuthenticated ? navigate('/user-login') : (
         
     <>
         <Navbar />

@@ -148,7 +148,7 @@ function SellerProductsScreen({STORE_ID}) {
                   onClick={() => showSelectedProduct(product)}
                 >
   
-                  <img className="w-24 h-24 object-cover object-center" src={`http://127.0.0.1:8000/${product.product_images[0]?.image}`} alt={product.product_name}/>
+                  <img className="w-24 h-24 object-cover object-center" src={`${product.product_images[0]?.image}`} alt={product.product_name}/>
   
                   <hr className="border border-gray-300 h-3/4 mx-4" />
                   

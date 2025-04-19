@@ -1,79 +1,66 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import api from "../../axios";
 
-
+/**
+ * Custom hook that polls every 10 seconds and refreshes tokens only if
+ * at least 5 minutes have elapsed since the last client-side refresh.
+ */
 function useRefreshTokens() {
-  const [shouldRefreshToken, setShouldRefreshToken] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const didRun = useRef(false); // To prevent multiple executions
+  const isRefreshing = useRef(false);
+  const FIVE_MINUTES_MS = 5 * 60 * 1000;
+
+  const checkAndRefresh = async () => {
+
+    console.log("Checking For Refresh...");
+
+    if (isRefreshing.current) return;
+
+    // Read last client-side refresh timestamp
+    const lastIso = localStorage.getItem("lastRefreshIso");
+    const lastTime = lastIso ? new Date(lastIso) : null;
+    const now = new Date();
+
+    // If we've done a refresh within the last 5 minutes, skip
+    if (lastTime && now - lastTime < FIVE_MINUTES_MS) return;
+
+    isRefreshing.current = true;
+
+    try {
+
+      const response = await api.get("/authentication/refresh_user_tokens");
+
+      if (response.data) {
+        console.log("Tokens refreshed at", now.toLocaleTimeString());
+        // Mark this moment as the last refresh using client clock
+        localStorage.setItem("lastRefreshIso", now.toISOString());
+
+        console.log("Refreshed Tokens");
+      }
+    } catch (error) {
+      console.error(
+        "Error refreshing tokens:",
+        error.response?.data || error.message
+      );
+    } finally {
+      isRefreshing.current = false;
+    }
+  };
 
   useEffect(() => {
-    if (typeof window === 'undefined' || didRun.current) return;
+    if (typeof window === "undefined") return;
 
-    const refreshTokensIfNeeded = () => {
-      console.log("Checking for token refresh...");
-      const tokenStoreDate = localStorage.getItem("store_date");
-      const tokenStoreTime = localStorage.getItem("store_time");
-
-      if (tokenStoreDate && tokenStoreTime) {
-        const [hours, minutes, seconds] = tokenStoreTime.split(":").map(Number);
-        const [year, month, day] = tokenStoreDate.split("-").map(Number);
-
-        const storedDateTime = new Date(year, month - 1, day, hours, minutes, seconds);
-        const currentDateTime = new Date();
-
-        const minutesSinceTokenStored = Math.floor((currentDateTime - storedDateTime) / 60000);
-
-        if (minutesSinceTokenStored > 9) {
-          setShouldRefreshToken(true); // Trigger token refresh
-        }
-      }
-    };
-
-    const onLoad = () => {
-      refreshTokensIfNeeded();
-      const interval = setInterval(refreshTokensIfNeeded, 5000); // Check every 5 seconds
-      return () => clearInterval(interval); // Cleanup on unmount
-    };
-
-    if (document.readyState === 'complete') {
-      onLoad();
-    } else {
-      window.addEventListener('load', onLoad);
-      return () => window.removeEventListener('load', onLoad);
+    // Initialize marker if not present
+    if (!localStorage.getItem("lastRefreshIso")) {
+      localStorage.setItem("lastRefreshIso", new Date().toISOString());
     }
 
-    didRun.current = true;
+    // Run once immediately, then every 10 seconds
+    checkAndRefresh();
+
+    const intervalId = setInterval(checkAndRefresh, 10000);
+
+    return () => clearInterval(intervalId);
   }, []);
-
-  useEffect(() => {
-    const refreshTokens = async () => {
-      if (!shouldRefreshToken || isRefreshing) return;
-
-      setIsRefreshing(true);
-      try {
-        const response = await api.get(`/authentication/refresh_user_tokens`, {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        });
-
-        if (response.data) {
-          console.log("Tokens refreshed successfully:", response.data);
-          localStorage.setItem("store_date", response.data["store_date"]);
-          localStorage.setItem("store_time", response.data["store_time"]);
-        }
-      } catch (error) {
-        console.error("Error refreshing tokens:", error.response?.data || error.message);
-      } finally {
-        setShouldRefreshToken(false);
-        setIsRefreshing(false);
-      }
-    };
-
-    if (shouldRefreshToken) {
-      refreshTokens();
-    }
-  }, [shouldRefreshToken, isRefreshing]);
 }
 
 export default useRefreshTokens;

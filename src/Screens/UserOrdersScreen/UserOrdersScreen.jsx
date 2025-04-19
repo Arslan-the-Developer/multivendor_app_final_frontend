@@ -79,7 +79,7 @@ function UserOrdersScreen() {
 
                                 <div className='w-1/3 h-full flex items-center justify-center'>
 
-                                    <motion.img transition={{delay : 0.4}} initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1}} className='object-contain object-center group-hover:scale-90 transition' style={{width : "90%"}} src={`http://127.0.0.1:8000${order.order_items[0].product.product_images[0].image}`} alt="" />
+                                    <motion.img transition={{delay : 0.4}} initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1}} className='object-contain object-center group-hover:scale-90 transition' style={{width : "90%"}} src={`${order.order_items[0].product.product_images[0].image}`} alt="" />
 
                                 </div>
                                 

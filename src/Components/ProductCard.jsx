@@ -63,7 +63,7 @@ function ProductCard({ product }) {
 
         <div className='w-full flex items-center justify-center' style={{height : "60%"}}>
 
-        <img className='object-contain object-center group-hover:scale-90 transition' src={`http://127.0.0.1:8000${product.product_images[0].image}`} alt="" style={{width : "70%"}} />
+        <img className='object-contain object-center group-hover:scale-90 transition' src={`${product.product_images[0].image}`} alt="" style={{width : "70%"}} />
 
         </div>
         

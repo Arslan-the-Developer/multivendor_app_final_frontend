@@ -18,13 +18,13 @@ function SellerProductDetails({selectedProd, onSuccess, productFetchFunction, st
 
     const getImageSrc = (index, element) => {
       if (index === 0) {
-        return firstFormImage === "" ? `${import.meta.env.VITE_API_URL}${element.image}` : firstFormImage;
+        return firstFormImage === "" ? `${element.image}` : firstFormImage;
       }
       if (index === 1) {
-        return secondFormImage === "" ? `${import.meta.env.VITE_API_URL}${element.image}` : secondFormImage;
+        return secondFormImage === "" ? `${element.image}` : secondFormImage;
       }
       if (index === 2) {
-        return thirdFormImage === "" ? `${import.meta.env.VITE_API_URL}${element.image}` : thirdFormImage;
+        return thirdFormImage === "" ? `${element.image}` : thirdFormImage;
       }
       return "";
     };
