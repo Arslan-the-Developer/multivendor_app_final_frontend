@@ -177,7 +177,7 @@ function UserCartScreen() {
 
     <>
         <Navbar />
-        <section className='w-full absolute bottom-0 flex items-center justify-start py-8' style={{height : "90%"}}>
+        <section className='w-full h-full absolute bottom-0 flex items-center justify-start py-8 max-[1000px]:flex-col max-[1000px]:py-0 max-[1000px]:justify-between' style={{height : "90%"}}>
 
             {
               loadingProducts ? (
@@ -206,12 +206,12 @@ function UserCartScreen() {
 
                 ) : (
 
-                  <div className='w-3/4 h-full flex flex-wrap items-start justify-around content-start p-6 overflow-y-scroll custom-scrollbar'>
+                  <div className='w-3/4 max-[1000px]:w-full h-full flex flex-wrap items-start justify-around content-start p-6 max-[1000px]:p-2 overflow-y-scroll custom-scrollbar'>
 
                     {
                     cartProducts.map((product) => (
   
-                      <div key={product.product.id} className='h-40 bg-white p-3 mt-3 rounded-md shadow-md flex items-start justify-start group' style={{width : "49%"}}>
+                      <div key={product.product.id} className='h-40 bg-white p-3 mt-3 rounded-md shadow-md flex items-start justify-start group w-120 max-[1000px]:w-120'>
 
                         <div className='w-3/12 h-full flex items-start justify-start'>
 
@@ -279,21 +279,21 @@ function UserCartScreen() {
             {
               !(cartProducts.length < 1) ? (
 
-                <div className='w-1/4 h-full flex flex-col items-start justify-start py-8 pr-5 font-product font-semibold tracking-wider relative overflow-hidden'>
+                <div className='w-130 h-full max-[1000px]:w-90 max-[1000px]:h-7/10 flex flex-col items-start justify-start py-8 pr-5 max-[1000px]:p-2 font-product font-semibold tracking-wider relative overflow-hidden'>
 
 
                   <div className='w-full relative flex flex-col items-center overflow-hidden justify-start p-4 bg-white shadow-lg rounded-md' style={{height : "55%", zIndex : "2"}}>
 
-                    <h3 className='text-primary scale-110'>Cart Total</h3>
+                    <h3 className='text-primary scale-110:'>Cart Total</h3>
 
                     <hr className='w-full border border-gray-200 my-4' />
 
-                    <div className='w-full flex items-center justify-between pr-4 pl-2 mt-4'>
+                    <div className='w-full flex items-center justify-between pr-4 pl-2 mt-4 max-[1000px]:hidden'>
                       <h2>Total Products : </h2>
                       <h2>{totalCartProducts}</h2>
                     </div>
                     
-                    <div className='w-full flex items-center justify-between pr-4 pl-2 mt-6'>
+                    <div className='w-full flex items-center justify-between pr-4 pl-2 mt-6 max-[1000px]:hidden'>
                       <h2>Discounts {`(Rs)`} : </h2>
                       <h2>0</h2>
                     </div>
