@@ -103,7 +103,7 @@ function UserRegistrationScreen() {
                 <div class="space-y-6">
                   <div>
                     <label class='text-sm text-slate-800 font-medium block'>Username</label>
-                    <input name="name" type="text" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Enter Username"/>
+                    <input name="username" type="text" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Enter Username"/>
                   </div>
                   <div>
                     <label class='text-sm text-slate-800 font-medium block'>Email</label>
@@ -115,7 +115,7 @@ function UserRegistrationScreen() {
                   </div>
                   <div>
                     <label class='text-sm text-slate-800 font-medium block'>Re-enter Password</label>
-                    <input name="password" type="password" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Confirm Password" />
+                    <input name="password2" type="password" required class="bg-secondary w-full text-sm text-primary px-4 py-3 rounded-sm outline-none border-2 border-gray-500 focus:border-primary focus:bg-transparent" placeholder="Confirm Password" />
                   </div>
                 </div>
 
