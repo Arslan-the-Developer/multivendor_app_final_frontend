@@ -66,6 +66,8 @@ function UserRegistrationScreen() {
 
       navigate("/user-otp-verify");
 
+      setSubmitButtonDisable(false);
+
 
     } catch (error) {
       // Handle errors
