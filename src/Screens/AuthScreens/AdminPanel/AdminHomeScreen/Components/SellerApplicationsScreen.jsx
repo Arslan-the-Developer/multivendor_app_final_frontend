@@ -210,12 +210,12 @@ function SellerApplicationsScreen() {
             <div className='w-full h-full flex items-center justify-center mt-10 px-3'>
               <div className='h-full flex items-center' style={{width : "25%"}}>
 
-                <img className='object-cover object-center w-full h-full rounded-md' src={`http://127.0.0.1:8000${selectedApplication.seller_id_info.seller_id_images[0].image}`} alt="" />
+                <img className='object-cover object-center w-full h-full rounded-md' src={`${selectedApplication.seller_id_info.seller_id_images[0].image}`} alt="" />
 
               </div>
               <div className='h-full flex items-center ml-6' style={{width : "25%"}}>
 
-                <img className='object-cover object-center w-full h-full rounded-md' src={`http://127.0.0.1:8000${selectedApplication.seller_id_info.seller_id_images[1].image}`} alt="" />
+                <img className='object-cover object-center w-full h-full rounded-md' src={`${selectedApplication.seller_id_info.seller_id_images[1].image}`} alt="" />
 
               </div>
 
@@ -320,7 +320,7 @@ function SellerApplicationsScreen() {
               }
               <img
                 className={`w-24 h-24 rounded-full bg-less-primary p-2 object-cover object-center`}
-                src={`http://127.0.0.1:8000${application.seller_store.store_image}`}
+                src={`${application.seller_store.store_image}`}
                 alt=""
               />
               <hr className="h-14 mx-6 border border-primary" />
