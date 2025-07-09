@@ -159,7 +159,7 @@ function SellerApplicationsScreen() {
 
               <div className='w-1/4 h-full flex items-center'>
 
-                <img className='object-cover object-center w-full h-full rounded-md' src={`http://127.0.0.1:8000${selectedApplication.seller_store.store_image}`} alt="" />
+                <img className='object-cover object-center w-full h-full rounded-md' src={`${selectedApplication.seller_store.store_image}`} alt="" />
 
               </div>
 
