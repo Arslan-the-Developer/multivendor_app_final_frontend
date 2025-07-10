@@ -96,7 +96,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
         <div className='flex items-center justify-center'>
 
           <div className='flex items-center justify-center relative transition-all hover:-translate-y-1'>
-            <input name='product_image_1' onChange={(e) => handleImageChange(e, setFirstFormImage)} className='w-32 h-32 opacity-0 rounded-xl cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
+            <input name='product_image' onChange={(e) => handleImageChange(e, setFirstFormImage)} className='w-32 h-32 opacity-0 rounded-xl cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
             <img className='w-32 h-32 bg-transparent border-2 border-primary rounded-xl object-center object-cover absolute' src={firstFormImage} style={{zIndex : "2"}} />
             <svg className='absolute' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={65} height={65} color={"#006964"} fill={"none"}>
                 <path d="M22 6.75C22.4142 6.75 22.75 6.41421 22.75 6C22.75 5.58579 22.4142 5.25 22 5.25V6.75ZM14 5.25C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75V5.25ZM18.75 2C18.75 1.58579 18.4142 1.25 18 1.25C17.5858 1.25 17.25 1.58579 17.25 2H18.75ZM17.25 10C17.25 10.4142 17.5858 10.75 18 10.75C18.4142 10.75 18.75 10.4142 18.75 10H17.25ZM22 5.25H18V6.75H22V5.25ZM18 5.25H14V6.75H18V5.25ZM17.25 2V6H18.75V2H17.25ZM17.25 6V10H18.75V6H17.25Z" fill="currentColor" />
@@ -107,7 +107,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
           </div>
 
           <div className='flex items-center justify-center relative transition-all hover:-translate-y-1'>
-            <input name='product_image_2' onChange={(e) => handleImageChange(e, setSecondFormImage)} className='w-32 h-32 opacity-0 rounded-xl mx-10 cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
+            <input name='product_image' onChange={(e) => handleImageChange(e, setSecondFormImage)} className='w-32 h-32 opacity-0 rounded-xl mx-10 cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
             <img className='w-32 h-32 bg-transparent border-2 border-primary rounded-xl object-center object-cover absolute' src={secondFormImage} style={{zIndex : "2"}} />
             <svg className='absolute' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={65} height={65} color={"#006964"} fill={"none"}>
                 <path d="M22 6.75C22.4142 6.75 22.75 6.41421 22.75 6C22.75 5.58579 22.4142 5.25 22 5.25V6.75ZM14 5.25C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75V5.25ZM18.75 2C18.75 1.58579 18.4142 1.25 18 1.25C17.5858 1.25 17.25 1.58579 17.25 2H18.75ZM17.25 10C17.25 10.4142 17.5858 10.75 18 10.75C18.4142 10.75 18.75 10.4142 18.75 10H17.25ZM22 5.25H18V6.75H22V5.25ZM18 5.25H14V6.75H18V5.25ZM17.25 2V6H18.75V2H17.25ZM17.25 6V10H18.75V6H17.25Z" fill="currentColor" />
@@ -118,7 +118,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
           </div>
 
           <div className='flex items-center justify-center relative transition-all hover:-translate-y-1'>
-            <input name='product_image_3' onChange={(e) => handleImageChange(e, setThirdFormImage)} className='w-32 h-32 opacity-0 rounded-xl cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
+            <input name='product_image' onChange={(e) => handleImageChange(e, setThirdFormImage)} className='w-32 h-32 opacity-0 rounded-xl cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
             <img className='w-32 h-32 bg-transparent border-2 border-primary rounded-xl object-center object-cover absolute' src={thirdFormImage} style={{zIndex : "2"}} />
             <svg className='absolute' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={65} height={65} color={"#006964"} fill={"none"}>
                 <path d="M22 6.75C22.4142 6.75 22.75 6.41421 22.75 6C22.75 5.58579 22.4142 5.25 22 5.25V6.75ZM14 5.25C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75V5.25ZM18.75 2C18.75 1.58579 18.4142 1.25 18 1.25C17.5858 1.25 17.25 1.58579 17.25 2H18.75ZM17.25 10C17.25 10.4142 17.5858 10.75 18 10.75C18.4142 10.75 18.75 10.4142 18.75 10H17.25ZM22 5.25H18V6.75H22V5.25ZM18 5.25H14V6.75H18V5.25ZM17.25 2V6H18.75V2H17.25ZM17.25 6V10H18.75V6H17.25Z" fill="currentColor" />
