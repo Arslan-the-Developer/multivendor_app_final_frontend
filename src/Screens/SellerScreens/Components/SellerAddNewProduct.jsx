@@ -178,9 +178,9 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
               e.target.value = value.slice(0, 4);
             }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
 
-            <div className="mt-6 flex flex-wrap items-center w-96 p-3 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
+            <div className="mt-6 flex flex-wrap items-center w-96 p-3 h-28 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
               {tags.map((tag, i) => (
-                <span key={i} className="flex items-center bg-blue-100 text-blue-800 text-sm rounded px-2 py-1">
+                <span key={i} className="flex items-center bg-less-primary text-primary text-sm rounded px-2 py-1">
                   {tag}
                   <span className="ml-1 cursor-pointer" onClick={() => setTags(tags.filter((_, idx) => idx !== i))}>×</span>
                 </span>
@@ -193,7 +193,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
                 onChange={e => setInput(e.target.value.replace(/[.,]/g, ''))}
                 onKeyDown={handleKeyDown}
                 disabled={tags.length >= 5}
-                className="flex-grow bg-transparent outline-none disabled:opacity-50"
+                className="flex-grow bg-transparent outline-none h-full disabled:opacity-50"
                 placeholder={tags.length >= 5 ? '' : 'Type keyword and press Enter'}
                 required
               />
