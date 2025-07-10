@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
 
 import {BarLoader} from 'react-spinners'
 import api from '../../../axios';
@@ -13,6 +13,34 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
   const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [tags, setTags] = useState([]);
+  const [input, setInput] = useState('');
+  const inputRef = useRef(null);
+
+  const addTag = () => {
+    const value = input.trim();
+    if (value && !tags.includes(value) && tags.length < 5) {
+      setTags([...tags, value]);
+    }
+    setInput('');
+  };
+
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addTag();
+    } else if (e.key === ',' || e.key === '.') {
+      e.preventDefault();
+    } else if (e.key === 'Backspace' && !input) {
+      setTags(tags.slice(0, -1));
+    }
+  };
+
+  const handleKeywordsChange = (e) => {
+    setKeywordInput(e.target.value.replace(/[.,]/g, ''))
+  }
   
 
   const handleImageChange = (event, setImage) => {
@@ -150,7 +178,26 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
               e.target.value = value.slice(0, 4);
             }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
 
-            <textarea name="product_keywords" className='p-3 bg-less-primary placeholder:text-primary mt-6 rounded-sm w-96 resize-none h-28 outline-none text-primary' placeholder='Search Keywords' required></textarea>
+            <div className="mt-6 flex flex-wrap items-center w-96 p-3 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
+              {tags.map((tag, i) => (
+                <span key={i} className="flex items-center bg-blue-100 text-blue-800 text-sm rounded px-2 py-1">
+                  {tag}
+                  <span className="ml-1 cursor-pointer" onClick={() => setTags(tags.filter((_, idx) => idx !== i))}>×</span>
+                </span>
+              ))}
+              <input
+                ref={inputRef}
+                name="product_keywords"
+                type="text"
+                value={input}
+                onChange={e => setInput(e.target.value.replace(/[.,]/g, ''))}
+                onKeyDown={handleKeyDown}
+                disabled={tags.length >= 5}
+                className="flex-grow bg-transparent outline-none disabled:opacity-50"
+                placeholder={tags.length >= 5 ? '' : 'Type keyword and press Enter'}
+                required
+              />
+            </div>
 
           </div>
 
