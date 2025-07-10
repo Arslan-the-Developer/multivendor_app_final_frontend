@@ -171,14 +171,14 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
 
           <hr className='h-full border border-less-primary mx-8' />
 
-          <div className='flex flex-col items-center justify-center'>
+          <div className='flex flex-col items-start justify-start'>
 
             <input name='product_quantity' onInput={(e) => {
               let value = e.target.value.replace(/[^0-9]/g, "");
               e.target.value = value.slice(0, 4);
             }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
 
-            <div className="mt-6 flex flex-wrap items-center w-96 p-3 h-28 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
+            <div className="mt-6 flex flex-wrap items-start justify-start w-96 p-3 h-28 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
               {tags.map((tag, i) => (
                 <span key={i} className="flex items-center bg-less-primary text-primary text-sm rounded px-2 py-1">
                   {tag}
