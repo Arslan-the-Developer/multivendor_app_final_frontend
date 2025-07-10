@@ -176,7 +176,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
             <input name='product_quantity' onInput={(e) => {
               let value = e.target.value.replace(/[^0-9]/g, "");
               e.target.value = value.slice(0, 4);
-            }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
+            }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm text-start items-start justify-start w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
 
             <div className="mt-6 flex flex-wrap items-start justify-start w-96 p-3 h-28 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
               {tags.map((tag, i) => (
