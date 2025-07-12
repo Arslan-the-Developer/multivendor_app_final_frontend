@@ -179,24 +179,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
             }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm text-start items-start justify-start w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
 
             <div className="mt-6 flex flex-wrap items-start justify-start w-96 p-3 h-28 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
-              {tags.map((tag, i) => (
-                <span key={i} className="flex items-center bg-less-primary text-primary text-sm rounded px-2 py-1">
-                  {tag}
-                  <span className="ml-1 cursor-pointer" onClick={() => setTags(tags.filter((_, idx) => idx !== i))}>×</span>
-                </span>
-              ))}
-              <input
-                ref={inputRef}
-                name="product_keywords"
-                type="text"
-                value={input}
-                onChange={e => setInput(e.target.value.replace(/[.,]/g, ''))}
-                onKeyDown={handleKeyDown}
-                disabled={tags.length >= 5}
-                className="flex-grow bg-transparent outline-none h-full disabled:opacity-50"
-                placeholder={tags.length >= 5 ? '' : 'Type keyword and press Enter'}
-                required
-              />
+              <textarea name="product_keywords" className='p-3 bg-less-primary placeholder:text-primary mt-6 rounded-sm w-96 resize-none h-28 outline-none text-primary' placeholder='Enter Comma Seperated Keywords...' required></textarea>
             </div>
 
           </div>
