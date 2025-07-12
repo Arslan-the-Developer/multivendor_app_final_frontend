@@ -178,9 +178,7 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
               e.target.value = value.slice(0, 4);
             }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm text-start items-start justify-start w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
 
-            <div className="mt-6 flex flex-wrap items-start justify-start w-96 p-3 h-28 bg-less-primary rounded-sm gap-1" onClick={() => inputRef.current?.focus()}>
-              <textarea name="product_keywords" className='p-3 bg-less-primary placeholder:text-primary mt-6 rounded-sm w-96 resize-none h-28 outline-none text-primary' placeholder='Enter Comma Seperated Keywords...' required></textarea>
-            </div>
+            <textarea name="product_keywords" className='p-3 bg-less-primary placeholder:text-primary mt-6 rounded-sm w-96 resize-none h-28 outline-none text-primary' placeholder='Enter Comma Seperated Keywords...' required></textarea>
 
           </div>
 
