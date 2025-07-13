@@ -30,9 +30,9 @@ function ShopBySellersSection() {
 
   return (
 
-    <section className='w-full h-60 flex flex-col items-center justify-center -mt-5 max-sm:-mt-3 px-2'>
+    <section className='w-full h-70 flex flex-col items-center justify-center -mt-5 max-sm:-mt-3 px-2'>
 
-      <h1 className='font-product text-xl font-semibold text-green-800 tracking-wider max-sm:text-base'>Shop Categories By Sellers</h1>
+      <h1 className='font-product text-xl font-semibold text-green-800 tracking-wider max-sm:text-md' style={{zIndex : 1}}>Shop Categories By Sellers</h1>
 
       <Swiper
         modules={[Autoplay, Navigation]}
@@ -46,7 +46,7 @@ function ShopBySellersSection() {
           1024: { slidesPerView: 5 },
           1280: { slidesPerView: 6 },
         }}
-        className="relative h-full w-full mt-4 max-sm:mt-4"
+        className="relative h-full w-full mt-6 max-sm:mt-4"
       >
         {allCategories.map((category) => (
           <SwiperSlide key={category.id} className='h-full group'>
