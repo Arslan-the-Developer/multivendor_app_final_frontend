@@ -58,13 +58,13 @@ function Footer() {
 
                 <div className='flex min-sm:flex-col items-center justify-start mt-10 text-primary font-product max-sm:justify-around max-sm:mt-6 max-sm:text-xs max-sm:w-full'>
 
-                    <Link to={'/supprot/seller-tutorial'} className='px-2 max-sm:px-0 border-x-2 border-transparent transition-all hover:border-primary tracking-wide hover:tracking-normal'>Seller Tutorial</Link>
+                    <Link to={'/supprot/seller-tutorial'} className='px-2 max-sm:px-1 border-x-2 border-transparent transition-all hover:border-primary tracking-wide hover:tracking-normal'>Seller Tutorial</Link>
 
-                    <Link to={'/supprot/buy-the-best'} className='px-2 max-sm:px-0 border-x-2 border-transparent transition-all hover:border-primary min-sm:mt-4 tracking-wide hover:tracking-normal'>Buy The Best</Link>
+                    <Link to={'/supprot/buy-the-best'} className='px-2 max-sm:px-1 border-x-2 border-transparent transition-all hover:border-primary min-sm:mt-4 tracking-wide hover:tracking-normal'>Buy The Best</Link>
 
-                    <Link to={'/supprot/privacy-policy'} className='px-2 max-sm:px-0 border-x-2 border-transparent transition-all hover:border-primary min-sm:mt-4 tracking-wide hover:tracking-normal'>Privacy Policy</Link>
+                    <Link to={'/supprot/privacy-policy'} className='px-2 max-sm:px-1 border-x-2 border-transparent transition-all hover:border-primary min-sm:mt-4 tracking-wide hover:tracking-normal'>Privacy Policy</Link>
 
-                    <Link to={'/supprot/terms-of-use'} className='px-2 max-sm:px-0 border-x-2 border-transparent transition-all hover:border-primary min-sm:mt-4 tracking-wide hover:tracking-normal'>Terms Of Use</Link>
+                    <Link to={'/supprot/terms-of-use'} className='px-2 max-sm:px-1 border-x-2 border-transparent transition-all hover:border-primary min-sm:mt-4 tracking-wide hover:tracking-normal'>Terms Of Use</Link>
 
                 </div>
 
