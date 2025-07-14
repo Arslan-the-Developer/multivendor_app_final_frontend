@@ -2,8 +2,8 @@ import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import api from '../../../axios';
-import { BarLoader } from 'react-spinners';
-import { motion } from 'motion/react';
+import { BarLoader, ScaleLoader } from 'react-spinners';
+import { motion, AnimatePresence } from 'motion/react';
 import { config } from 'dotenv';
 
 function UserLoginScreen() {
@@ -183,32 +183,32 @@ function UserLoginScreen() {
             </div>
           </div>
 
-        
-        <form onSubmit={handleStaffPassword} className={`${isTwoStepFormHidden ? 'hidden' : ''} font-product shadow-md flex flex-col items-center justify-center border-2 border-primary p-5 bg-white relative rounded-md`} style={{width : "25rem"}}>
 
-            <h1 className='text-xl font-product font-semibold tracking-wider mb-3 text-primary'>Two Factor Authentication</h1>
+          <motion.form initial={{opacity : 0, scale : 0.7}} animate={{opacity : 1, scale : 1}} exit={{opacity : 0, scale : 0.7}} onSubmit={handleStaffPassword} className={`${isTwoStepFormHidden ? 'hidden' : ''} font-product shadow-md flex flex-col items-center justify-center border-2 border-primary p-5 bg-white relative rounded-md`} style={{width : "25rem"}}>
 
-            <p className='w-full text-xs text-center mb-4 font-semibold tracking-wider text-yellow-600'>This Account Is Restricted Enter 2-Step Verification PIN</p>
+              <h1 className='text-xl font-product font-semibold tracking-wider mb-3 text-primary'>Two Factor Authentication</h1>
 
-            <div className='flex items-center justify-around mt-4'>
-              {[0, 1, 2, 3, 4].map((_, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  ref={(el) => (inputRefs.current[index] = el)} // Assign refs dynamically
-                  onInput={(e) => handleInput(e, index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  maxLength="1"
-                  className="border-2 border-primary w-14 h-14 focus:outline-none text-xl text-primary text-center mx-2 placeholder:text-primary rounded-md"
-                  required
-                  placeholder='-'
-                />
-              ))}
-            </div>
+              <p className='w-full text-xs text-center mb-4 font-semibold tracking-wider text-yellow-600'>This Account Is Restricted Enter 2-Step Verification PIN</p>
 
-            <button type="submit" disabled={isVerifyButtonDisabled} className='w-full mt-7 cursor-pointer h-12 bg-primary text-secondary transition outline-none flex items-center justify-center rounded-md'>{isVerifyButtonDisabled ? <BarLoader color="#ffffff" /> : "Verify"}</button>
+              <div className='flex items-center justify-around mt-4'>
+                {[0, 1, 2, 3, 4].map((_, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    ref={(el) => (inputRefs.current[index] = el)} // Assign refs dynamically
+                    onInput={(e) => handleInput(e, index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                    maxLength="1"
+                    className="border-2 border-primary w-14 h-14 focus:outline-none text-xl text-primary text-center mx-2 placeholder:text-primary rounded-md"
+                    required
+                    placeholder='-'
+                  />
+                ))}
+              </div>
 
-        </form>
+              <button type="submit" disabled={isVerifyButtonDisabled} className='w-full mt-7 cursor-pointer h-12 bg-primary text-secondary transition outline-none flex items-center justify-center rounded-md'>{isVerifyButtonDisabled ? <BarLoader color="#ffffff" /> : "Verify"}</button>
+
+          </motion.form>
 
     </section>
 
