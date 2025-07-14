@@ -24,8 +24,8 @@ function Footer() {
 
                         <div className='flex flex-col items-start justify-start ml-4'>
 
-                            <p className='text-primary font-semibold tracking-wider'>MON - FRI : 8am - 9pm</p>
-                            <p className='text-primary mt-1 text-[17px] tracking-wider'>+{'(92)'} 123 456 7890</p>
+                            <p className='text-primary font-semibold tracking-wider max-sm:text-sm'>MON - FRI : 8am - 9pm</p>
+                            <p className='text-primary mt-1 text-[17px] tracking-wider max-sm:text-sm'>+{'(92)'} 123 456 7890</p>
 
                         </div>
 
@@ -40,8 +40,8 @@ function Footer() {
 
                         <div className='flex flex-col items-start justify-start ml-4'>
 
-                            <p className='text-primary font-semibold tracking-wider'>Need Help?</p>
-                            <p className='text-primary mt-1 text-[17px] tracking-wide'>vcare@vendeezy.com</p>
+                            <p className='text-primary font-semibold tracking-wider max-sm:text-sm'>Need Help?</p>
+                            <p className='text-primary mt-1 text-[17px] tracking-wide max-sm:text-sm'>vcare@vendeezy.com</p>
 
                         </div>
 
