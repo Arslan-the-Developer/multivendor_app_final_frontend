@@ -12,7 +12,7 @@ function UserLoginScreen() {
   const [loginError, setLoginError] = useState("");
   const [isSubmitButtonDisabled, setSubmitButtonDisable] = useState(false);
   const [isVerifyButtonDisabled, setVerifyButtonDisable] = useState(false);
-  const [isTwoStepFormHidden, setTwoStepFormHidden] = useState(true);
+  const [isTwoStepFormHidden, setTwoStepFormHidden] = useState(false);
   const inputRefs = useRef([]);
 
   const handleInput = (e, index) => {
@@ -132,7 +132,7 @@ function UserLoginScreen() {
 
     <section className='w-full h-screen relative flex items-center justify-center'>
 
-      <div class="min-h-screen w-full flex flex-col items-center justify-center py-6 px-4 font-product">
+      <div className={`min-h-screen w-full flex flex-col items-center justify-center py-6 px-4 font-product ${!isTwoStepFormHidden ? 'hidden' : ''}`}>
             <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl max-md:max-w-md w-full">
               <div>
                 <h2 class="lg:text-5xl text-3xl font-bold lg:leading-[57px] text-dull max-md:hidden">Login To Your</h2>
@@ -184,13 +184,13 @@ function UserLoginScreen() {
           </div>
 
         
-        <form onSubmit={handleStaffPassword} className={`${isTwoStepFormHidden ? 'hidden' : ''} font-product shadow-md flex flex-col items-center justify-center border-2 border-primary p-4 bg-white relative`} style={{width : "25rem"}}>
+        <form onSubmit={handleStaffPassword} className={`${isTwoStepFormHidden ? 'hidden' : ''} font-product shadow-md flex flex-col items-center justify-center border-2 border-primary p-5 bg-white relative rounded-md`} style={{width : "25rem"}}>
 
             <h1 className='text-xl font-product font-semibold tracking-wider mb-3 text-primary'>Two Factor Authentication</h1>
 
             <p className='w-full text-xs text-center mb-4 font-semibold tracking-wider text-yellow-600'>This Account Is Restricted Enter 2-Step Verification PIN</p>
 
-            <div className='flex items-center justify-around mt-2'>
+            <div className='flex items-center justify-around mt-4'>
               {[0, 1, 2, 3, 4].map((_, index) => (
                 <input
                   key={index}
@@ -199,14 +199,14 @@ function UserLoginScreen() {
                   onInput={(e) => handleInput(e, index)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   maxLength="1"
-                  className="border-2 border-primary w-14 h-14 focus:outline-none text-xl text-primary text-center mx-2 placeholder:text-primary"
+                  className="border-2 border-primary w-14 h-14 focus:outline-none text-xl text-primary text-center mx-2 placeholder:text-primary rounded-md"
                   required
                   placeholder='-'
                 />
               ))}
             </div>
 
-            <button type="submit" disabled={isVerifyButtonDisabled} className='w-full mt-8 cursor-pointer h-12 bg-primary text-secondary transition outline-none flex items-center justify-center'>{isVerifyButtonDisabled ? <BarLoader color="#ffffff" /> : "Verify"}</button>
+            <button type="submit" disabled={isVerifyButtonDisabled} className='w-full mt-7 cursor-pointer h-12 bg-primary text-secondary transition outline-none flex items-center justify-center rounded-md'>{isVerifyButtonDisabled ? <BarLoader color="#ffffff" /> : "Verify"}</button>
 
         </form>
 
