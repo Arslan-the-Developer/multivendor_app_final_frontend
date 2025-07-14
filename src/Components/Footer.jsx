@@ -56,7 +56,7 @@ function Footer() {
 
                 <h2 className='text-2xl font-product tracking-wide font-semibold text-primary'>Support</h2>
 
-                <div className='flex min-sm:flex-col items-center justify-start mt-10 text-primary font-product max-sm:justify-around max-sm:mt-6 max-sm:text-sm max-sm:w-full'>
+                <div className='flex min-sm:flex-col items-center justify-start mt-10 text-primary font-product max-sm:justify-around max-sm:mt-6 max-sm:text-xs max-sm:w-full'>
 
                     <Link to={'/supprot/seller-tutorial'} className='px-2 max-sm:px-0 border-x-2 border-transparent transition-all hover:border-primary tracking-wide hover:tracking-normal'>Seller Tutorial</Link>
 
