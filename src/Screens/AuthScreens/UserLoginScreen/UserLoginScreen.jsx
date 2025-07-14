@@ -12,7 +12,7 @@ function UserLoginScreen() {
   const [loginError, setLoginError] = useState("");
   const [isSubmitButtonDisabled, setSubmitButtonDisable] = useState(false);
   const [isVerifyButtonDisabled, setVerifyButtonDisable] = useState(false);
-  const [isTwoStepFormHidden, setTwoStepFormHidden] = useState(false);
+  const [isTwoStepFormHidden, setTwoStepFormHidden] = useState(true);
   const inputRefs = useRef([]);
 
   const handleInput = (e, index) => {
