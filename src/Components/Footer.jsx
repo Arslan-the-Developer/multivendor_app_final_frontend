@@ -104,7 +104,7 @@ function Footer() {
 
         <div className='w-full h-20 flex items-center justify-center bg-[#eaeaea]'>
 
-            <p className='flex items-center font-product'>@{new Date().getFullYear()} <h1 className='font-lilita text-xl mx-3'>Vend<span className='text-primary'>ezy</span></h1> All Rights Reserved</p>
+            <p className='flex items-center font-product max-sm:text-sm'>@{new Date().getFullYear()} <h1 className='font-lilita text-xl mx-3'>Vend<span className='text-primary'>ezy</span></h1> All Rights Reserved</p>
 
         </div>
         
