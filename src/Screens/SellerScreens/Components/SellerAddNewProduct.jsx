@@ -12,49 +12,92 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
   const [thirdFormImage, setThirdFormImage] = useState(" ");
   const [isSubmitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
+  const [variants, setVariants] = useState([
+  {
+      images: [
+        { file: null, preview: null },
+        { file: null, preview: null },
+        { file: null, preview: null },
+      ],
+      name: '',
+      quantity: '',
+      price: '',
+    },
+  ]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [keywordsError, setKeywordsError] = useState("");
 
   const [tags, setTags] = useState([]);
-  const [input, setInput] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const inputRef = useRef(null);
 
-  const addTag = () => {
-    const value = input.trim();
-    if (value && !tags.includes(value) && tags.length < 5) {
-      setTags([...tags, value]);
-    }
-    setInput('');
+
+  const handleAddVariant = () => {
+    setVariants([
+      ...variants,
+      {
+        images: [
+          { file: null, preview: null },
+          { file: null, preview: null },
+          { file: null, preview: null },
+        ],
+        name: '',
+        quantity: '',
+        price: '',
+      },
+    ]);
   };
 
+  const handleRemoveVariant = index => {
+    if (variants.length <= 1) return;
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      addTag();
-    } else if (e.key === ',' || e.key === '.') {
-      e.preventDefault();
-    } else if (e.key === 'Backspace' && !input) {
-      setTags(tags.slice(0, -1));
-    }
+    // revoke all previews for that variant
+    variants[index].images.forEach(img => {
+      if (img.preview) URL.revokeObjectURL(img.preview);
+    });
+
+    setVariants(variants.filter((_, i) => i !== index));
   };
 
-  const handleKeywordsChange = (e) => {
-    setKeywordInput(e.target.value.replace(/[.,]/g, ''))
-  }
-  
+  const handleVariantChange = (index, field, value) => {
+    setVariants(variants.map((variant, i) => {
+          if (i !== index) return variant;
+          return { ...variant, [field]: value };
+        }));
+    };
 
-  const handleImageChange = (event, setImage) => {
+    const handleVariantImageChange = (variantIdx, imageIdx, file) => {
+      const preview = file ? URL.createObjectURL(file) : null;
 
-      const file = event.target.files[0];
-      
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          setImage(reader.result); // Set the image preview URL
-        };
-        reader.readAsDataURL(file); // Convert image file to base64 URL
-      }
+      setVariants(current =>
+        current.map((v, vi) => {
+          if (vi !== variantIdx) return v;
+
+          // revoke old preview for this slot
+          const old = v.images[imageIdx].preview;
+          if (old) URL.revokeObjectURL(old);
+
+          // build new images array
+          const newImages = v.images.map((slot, ii) =>
+            ii === imageIdx
+              ? { file, preview }
+              : slot
+          );
+
+          return { ...v, images: newImages };
+        })
+      );
+    };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const images = variants.map(v => v.image);
+    const names = variants.map(v => v.name);
+    const quantities = variants.map(v => v.quantity);
+    const prices = variants.map(v => v.price);
+    onSubmit({ images, names, quantities, prices });
   };
+
 
   async function GetSubCategories() {
 
@@ -75,151 +118,329 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
   }
 
   async function handleProductAdd(e) {
-
     e.preventDefault();
-
     setSubmitButtonDisabled(true);
 
-    let newProductData = new FormData(e.target);
-
-    try{
-
-      const response = await api.post("/api/create_product", newProductData);
-
-      setSubmitButtonDisabled(false);
-
-      onSuccess();
-      productFetchFunction({storeId : storeIDForFunction});
-
-    } catch(error){
-      
-      setErrorMessage(error.response ? error.response.data : error.message);
-
-      setSubmitButtonDisabled(false);
-
+    // 1️⃣ Validate keywords
+    if (tags.length < 5) {
+      setKeywordsError("– Enter at least 5 Keywords");
       setTimeout(() => {
-        setErrorMessage("");
-      }, 4000);
-
+        setKeywordsError("");
+        setSubmitButtonDisabled(false);
+      }, 2000);
+      return;
     }
 
+
+    const formData = new FormData();
+
+    formData.append("product_name", e.target.product_name.value);
+    formData.append("product_subcategory", e.target.product_subcategory.value);
+    formData.append("product_description", e.target.product_description.value);
+    formData.append("product_keywords", JSON.stringify(tags));
+
+
+    formData.append(
+      "product_variants",
+      JSON.stringify(
+        variants.map(({ name, quantity, price }) => ({
+          name,
+          quantity,
+          price,
+        }))
+      )
+    );
+
+
+    variants.forEach((variant, variantIndex) => {
+      variant.images.forEach((imgObj, imageIndex) => {
+        if (imgObj.file) {
+
+          console.log(`variant_${variantIndex}_image`);
+        
+          formData.append( `variant_${variantIndex}_image`, imgObj.file, imgObj.file.name );
+
+        }
+      });
+    });
     
+
+    try {
+      const response = await api.post("/api/create_test_product", formData);
+      setSubmitButtonDisabled(false);
+      onSuccess();
+      productFetchFunction({ storeId: storeIDForFunction });
+      console.log(response);
+    } catch (error) {
+      setErrorMessage(error.response?.data || error.message);
+      setSubmitButtonDisabled(false);
+      setTimeout(() => setErrorMessage(""), 4000);
+    }
+
+
+
+    // // 2️⃣ Build the FormData from scratch
+    // const fd = new FormData();
+
+    // // --- Scalar fields ---
+    // fd.append("product_name", e.target.product_name.value);
+    // fd.append("product_subcategory", e.target.product_subcategory.value);
+    // fd.append("product_description", e.target.product_description.value);
+
+    // // --- JSON fields ---
+    // fd.append("product_keywords", JSON.stringify(tags));
+    // fd.append(
+    //   "product_variants",
+    //   JSON.stringify(
+    //     variants.map(({ name, quantity, price }) => ({
+    //       name,
+    //       quantity,
+    //       price,
+    //     }))
+    //   )
+    // );
+
+    // // --- Append images for each variant ---
+    // variants.forEach((variant, vi) => {
+    //   variant.images
+    //     .filter(imgObj => imgObj.file)       // only real File objects
+    //     .forEach(imgObj => {
+    //       fd.append(`variant_${vi}_image`, imgObj.file, imgObj.file.name);
+    //     });
+    // });
+
+    // // 🔍 Debug: make sure your files are in there
+    // for (let [key, value] of fd.entries()) {
+    //   console.log(key, value instanceof File ? value.name : value);
+    // }
+
+    // // 3️⃣ Send without overriding Content-Type
+    // try {
+    //   const response = await api.post("/api/create_test_product", fd);
+    //   setSubmitButtonDisabled(false);
+    //   onSuccess();
+    //   productFetchFunction({ storeId: storeIDForFunction });
+    //   console.log(response);
+    // } catch (error) {
+    //   setErrorMessage(error.response?.data || error.message);
+    //   setSubmitButtonDisabled(false);
+    //   setTimeout(() => setErrorMessage(""), 4000);
+    // }
   }
+
+  const handleKeyDown = (e) => {
+    const val = inputValue.trim();
+
+    if (tags.length >= 5 && e.key !== 'Backspace') {
+      e.preventDefault();
+      return;
+    }
+
+    if (e.key === 'Enter' && val) {
+      e.preventDefault();
+      // add tag
+      if (tags.length < 5) {
+        setTags((prev) => [...prev, val]);
+      }
+      setInputValue('');
+    } else if (e.key === 'Backspace' && !val && tags.length) {
+      // remove last tag
+      setTags((prev) => prev.slice(0, prev.length - 1));
+    }
+  };
+
 
 
   useEffect(() => {
-
     GetSubCategories();
 
-  }, [])
+    return () => {
+      variants.forEach(v =>
+        v.images.forEach(img => {
+          if (img.preview) URL.revokeObjectURL(img.preview);
+        })
+      );
+    };
+    
+  }, [variants]);
 
   return (
 
-    <div className='w-full mt-2 items-center flex flex-col justify-start font-product motion-preset-slide-up motion-duration-500 relative'>
+    <div className='w-full flex flex-col items-start justify-start py-6 font-product overflow-scroll custom-scrollbar h-screen'>
 
-      <h2 className={`absolute -top-9 text-xl text-red-500 transition-all duration-300 ${errorMessage === "" ? "opacity-0" : "opacity-1"}`}>{errorMessage}</h2>
+      <form className='w-full h-[90%] flex flex-col items-start justify-start' type='multipart/form-data' onSubmit={handleProductAdd}>
+      
+        <div className='w-full flex h-full items-start justify-between'>
 
-      <form onSubmit={handleProductAdd} className='flex flex-col items-center justify-center mt-5' encType='multipart/form-data'>
+          <div className='w-[64%] border-2 h-full border-less-primary rounded-md flex flex-col items-start justify-start p-4'>
 
-        <div className='flex items-center justify-center'>
+            <h3 className='text-primary text-xl font-semibold tracking-wide'>General Information</h3>
 
-          <div className='flex items-center justify-center relative transition-all hover:-translate-y-1'>
-            <input name='product_image' onChange={(e) => handleImageChange(e, setFirstFormImage)} className='w-32 h-32 opacity-0 rounded-xl cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
-            <img className='w-32 h-32 bg-transparent border-2 border-primary rounded-xl object-center object-cover absolute' src={firstFormImage} style={{zIndex : "2"}} />
-            <svg className='absolute' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={65} height={65} color={"#006964"} fill={"none"}>
-                <path d="M22 6.75C22.4142 6.75 22.75 6.41421 22.75 6C22.75 5.58579 22.4142 5.25 22 5.25V6.75ZM14 5.25C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75V5.25ZM18.75 2C18.75 1.58579 18.4142 1.25 18 1.25C17.5858 1.25 17.25 1.58579 17.25 2H18.75ZM17.25 10C17.25 10.4142 17.5858 10.75 18 10.75C18.4142 10.75 18.75 10.4142 18.75 10H17.25ZM22 5.25H18V6.75H22V5.25ZM18 5.25H14V6.75H18V5.25ZM17.25 2V6H18.75V2H17.25ZM17.25 6V10H18.75V6H17.25Z" fill="currentColor" />
-                <path d="M11.5 3C7.02166 3 4.78249 3 3.39124 4.39124C2 5.78249 2 8.02166 2 12.5C2 16.9783 2 19.2175 3.39124 20.6088C4.78249 22 7.02166 22 11.5 22C15.9783 22 18.2175 22 19.6088 20.6088C21 19.2175 21 16.9783 21 12.5V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M2 14.1354C2.61902 14.0455 3.24484 14.0011 3.87171 14.0027C6.52365 13.9466 9.11064 14.7729 11.1711 16.3342C13.082 17.7821 14.4247 19.7749 15 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                <path d="M21 16.8962C19.8246 16.3009 18.6088 15.9988 17.3862 16.0001C15.5345 15.9928 13.7015 16.6733 12 18" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-            </svg>
-          </div>
+            <div className='w-full flex items-center justify-between mt-5'>
 
-          <div className='flex items-center justify-center relative transition-all hover:-translate-y-1'>
-            <input name='product_image' onChange={(e) => handleImageChange(e, setSecondFormImage)} className='w-32 h-32 opacity-0 rounded-xl mx-10 cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
-            <img className='w-32 h-32 bg-transparent border-2 border-primary rounded-xl object-center object-cover absolute' src={secondFormImage} style={{zIndex : "2"}} />
-            <svg className='absolute' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={65} height={65} color={"#006964"} fill={"none"}>
-                <path d="M22 6.75C22.4142 6.75 22.75 6.41421 22.75 6C22.75 5.58579 22.4142 5.25 22 5.25V6.75ZM14 5.25C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75V5.25ZM18.75 2C18.75 1.58579 18.4142 1.25 18 1.25C17.5858 1.25 17.25 1.58579 17.25 2H18.75ZM17.25 10C17.25 10.4142 17.5858 10.75 18 10.75C18.4142 10.75 18.75 10.4142 18.75 10H17.25ZM22 5.25H18V6.75H22V5.25ZM18 5.25H14V6.75H18V5.25ZM17.25 2V6H18.75V2H17.25ZM17.25 6V10H18.75V6H17.25Z" fill="currentColor" />
-                <path d="M11.5 3C7.02166 3 4.78249 3 3.39124 4.39124C2 5.78249 2 8.02166 2 12.5C2 16.9783 2 19.2175 3.39124 20.6088C4.78249 22 7.02166 22 11.5 22C15.9783 22 18.2175 22 19.6088 20.6088C21 19.2175 21 16.9783 21 12.5V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M2 14.1354C2.61902 14.0455 3.24484 14.0011 3.87171 14.0027C6.52365 13.9466 9.11064 14.7729 11.1711 16.3342C13.082 17.7821 14.4247 19.7749 15 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                <path d="M21 16.8962C19.8246 16.3009 18.6088 15.9988 17.3862 16.0001C15.5345 15.9928 13.7015 16.6733 12 18" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-            </svg>
-          </div>
-
-          <div className='flex items-center justify-center relative transition-all hover:-translate-y-1'>
-            <input name='product_image' onChange={(e) => handleImageChange(e, setThirdFormImage)} className='w-32 h-32 opacity-0 rounded-xl cursor-pointer' type="file" accept='.png, .jpg, .jpeg' required style={{zIndex : "3"}} />
-            <img className='w-32 h-32 bg-transparent border-2 border-primary rounded-xl object-center object-cover absolute' src={thirdFormImage} style={{zIndex : "2"}} />
-            <svg className='absolute' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={65} height={65} color={"#006964"} fill={"none"}>
-                <path d="M22 6.75C22.4142 6.75 22.75 6.41421 22.75 6C22.75 5.58579 22.4142 5.25 22 5.25V6.75ZM14 5.25C13.5858 5.25 13.25 5.58579 13.25 6C13.25 6.41421 13.5858 6.75 14 6.75V5.25ZM18.75 2C18.75 1.58579 18.4142 1.25 18 1.25C17.5858 1.25 17.25 1.58579 17.25 2H18.75ZM17.25 10C17.25 10.4142 17.5858 10.75 18 10.75C18.4142 10.75 18.75 10.4142 18.75 10H17.25ZM22 5.25H18V6.75H22V5.25ZM18 5.25H14V6.75H18V5.25ZM17.25 2V6H18.75V2H17.25ZM17.25 6V10H18.75V6H17.25Z" fill="currentColor" />
-                <path d="M11.5 3C7.02166 3 4.78249 3 3.39124 4.39124C2 5.78249 2 8.02166 2 12.5C2 16.9783 2 19.2175 3.39124 20.6088C4.78249 22 7.02166 22 11.5 22C15.9783 22 18.2175 22 19.6088 20.6088C21 19.2175 21 16.9783 21 12.5V12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M2 14.1354C2.61902 14.0455 3.24484 14.0011 3.87171 14.0027C6.52365 13.9466 9.11064 14.7729 11.1711 16.3342C13.082 17.7821 14.4247 19.7749 15 22" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                <path d="M21 16.8962C19.8246 16.3009 18.6088 15.9988 17.3862 16.0001C15.5345 15.9928 13.7015 16.6733 12 18" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-            </svg>
-          </div>
-
-        </div>
-
-        <hr className='w-3/5 border border-less-primary my-8' />
-
-        <div className='flex items-start justify-start'>
-
-          <div className='flex flex-col items-center justify-center'>
-
-            <input name='product_name' className='p-3 bg-less-primary placeholder:text-primary rounded-sm w-96 outline-none text-primary' type="text" placeholder='Product Name' required />
-            <textarea name="product_description" className='p-3 bg-less-primary placeholder:text-primary mt-6 rounded-sm w-96 resize-none h-28 outline-none text-primary' placeholder='Product Description' required></textarea>
-
-          </div>
-
-          <hr className='h-full border border-less-primary mx-8' />
-
-          <div className='flex flex-col items-start justify-start'>
-
-            <input name='product_quantity' onInput={(e) => {
-              let value = e.target.value.replace(/[^0-9]/g, "");
-              e.target.value = value.slice(0, 4);
-            }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm text-start items-start justify-start w-96 outline-none text-primary' type="text" placeholder='Product Quantity' required />
-
-            <textarea name="product_keywords" className='p-3 bg-less-primary placeholder:text-primary mt-6 rounded-sm w-96 resize-none h-28 outline-none text-primary' placeholder='Enter Comma Seperated Keywords...' required></textarea>
-
-          </div>
-
-        </div>
-
-        <div className='flex items-center justify-between w-full'>
-
-
-          <select name='product_subcategory' id="dropdown" defaultValue={"default"} className='w-96 py-3 px-2 bg-less-primary outline-none rounded-sm text-primary mt-6 font-product' required>
-
+              <div className='w-[49.3%] flex flex-col items-start justify-start'>
+                <label className='cursor-pointer' htmlFor="pr_name">Product Name</label>
+                <input name='product_name' id='pr_name' className='bg-less-primary px-2 py-[12px] rounded-md w-full mt-1 placeholder:text-primary text-primary outline-none' type="text" placeholder='Product Name' required/>
+              </div>
+              
+              
+              <div className='w-[49.3%] flex flex-col items-start justify-start'>
+                <label className='cursor-pointer' htmlFor="dropdown">Product Category</label>
+                <select name="product_subcategory" id="dropdown" defaultValue="" className="bg-less-primary px-2 py-[13px] mt-1 rounded-md w-full placeholder:text-primary text-primary outline-none" required >
                   {
                     subCategories.length === 0 ? (
-
-                      <option selected value="">Loading....</option>
-
+                      <option value="">Loading....</option>
                     ) : (
                       <>
-                        <option value="default" className='font-monty uppercase' disabled>Subcategories For '{subCategories?.parent_category}'</option>
-                        {
-                          subCategories?.sub_categories.map((sub_category) => (
-                            <option value={`${sub_category}`}>{sub_category}</option>
-                          ))
-                        }
+                        <option value="" disabled>
+                          Subcategories For '{subCategories?.parent_category}'
+                        </option>
+                        {subCategories?.sub_categories.map((sub_category) => (
+                          <option key={sub_category} value={sub_category}>
+                            {sub_category}
+                          </option>
+                        ))}
                       </>
-
                     )
                   }
+                </select>
+              </div>
 
 
-            </select>
-
-          <input name='product_price' onInput={(e) => {
-              let value = e.target.value.replace(/[^0-9]/g, "");
-              e.target.value = value.slice(0, 7);
-            }} className='p-3 bg-less-primary placeholder:text-primary rounded-sm w-96 outline-none text-primary mt-6' type="text" placeholder='Product Price (Rs)' required />
+            </div>
             
+            <div className='w-full flex flex-col items-start justify-start mt-5'>
+              <label className='cursor-pointer' htmlFor="pr_ds">Product Description</label>
+              <textarea id='pr_ds' className='w-full bg-less-primary mt-2 rounded-md p-2 resize-none text-primary placeholder:text-primary outline-none h-35' placeholder='Write Details Of Your High Quality Product...' name="product_description" required></textarea>
+            </div>
+            
+
+            
+
+
+            <div className='w-full flex flex-col items-start justify-start mt-5'>
+              <label className='cursor-pointer' htmlFor="pr_ds_in">Product Keywords <span className='text-red-500'>{keywordsError}</span></label>
+
+              <label htmlFor="pr_ds_in" className="w-full bg-less-primary mt-2 rounded-md p-2 outline-none h-30 relative">
+
+                <div className="flex flex-wrap gap-2 mb-1">
+
+                  {
+                    tags.map((tag, idx) => (
+                      
+                      <div key={idx} className="flex items-center bg-less-primary text-primary px-2 py-1 rounded">
+                        {tag}
+                      </div>
+
+                    ))
+                  }
+
+                  <input id="pr_ds_in" type="text" placeholder={tags.length >= 5 ? `Maximum 5 Keywords Can Be Entered` : 'Enter Keywords For Your Product...' } value={inputValue} onChange={(e) => {if(tags.length < 5){setInputValue(e.target.value);}}} onKeyDown={handleKeyDown}  className="flex-grow outline-none text-primary placeholder:text-primary min-w-[8rem] disabled:cursor-not-allowed disabled:opacity-50" />
+
+                </div>
+              </label>
+            </div>
+            
+
+          </div>
+          
+          <div className='w-[34%] rounded-md flex flex-col items-start justify-start p-4 border-2 border-less-primary h-full'>
+
+            <div className='flex items-center justify-center relative w-full'>
+
+              <h3 className='w-full text-center text-xl font-semibold tracking-wide text-primary'>Product Variants</h3>
+              <button onClick={handleAddVariant} type='button' className='absolute right-0 cursor-pointer transition-all hover:rotate-90 hover:scale-110' title='Add Variant'>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={28} height={28} color={"#006964"} fill={"none"}>
+                      <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M12 8V16M16 12H8" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+              </button>
+
+            </div>
+
+            <div className='w-full flex flex-col items-center justify-start mt-2 relative overflow-y-scroll h-full no-scrollbar'>
+
+              {variants.map((variant, vIdx) => (
+                <div key={vIdx} className="flex flex-col items-center justify-center w-full mt-5">
+                  <div className='w-full flex items-center justify-between'>
+                    {variant.images.map((slot, imgIdx) => (
+                      <div key={imgIdx} className="relative w-30 h-30 rounded-sm overflow-hidden">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          onChange={e =>
+                            handleVariantImageChange(vIdx, imgIdx, e.target.files[0])
+                          }
+                          style={{zIndex : 3}}
+                          required
+                        />
+                        {!slot.preview && (
+                          <div className="absolute inset-0 flex items-center justify-center border-3 border-less-primary rounded-sm" style={{zIndex : 1}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={50} height={50} color={"#006964"} fill={"none"}>
+                                <path d="M3 16L7.46967 11.5303C7.80923 11.1908 8.26978 11 8.75 11C9.23022 11 9.69077 11.1908 10.0303 11.5303L14 15.5M15.5 17L14 15.5M21 16L18.5303 13.5303C18.1908 13.1908 17.7302 13 17.25 13C16.7698 13 16.3092 13.1908 15.9697 13.5303L14 15.5" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M12 2.5C7.77027 2.5 5.6554 2.5 4.25276 3.69797C4.05358 3.86808 3.86808 4.05358 3.69797 4.25276C2.5 5.6554 2.5 7.77027 2.5 12C2.5 16.2297 2.5 18.3446 3.69797 19.7472C3.86808 19.9464 4.05358 20.1319 4.25276 20.302C5.6554 21.5 7.77027 21.5 12 21.5C16.2297 21.5 18.3446 21.5 19.7472 20.302C19.9464 20.1319 20.1319 19.9464 20.302 19.7472C21.5 18.3446 21.5 16.2297 21.5 12" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M21.5 6H18M18 6H14.5M18 6V2.5M18 6V9.5" stroke="#006964" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </div>
+                        )}
+                        {slot.preview && (
+                          <img
+                            src={slot.preview}
+                            alt={`Variant ${vIdx + 1} Image ${imgIdx + 1}`}
+                            className="absolute inset-0 w-full h-full object-cover rounded"
+                            style={{zIndex : 2}}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <hr className='border w-3/4 border-less-primary my-4' />
+
+                  <div className='w-full flex flex-col items-start justify-start'>
+                    <input
+                      type="text"
+                      placeholder={`Variant ${vIdx + 1} Name`}
+                      onChange={e => handleVariantChange(vIdx, 'name', e.target.value)}
+                      className="w-full py-3 px-4 bg-less-primary rounded-sm text-primary placeholder:text-primary outline-none"
+                      required
+                    />
+                    <div className='w-full flex items-center justify-between overflow-hidden mt-2'>
+                      <input
+                        type="number"
+                        placeholder="Qty"
+                        onChange={e => handleVariantChange(vIdx, 'quantity', e.target.value)}
+                        className="w-[49%] px-2 py-3 text-center rounded-sm bg-less-primary text-primary placeholder:text-primary outline-none dis-num-buttons"
+                        required
+                      />
+                      <input
+                        type="number"
+                        placeholder="Price"
+                        onChange={e => handleVariantChange(vIdx, 'price', e.target.value)}
+                        className="w-[49%] px-2 py-3 text-center rounded-sm bg-less-primary text-primary placeholder:text-primary outline-none dis-num-buttons"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {variants.length > 1 && (
+                    <button onClick={() => handleRemoveVariant(vIdx)} className="mt-2 w-full bg-red-500 py-3 rounded-sm text-white">
+                      Remove
+                    </button>
+                  )}
+                  
+                  <hr className='w-3/4 border border-less-primary mt-4' />
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
         </div>
 
-
-        <button disabled={isSubmitButtonDisabled} className='w-72 bg-primary h-14 flex items-center justify-center text-secondary text-xl rounded-sm mt-8' type="submit">{isSubmitButtonDisabled ? <BarLoader color='#ffffff' /> : "Add"}</button>
-
+        <button type="submit" className='w-full py-3 bg-primary text-white mt-3 rounded-sm'>Save</button>
       </form>
 
     </div>

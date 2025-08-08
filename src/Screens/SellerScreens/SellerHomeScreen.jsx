@@ -126,19 +126,7 @@ function SellerHomeScreen() {
         const handleKeyDown = (event) => {
         keyRef.current = event.keyCode;
 
-        if (event.ctrlKey && keyRef.current === 66) {
-            
-            event.preventDefault();
-            
-            event.stopPropagation();
-      
-            console.log('Ctrl + b pressed!');
-
-            setSidebarOpen((prevState) => !prevState);
-
-            console.log('isSidebarOpened:', isSidebarOpened);
-
-          } else if (event.ctrlKey && keyRef.current === 75) {
+          if(event.ctrlKey && keyRef.current === 75) {
             
             event.preventDefault();
 
@@ -186,35 +174,18 @@ function SellerHomeScreen() {
 
             <section className='w-full h-screen flex items-start justify-start overflow-hidden'>
 
-                <nav className={isSidebarOpened ? 'w-1/4 p-3 h-screen flex flex-col items-center justify-start bg-white relative transition-all duration-300' : 'w-12 h-screen flex items-center justify-center bg-white transition-all duration-300'} >
+                <nav className={'w-[20%] p-3 h-screen flex flex-col items-center justify-start bg-white relative transition-all duration-300'}>
 
-                    {
-                        isSidebarOpened ? (
-                            <>
-                                <button onClick={() => {setSidebarOpen(false)}} className={`cursor-pointer absolute bg-white w-6 rounded-e-md h-40 transition flex items-center justify-center group`} style={{top : "50%", right : "-10%", transform : "translate(-50%, -50%)", zIndex : "3"}} title='Close Sidebar'>
-                                    <svg className='group-hover:scale-125 transition' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#006964"} fill={"none"}>
-                                        <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                </button>
-                                <p className='font-lilita mt-2 text-3xl'>Vend<span className="text-primary">ezy</span></p>
-                                <div className='w-full flex items-center justify-start flex-col mt-8'>
-                                    <button onClick={() => SetTabAsActive('dashboard')} className={`w-full py-4 text-dull transition-all duration-300 ${isDashboardTabActive ? "bg-less-primary text-primary font-semibold rounded-md" : ""}`}>Dashboard</button>
-                                    <button onClick={() => SetTabAsActive('products')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 ${isProductsTabActive ? "bg-less-primary text-primary font-semibold rounded-md" : ""}`}>Products</button>
-                                    <button onClick={() => SetTabAsActive('sales')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 ${isSalesTabActive ? "bg-less-primary text-primary font-semibold rounded-md" : ""}`}>Sales</button>
-                                    <button onClick={() => SetTabAsActive('orders')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 ${isOrdersTabActive ? "bg-less-primary text-primary font-semibold rounded-md" : ""}`}>Orders</button>
-                                    <button onClick={() => SetTabAsActive('earnings')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 ${isEarningsTabActive ? "bg-less-primary text-primary font-semibold rounded-md" : ""}`}>Earnings</button>
-                                </div>
-                            </>
-                        ) : (
-                            <button onClick={() => {setSidebarOpen(true)}} className={'cursor-pointer transition hover:translate-x-1 hover:scale-110 absolute'} title='Open Sidebar'>
-                                
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
-                                    <path d="M12.5 18C12.5 18 18.5 13.5811 18.5 12C18.5 10.4188 12.5 6 12.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M5.50005 18C5.50005 18 11.5 13.5811 11.5 12C11.5 10.4188 5.5 6 5.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-                        )
-                    }
+                        <>
+                            <p className='font-lilita mt-2 text-3xl'>Vend<span className="text-primary">ezy</span></p>
+                            <div className='w-full flex items-center justify-start flex-col mt-8 font-product tracking-wide text-[17px]'>
+                                <button onClick={() => SetTabAsActive('dashboard')} className={`w-full py-4 text-dull transition-all duration-300 hover:bg-less-primary rounded-md cursor-pointer ${isDashboardTabActive ? "bg-less-primary text-primary" : ""}`}>Dashboard</button>
+                                <button onClick={() => SetTabAsActive('products')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 hover:bg-less-primary rounded-md cursor-pointer ${isProductsTabActive ? "bg-less-primary text-primary" : ""}`}>Products</button>
+                                <button onClick={() => SetTabAsActive('sales')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 hover:bg-less-primary rounded-md cursor-pointer ${isSalesTabActive ? "bg-less-primary text-primary" : ""}`}>Sales</button>
+                                <button onClick={() => SetTabAsActive('orders')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 hover:bg-less-primary rounded-md cursor-pointer ${isOrdersTabActive ? "bg-less-primary text-primary" : ""}`}>Orders</button>
+                                <button onClick={() => SetTabAsActive('earnings')} className={`w-full py-4 mt-1 text-dull transition-all duration-300 hover:bg-less-primary rounded-md cursor-pointer ${isEarningsTabActive ? "bg-less-primary text-primary" : ""}`}>Earnings</button>
+                            </div>
+                        </>
 
                 </nav>
 

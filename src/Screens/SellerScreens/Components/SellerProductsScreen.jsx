@@ -148,7 +148,7 @@ function SellerProductsScreen({STORE_ID}) {
                   onClick={() => showSelectedProduct(product)}
                 >
   
-                  <img className="w-24 h-24 object-cover object-center" src={`${product.product_images[0]?.image}`} alt={product.product_name}/>
+                  <img className="w-26 h-26 object-cover object-center" src={`${product.product_variants[0]?.variant_images[0]?.variant_image}`} alt={product.product_name} />
   
                   <hr className="border border-gray-300 h-3/4 mx-4" />
                   

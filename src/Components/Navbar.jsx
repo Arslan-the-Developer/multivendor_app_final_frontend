@@ -308,7 +308,7 @@ function Navbar() {
             id="search_box"
             type="text"
             placeholder="Search Products . . . ."
-            className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full"
+            className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full "
             value={searchText}
             onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
           />

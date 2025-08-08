@@ -8,6 +8,7 @@ import CategoriesSection from './Components/CategoriesSection';
 import TrendingProductsSlider from './Components/TrendingProductsSlider';
 import TrustSection from './Components/TrustSection';
 import ShopBySellersSection from './Components/ShopBySellersSection';
+import FacilitiesSection from './Components/FacilitiesSection';
 import Footer from '../../Components/Footer';
 
 
@@ -25,6 +26,7 @@ function HomeScreen() {
      <TrendingProductsSlider />
      <TrustSection />
      <ShopBySellersSection />
+     <FacilitiesSection />
      <Footer />
     </>
 

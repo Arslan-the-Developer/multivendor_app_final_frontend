@@ -3,7 +3,7 @@ import { delay, motion } from 'motion/react';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
-import { BarLoader } from 'react-spinners'
+import { BarLoader, PuffLoader } from 'react-spinners'
 import Navbar from '../../Components/Navbar';
 
 
@@ -21,6 +21,7 @@ function ProductDetailsScreen() {
     const [showBuyForm, setShowBuyForm] = useState(false);
     const [showChangeAddressForm, setShowChangeAddressForm] = useState(false);
     const [isOrderBeingCreated, setOrderBeingCreated] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
 
 
     const navigate = useNavigate();
@@ -34,6 +35,8 @@ function ProductDetailsScreen() {
             const response = await api.post("/api/get_product_details", {product_id : product_id});
 
             setProductDetails(response.data);
+
+            setSelectedImage(response.data.product_variants[0].variant_images[0].variant_image);
 
             setLoading(false);
 
@@ -115,7 +118,13 @@ function ProductDetailsScreen() {
 
   return Loading ? (
 
-    <h2>Loading Product Details</h2>
+    <div className='w-full h-screen flex flex-col items-center justify-center relative'>
+
+        <PuffLoader color='#006964' size={75} />
+
+        <p className='font-product mt-5 text-xl text-primary'>Patience Is Appreciated..</p>
+
+    </div>
 
 ) : (
 
@@ -123,7 +132,7 @@ function ProductDetailsScreen() {
 
     <Navbar />
 
-    <section className='w-full flex flex-col items-center justify-center relative' style={{height : "90vh"}}>
+    <section className='w-full flex flex-col items-center justify-center relative'>
 
         {
             showBuyForm && showChangeAddressForm ? (
@@ -159,14 +168,14 @@ function ProductDetailsScreen() {
         {
             showBuyForm ? (
 
-                <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-full h-full absolute flex items-center justify-center' style={{backgroundColor : "#0000003b"}}>
+                <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-full absolute flex items-center justify-center' style={{backgroundColor : "#0000003b", zIndex : 30, height : "111vh"}}>
 
                     <form onSubmit={(e) => CreateOrder(e)} initial={{opacity : 0, scale : 0}} animate={{opacity : 1, scale : 1, delay : 1}} className='w-110 h-120 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-2'>
 
                         <div className='w-full h-1/3 flex items-center justify-start'>
 
                         {
-                            productDetails.product_images?.length > 0 ? (
+                            productDetails.product_variants?.length > 0 ? (
 
                                 <img className='w-30 h-30 object-contain object-center' src={`${productDetails.product_images[0].image}`} alt={productDetails.product_name}/>
 
@@ -289,7 +298,94 @@ function ProductDetailsScreen() {
             ) : ""
         }
 
-        {
+        <div className='w-full mt-10 py-4 px-20 flex flex-col items-start justify-start max-lg:px-5'>
+
+            <p className='font-product tracking-wide text-primary'>Electronics {'>'} Headphones {'>'} Product Name</p>
+
+            <div className='flex items-start justify-start mt-4'>
+
+                <div className='flex items-start justify-start w-125 h-100'>
+
+                    <div className='w-22 h-full mr-4 flex flex-col items-center justify-between'>
+
+                        {
+                            productDetails.product_variants[0]?.variant_images.map((image) => (
+
+                                <img className="w-22 h-22 border-2 border-transparent transition-all hover:border-less-primary rounded-md" src={`${image.variant_image}`} onClick={() => setSelectedImage(image.variant_image)} alt="Img" />
+
+                            ))
+                        }
+
+
+                    </div>
+
+                    <div className='w-100 h-100'>
+
+                        <img className='100 w-100 h-100 flex items-center justify-center object-center object-contain rounded-md' src={selectedImage} alt="" />
+
+                    </div>
+
+
+                </div>
+                
+                <div className='flex flex-col items-start justify-start pl-15 w-auto'>
+
+                    <h1 className='font-product text-2xl font-semibold tracking-wide text-primary'>{productDetails.product_name}</h1>
+                    
+                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{productDetails.product_price}/-</h1>
+
+                    <div className='mt-6 flex flex-col items-start justify-start font-product'>
+
+                        <p className='text-base font-semibold text-gray-500'>Product Variation</p>
+
+                        <div className='flex items-start justify-start mt-4'>
+
+                            <button className='w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white uppercase'>
+                                S
+                            </button>
+                            
+                            <button className='w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-dull ml-2 uppercase'>
+                                M
+                            </button>
+
+                            <button className='w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-dull ml-2 uppercase'>
+                                L
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div className='flex items-start justify-start mt-9'>
+
+                        <button disabled={showBuyForm} onClick={() => setShowBuyForm(true)} className='bg-primary rounded-sm font-product text-white flex items-center justify-center px-8 py-3 relative overflow-hidden group cursor-pointer'>
+                            <span className='w-1/3 h-100 bg-white blur-md opacity-30 absolute rotate-45 -left-20 transition-all group-hover:left-40 duration-200'></span>
+                            Buy Now
+                        </button>
+                        
+                        <button className='bg-primary rounded-sm font-product text-white flex items-center justify-center px-8 py-3 ml-2 relative group cursor-pointer overflow-hidden'>
+                            <span className='w-1/3 h-100 bg-white blur-md opacity-30 absolute rotate-45 -left-25 transition-all group-hover:left-45 duration-200'></span>
+                            Add To Cart
+                        </button>
+
+                    </div>
+
+                    <div className='flex flex-col items-start justify-start font-product mt-8'>
+
+                        <p className='text-base font-semibold text-gray-500'>Product Details</p>
+
+                        <p className='w-80  font-semibold mt-2 tracking-wide text-gray-500 text-sm'>{productDetails.product_description}</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        {/* {
         productDetails.product_images?.length > 0 ? (
 
             <div className='w-2/4 flex items-center justify-around'>
@@ -316,7 +412,7 @@ function ProductDetailsScreen() {
         
             <button disabled={showBuyForm} onClick={() => setShowBuyForm(true)} className='w-36 h-12 bg-primary text-secondary rounded-sm mt-4 transition-all cursor-pointer'>Buy Now</button>
 
-        </div>
+        </div> */}
 
 
     </section>
