@@ -83,8 +83,8 @@ function ProductCard({ product }) {
 
         <div className='w-full flex items-center justify-center relative' style={{height : "60%"}}>
 
-            <img className='object-contain object-center opacity-100 group-hover:scale-90 group-hover:opacity-0 transition' src={`${product.product_variants[0]?.variant_images[0]?.variant_image}`} alt="" style={{width : "70%", zIndex : 2}} />
-            <img className='object-contain object-center opacity-0 scale-110 group-hover:scale-100 group-hover:opacity-100 transition absolute' src={`${product.product_variants[0]?.variant_images[1]?.variant_image}`} alt="" style={{width : "70%", zIndex : 1}} />
+            <img className='object-contain object-center opacity-100 group-hover:scale-90 group-hover:opacity-0 transition' src={`${product.product_images[0]?.image}`} alt="" style={{width : "70%", zIndex : 2}} />
+            <img className='object-contain object-center opacity-0 scale-110 group-hover:scale-100 group-hover:opacity-100 transition absolute' src={`${product.product_images[1]?.image}`} alt="" style={{width : "70%", zIndex : 1}} />
 
         </div>
         
@@ -96,7 +96,7 @@ function ProductCard({ product }) {
 
             <Link to={`/store-details/${product.product_store.id}`} className='text-gray-500 text-xs transition-all max-sm:hidden hover:text-primary'>{product.product_store.store_name}</Link>
             <hr className='border border-gray-200 w-2 max-sm:hidden' />
-            <h3 className='text-primary'>{product.product_variants[0].variant_price}/-</h3>
+            <h3 className='text-primary'>{product.product_base_price}/-</h3>
 
             </span>
             </h3>

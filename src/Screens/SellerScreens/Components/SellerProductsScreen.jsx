@@ -89,7 +89,7 @@ function SellerProductsScreen({STORE_ID}) {
           storeProducts.length === 0 ? "" : (
         
             <div className='absolute right-0 motion-preset-slide-down'>
-              <button onClick={isAddingNewProduct ? () => {setAddingNewProduct(false); setBaseTitle("Products")} : () => {setAddingNewProduct(true); setBaseTitle("New Product"); setProductFlowTitle("");}} className={`w-28 h-11 rounded-md transition-all ${isAddingNewProduct ? "bg-red-500 text-secondary" : "bg-less-primary text-primary hover:bg-primary hover:text-secondary"}`}>{`${isAddingNewProduct ? "Cancel" : "Add New"}`}</button>
+              <button onClick={isAddingNewProduct ? () => {setAddingNewProduct(false); setBaseTitle("Products")} : () => {setAddingNewProduct(true); setBaseTitle("New Product"); setProductFlowTitle("");}} className={`w-28 h-10 rounded-md transition-all ${isAddingNewProduct ? "bg-red-500 text-secondary" : "bg-less-primary text-primary hover:bg-primary hover:text-secondary"}`}>{`${isAddingNewProduct ? "Cancel" : "Add New"}`}</button>
             </div>
 
           )
@@ -148,7 +148,7 @@ function SellerProductsScreen({STORE_ID}) {
                   onClick={() => showSelectedProduct(product)}
                 >
   
-                  <img className="w-26 h-26 object-cover object-center" src={`${product.product_variants[0]?.variant_images[0]?.variant_image}`} alt={product.product_name} />
+                  <img className="w-26 h-26 object-cover object-center" src={`${product.product_images[0]?.image}`} alt={product.product_name} />
   
                   <hr className="border border-gray-300 h-3/4 mx-4" />
                   

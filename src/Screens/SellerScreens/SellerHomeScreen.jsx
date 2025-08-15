@@ -174,7 +174,7 @@ function SellerHomeScreen() {
 
             <section className='w-full h-screen flex items-start justify-start overflow-hidden'>
 
-                <nav className={'w-[20%] p-3 h-screen flex flex-col items-center justify-start bg-white relative transition-all duration-300'}>
+                <nav className={'w-[25%] p-3 h-screen flex flex-col items-center justify-start bg-white relative transition-all duration-300'}>
 
                         <>
                             <p className='font-lilita mt-2 text-3xl'>Vend<span className="text-primary">ezy</span></p>

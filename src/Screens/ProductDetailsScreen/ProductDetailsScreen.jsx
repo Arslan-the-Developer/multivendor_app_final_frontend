@@ -22,6 +22,7 @@ function ProductDetailsScreen() {
     const [showChangeAddressForm, setShowChangeAddressForm] = useState(false);
     const [isOrderBeingCreated, setOrderBeingCreated] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
+    const [selectedVariant, setSelectedVariant] = useState({});
 
 
     const navigate = useNavigate();
@@ -37,6 +38,8 @@ function ProductDetailsScreen() {
             setProductDetails(response.data);
 
             setSelectedImage(response.data.product_variants[0].variant_images[0].variant_image);
+
+            setSelectedVariant(response.data.product_variants[0]);
 
             setLoading(false);
 
@@ -309,7 +312,7 @@ function ProductDetailsScreen() {
                     <div className='w-22 h-full mr-4 flex flex-col items-center justify-between'>
 
                         {
-                            productDetails.product_variants[0]?.variant_images.map((image) => (
+                            selectedVariant?.variant_images.map((image) => (
 
                                 <img className="w-22 h-22 border-2 border-transparent transition-all hover:border-less-primary rounded-md" src={`${image.variant_image}`} onClick={() => setSelectedImage(image.variant_image)} alt="Img" />
 
@@ -332,7 +335,7 @@ function ProductDetailsScreen() {
 
                     <h1 className='font-product text-2xl font-semibold tracking-wide text-primary'>{productDetails.product_name}</h1>
                     
-                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{productDetails.product_price}/-</h1>
+                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{productDetails.product_variants[0].variant_price}/-</h1>
 
                     <div className='mt-6 flex flex-col items-start justify-start font-product'>
 
@@ -340,17 +343,19 @@ function ProductDetailsScreen() {
 
                         <div className='flex items-start justify-start mt-4'>
 
-                            <button className='w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white uppercase'>
-                                S
-                            </button>
-                            
-                            <button className='w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-dull ml-2 uppercase'>
-                                M
-                            </button>
+                            {
+                                productDetails.product_variants.map((variant, index) => (
+                                    <button
+                                    key={index}
+                                    className={`px-4 py-1 rounded-sm flex items-center justify-center uppercase cursor-pointer 
+                                        ${selectedVariant?.variant_name === variant.variant_name ? 'bg-primary text-white' : 'bg-gray-200 text-black'}`}
+                                    onClick={() => setSelectedVariant(variant)}
+                                    >
+                                    {variant.variant_name}
+                                    </button>
+                                ))
+                            }
 
-                            <button className='w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-dull ml-2 uppercase'>
-                                L
-                            </button>
 
                         </div>
 
