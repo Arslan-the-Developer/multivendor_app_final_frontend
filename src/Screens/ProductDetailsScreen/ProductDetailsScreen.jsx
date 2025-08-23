@@ -37,9 +37,9 @@ function ProductDetailsScreen() {
 
             setProductDetails(response.data);
 
-            setSelectedImage(response.data.product_variants[0].variant_images[0].variant_image);
+            setSelectedImage(response.data.product_images[0].image);
 
-            setSelectedVariant(response.data.product_variants[0]);
+            setSelectedVariant(response.data.variant_categories[0].variants[0]);
 
             setLoading(false);
 
@@ -173,19 +173,13 @@ function ProductDetailsScreen() {
 
                 <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-full absolute flex items-center justify-center' style={{backgroundColor : "#0000003b", zIndex : 30, height : "111vh"}}>
 
-                    <form onSubmit={(e) => CreateOrder(e)} initial={{opacity : 0, scale : 0}} animate={{opacity : 1, scale : 1, delay : 1}} className='w-110 h-120 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-2'>
+                    <form onSubmit={(e) => CreateOrder(e)} initial={{opacity : 0, scale : 0}} animate={{opacity : 1, scale : 1, delay : 1}} className='w-110 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-2'>
 
                         <div className='w-full h-1/3 flex items-center justify-start'>
 
-                        {
-                            productDetails.product_variants?.length > 0 ? (
 
                                 <img className='w-30 h-30 object-contain object-center' src={`${productDetails.product_images[0].image}`} alt={productDetails.product_name}/>
 
-                            ) : (
-                                <p>No images available for this product.</p>
-                            )
-                        }
 
                         <div className='flex flex-col items-start justify-start ml-5'>
 
@@ -208,6 +202,25 @@ function ProductDetailsScreen() {
                         </div>
 
                         <div className='w-full h-3/4 flex flex-col items-center justify-start'>
+
+                            <div className='w-full flex flex-col items-center justify-center font-product'>
+                                {
+                                productDetails.variant_categories.map((variant_category, index) => (
+
+                                    <div key={index} className='w-full'>
+
+                                    <div className='flex items-center w-full justify-around mt-1'>
+
+                                        {variant_category.variants.map((variant, i) => (
+                                            <button key={i} className={`px-4 py-1 rounded-sm ${variant == selectedVariant ? "bg-primary text-white text-sm" : "bg-gray-200 text-dull"} ${i == 0 ? "ml-0" : "ml-2"}`} onClick={() => {setSelectedVariant(variant)}} >{variant.variant_name}</button>
+                                        ))}
+
+                                    </div>
+
+                                    </div>
+                                ))
+                                }
+                            </div>
 
                             <hr className='border border-gray-200 my-2 w-1/2' />
 
@@ -270,7 +283,7 @@ function ProductDetailsScreen() {
 
                                     <span className='w-14 mx-1 h-8 bg-gray-200 text-primary flex items-center justify-center'>{productBuyQuantity}</span>
 
-                                    <button onClick={() => { productBuyQuantity === productDetails.product_quantity ? setProductBuyQuantity(productBuyQuantity) :setProductBuyQuantity(productBuyQuantity + 1)}} type='button' className='w-8 h-8 bg-gray-200 flex items-center justify-center border-2 border-gray-200 cursor-pointer transition hover:border-gray-400'>
+                                    <button onClick={() => { productBuyQuantity === selectedVariant.variant_quantity ? setProductBuyQuantity(productBuyQuantity) : setProductBuyQuantity(productBuyQuantity + 1)}} type='button' className='w-8 h-8 bg-gray-200 flex items-center justify-center border-2 border-gray-200 cursor-pointer transition hover:border-gray-400'>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={15} height={15} color={"#000000"} fill={"none"}>
                                             <path d="M12 4V20M20 12H4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
@@ -280,7 +293,7 @@ function ProductDetailsScreen() {
                                 
                             </div>
 
-                            <h2 className='mt-4 font-product text-xl text-primary font-semibold'>{productBuyQuantity * productDetails.product_price} /-</h2>
+                            <h2 className='mt-4 font-product text-xl text-primary font-semibold'>{productBuyQuantity * productDetails.product_base_price+selectedVariant.extra_price} /-</h2>
 
                             <div className='w-full flex items-center justify-between mt-4'>
 
@@ -311,11 +324,11 @@ function ProductDetailsScreen() {
 
                     <div className='w-22 h-full mr-4 flex flex-col items-center justify-between'>
 
+
                         {
-                            selectedVariant?.variant_images.map((image) => (
+                            productDetails.product_images.map((image) => (
 
-                                <img className="w-22 h-22 border-2 border-transparent transition-all hover:border-less-primary rounded-md" src={`${image.variant_image}`} onClick={() => setSelectedImage(image.variant_image)} alt="Img" />
-
+                                <img className="w-22 h-22 border-2 border-transparent transition-all hover:border-less-primary rounded-md" src={`${image.image}`} onClick={() => {setSelectedImage(image.image)}} alt="Img" />
                             ))
                         }
 
@@ -335,7 +348,7 @@ function ProductDetailsScreen() {
 
                     <h1 className='font-product text-2xl font-semibold tracking-wide text-primary'>{productDetails.product_name}</h1>
                     
-                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{productDetails.product_variants[0].variant_price}/-</h1>
+                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{productDetails.product_base_price + selectedVariant.extra_price}/-</h1>
 
                     <div className='mt-6 flex flex-col items-start justify-start font-product'>
 
@@ -344,16 +357,22 @@ function ProductDetailsScreen() {
                         <div className='flex items-start justify-start mt-4'>
 
                             {
-                                productDetails.product_variants.map((variant, index) => (
-                                    <button
-                                    key={index}
-                                    className={`px-4 py-1 rounded-sm flex items-center justify-center uppercase cursor-pointer 
-                                        ${selectedVariant?.variant_name === variant.variant_name ? 'bg-primary text-white' : 'bg-gray-200 text-black'}`}
-                                    onClick={() => setSelectedVariant(variant)}
-                                    >
-                                    {variant.variant_name}
-                                    </button>
-                                ))
+                            productDetails.variant_categories.map((variant_category, index) => (
+
+                                <div key={index}>
+
+                                <h2>{variant_category.category_title}</h2>
+
+                                <div className='flex items-center justify-start mt-1'>
+
+                                    {variant_category.variants.map((variant, i) => (
+                                        <button key={i} className={`px-4 py-1 rounded-sm ${variant == selectedVariant ? "bg-primary text-white" : "bg-gray-200 text-dull"} ${i == 0 ? "ml-0" : "ml-2"}`} onClick={() => {setSelectedVariant(variant)}} >{variant.variant_name}</button>
+                                    ))}
+
+                                </div>
+
+                                </div>
+                            ))
                             }
 
 
