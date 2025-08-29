@@ -149,7 +149,7 @@ function OrderDetailsScreen() {
                                         
                                         <div className='w-1/4 h-full flex items-center justify-center font-product'>
 
-                                            <h2>{item.product.product_price}/-</h2>
+                                            <h2>{item.unit_price}/-</h2>
 
                                         </div>
 
@@ -176,7 +176,7 @@ function OrderDetailsScreen() {
                                 <div className='w-full flex items-center justify-between px-2'>
 
                                     <h2>Subtotal</h2>
-                                    <h2>{orderDetails.order_items.reduce((acc, item) => acc + (parseInt(item.product_quantity, 10) * parseInt(item.product.product_price, 10)), 0)}/-</h2>
+                                    <h2>{orderDetails.order_total}/-</h2>
 
                                 </div>
                                 

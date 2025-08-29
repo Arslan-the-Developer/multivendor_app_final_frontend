@@ -61,13 +61,13 @@ function ProductDetailsScreen() {
 
         try{
 
-            const response = await api.post("/api/create_user_product_order", {product_id : productDetails.id,order_product_quantity : productBuyQuantity,order_delivery_address : selectedAddress})
+            const response = await api.post("/api/create_user_product_order", {product_id : productDetails.id, variant_id : selectedVariant.id, order_product_quantity : productBuyQuantity, order_delivery_address : selectedAddress})
 
             console.log(response.data);
 
             setOrderBeingCreated(false);
 
-            navigate(`/order/${response.data['order_id']}/payment`);
+            navigate(`/order/order-details/${response.data['order_id']}`);
 
         } catch(error) {
 
@@ -111,6 +111,7 @@ function ProductDetailsScreen() {
         
     }
 
+
     useEffect(() => {
 
         GetProductDetails(productID);
@@ -140,7 +141,7 @@ function ProductDetailsScreen() {
         {
             showBuyForm && showChangeAddressForm ? (
 
-                <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-110 h-120 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-3 absolute overflow-y-scroll custom-scrollbar' style={{zIndex : "3"}}>
+                <motion.div initial={{opacity : 0, y : 10}} animate={{opacity : 100, y : 0}} transition={{duration : 0.2}} className='w-110 h-full bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-3 absolute overflow-y-scroll custom-scrollbar' style={{zIndex : 21}}>
                     <div className='h-1/10 w-full flex items-center justify-center relative'>
                         <button title='Close' className='absolute right-0 cursor-pointer' onClick={() => setShowChangeAddressForm(false)}>
                             <svg className='transition-all hover:rotate-180 hover:scale-105' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
@@ -171,7 +172,7 @@ function ProductDetailsScreen() {
         {
             showBuyForm ? (
 
-                <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-full absolute flex items-center justify-center' style={{backgroundColor : "#0000003b", zIndex : 30, height : "111vh"}}>
+                <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-full absolute flex items-center justify-center' style={{backgroundColor : "#0000003b", zIndex : 20, height : "111vh"}}>
 
                     <form onSubmit={(e) => CreateOrder(e)} initial={{opacity : 0, scale : 0}} animate={{opacity : 1, scale : 1, delay : 1}} className='w-110 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-2'>
 
@@ -212,7 +213,7 @@ function ProductDetailsScreen() {
                                     <div className='flex items-center w-full justify-around mt-1'>
 
                                         {variant_category.variants.map((variant, i) => (
-                                            <button key={i} className={`px-4 py-1 rounded-sm ${variant == selectedVariant ? "bg-primary text-white text-sm" : "bg-gray-200 text-dull"} ${i == 0 ? "ml-0" : "ml-2"}`} onClick={() => {setSelectedVariant(variant)}} >{variant.variant_name}</button>
+                                            <button type='button' key={i} className={`px-4 py-1 rounded-sm ${variant == selectedVariant ? "bg-primary text-white text-sm" : "bg-gray-200 text-dull"} ${i == 0 ? "ml-0" : "ml-2"}`} onClick={() => {setSelectedVariant(variant)}} >{variant.variant_name}</button>
                                         ))}
 
                                     </div>
@@ -233,7 +234,7 @@ function ProductDetailsScreen() {
                                     {
                                         addresses.length < 1 ? "" : (
                                             
-                                            <button onClick={() => setShowChangeAddressForm(!showChangeAddressForm)} type='button' className='text-xs mt-2 text-primary font-semibold absolute top-2 right-4 cursor-pointer hover:underline'>Change</button>
+                                            <button onClick={() => setShowChangeAddressForm(!showChangeAddressForm)} type='button' className='text-xs mt-2 text-primary font-semibold absolute top-2 right-4 cursor-pointer hover:underline thisbuttonChangesForm'>Change</button>
                                             
                                         )
                                     }

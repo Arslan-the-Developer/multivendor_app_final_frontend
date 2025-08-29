@@ -154,8 +154,7 @@ function SellerProductsScreen({STORE_ID}) {
                   
                   <div className="h-full flex flex-col items-start text-sm justify-around">
                     <h2 className='text-primary text-base font-semibold'>{product.product_name}</h2>
-                    <h2>Quantity : {product.product_quantity}</h2>
-                    <h2>Price : Rs. {product.product_price}</h2>
+                    <h2>Price : Rs. {product.product_base_price}</h2>
                     <h2>Rating : {product.average_rating === 0 ? "Not Rated Yet" : product.average_rating.toFixed(1)}</h2>
                   </div>
   
