@@ -81,6 +81,8 @@ function Navbar() {
 
     e.preventDefault();
 
+    setOpen(false);
+
     navigate(`/user-search/${searchText}`);
     
   }
@@ -206,6 +208,7 @@ function Navbar() {
           select(trendingSuggestions[activeIndex].query);
       } else if (searchText.trim()) {
           select(searchText);
+          setOpen(false);
           navigate(`/user-search/${searchText}`);
       }
       } else if (e.key === "Escape") {
