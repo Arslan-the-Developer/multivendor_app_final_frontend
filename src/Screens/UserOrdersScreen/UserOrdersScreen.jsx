@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import Navbar from '../../Components/Navbar';
 import api from '../../axios';
+import { PuffLoader } from 'react-spinners';
 
 
 function UserOrdersScreen() {
@@ -53,9 +54,11 @@ function UserOrdersScreen() {
     {
         loading ? (
 
-            <section className='w-full flex items-center justify-start' style={{height : "90vh"}}>
+            <section className='w-full flex flex-col items-center justify-center' style={{height : "90vh"}}>
 
-                <h2 className='font-product font-semibold text-primary tracking-wide'>Loading Your Orders</h2>
+                <PuffLoader color='#006964' />
+
+                <h2 className='font-product font-semibold text-base text-primary tracking-wide mt-4'>Loading Your Orders</h2>
 
             </section>
 
@@ -79,7 +82,7 @@ function UserOrdersScreen() {
 
                                 <div className='w-1/3 h-full flex items-center justify-center'>
 
-                                    <motion.img transition={{delay : 0.4}} initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1}} className='object-contain object-center group-hover:scale-90 transition' style={{width : "90%"}} src={`${order.order_items[0].product.product_images[0].image}`} alt="" />
+                                    <motion.img transition={{delay : 0.4}} initial={{opacity : 0, scale : 0.9}} animate={{opacity : 1, scale : 1}} className='object-contain object-center group-hover:scale-90 transition' style={{width : "90%"}} src={`${order.order_items[0].product?.product_images[0].image}`} alt="" />
 
                                 </div>
                                 

@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import api from '../../axios';
 import Navbar from '../../Components/Navbar';
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
+import { PuffLoader } from 'react-spinners';
 
 
 function OrderDetailsScreen() {
@@ -48,9 +49,11 @@ function OrderDetailsScreen() {
 
         <Navbar />
 
-        <section className='w-full flex items-center justify-center' style={{height : "90vh"}}>
+        <section className='w-full flex flex-col items-center justify-center' style={{height : "90vh"}}>
 
-            <h1>Loading.....</h1>
+            <PuffLoader color='#006964' />
+
+            <h1 className='text-primary font-semibold mt-4 text-base'>Loading.....</h1>
 
         </section>
 
@@ -105,10 +108,11 @@ function OrderDetailsScreen() {
 
                         <span className='w-full h-1/10 bg-primary rounded-sm flex items-center justify-start'>
 
-                            <h2 className='w-1/4 h-full text-secondary flex items-center justify-center font-product'>Product</h2>
-                            <h2 className='w-1/4 h-full text-secondary flex items-center justify-center font-product'>Store</h2>
-                            <h2 className='w-1/4 h-full text-secondary flex items-center justify-center font-product'>Quantity</h2>
-                            <h2 className='w-1/4 h-full text-secondary flex items-center justify-center font-product'>Price / Piece</h2>
+                            <h2 className='w-1/5 h-full text-secondary flex items-center justify-center font-product'>Product</h2>
+                            <h2 className='w-1/5 h-full text-secondary flex items-center justify-center font-product'>Store</h2>
+                            <h2 className='w-1/5 h-full text-secondary flex items-center justify-center font-product'>Variants</h2>
+                            <h2 className='w-1/5 h-full text-secondary flex items-center justify-center font-product'>Quantity</h2>
+                            <h2 className='w-1/5 h-full text-secondary flex items-center justify-center font-product'>Price / Piece</h2>
 
                         </span>
 
@@ -119,35 +123,45 @@ function OrderDetailsScreen() {
 
                                     <div className='w-full h-16 mt-4 flex items-center justify-start'>
 
-                                        <div className='w-1/4 h-full flex items-center justify-start font-product'>
+                                        <div className='w-1/5 h-full flex items-center justify-start font-product'>
 
                                             <div className='h-full flex items-center justify-center'>
 
-                                                <img className='h-full object-center object-contain' src={`http://127.0.0.1:8000${item.product.product_images[0].image}`} alt="" />
+                                                <img className='h-full object-center object-contain' src={`${item.product.product_images[0].image}`} alt="" />
 
                                             </div>
 
                                             <div className='h-full flex flex-col items-center justify-center ml-3'>
 
-                                                <h2 className='font-semibold'>{item.product.product_name}</h2>
+                                                <Link to={`/product-details/${item.product.id}`} className='font-semibold'>{item.product.product_name}</Link>
 
                                             </div>
 
                                         </div>
                                         
-                                        <div className='w-1/4 h-full flex items-center justify-center font-product'>
+                                        <div className='w-1/5 h-full flex items-center justify-center font-product'>
 
                                             <h2>{item.product.product_store.store_name}</h2>
 
                                         </div>
                                         
-                                        <div className='w-1/4 h-full flex items-center justify-center font-product'>
+                                        <div className='w-1/5 h-full flex items-center justify-center font-product'>
+
+                                            {
+                                                item.order_item_variants.map((item_var) => (
+                                                    <h2 className='ml-1'>{item_var.variant_name},</h2>
+                                                ))
+                                            }
+
+                                        </div>
+
+                                        <div className='w-1/5 h-full flex items-center justify-center font-product'>
 
                                             <h2>{item.product_quantity}</h2>
 
                                         </div>
                                         
-                                        <div className='w-1/4 h-full flex items-center justify-center font-product'>
+                                        <div className='w-1/5 h-full flex items-center justify-center font-product'>
 
                                             <h2>{item.unit_price}/-</h2>
 

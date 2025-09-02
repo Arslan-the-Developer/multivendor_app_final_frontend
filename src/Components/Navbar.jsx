@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import useCheckAuthentication from "./Hooks/useCheckAuthentication";
 import { BarLoader } from "react-spinners";
 import useRefreshTokens from "./Hooks/useRefreshTokens";
+import api from "../axios";
 
 
 
@@ -22,8 +23,17 @@ function Navbar() {
   const [SearchBarUxText, setSearchBarUxText] = useState('Shift + S');
   const [selectedResponsiveCategory, setSelectedResponsiveCategory] = useState('');
 
-
   const keyRef = useRef(null);
+
+
+  // SEARCH FUNCTIONALITY REQUIREMENTS
+  const [trendingSuggestions, setTrendingSuggestions] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const debounceRef = useRef(null);
+  const trendAbortRef = useRef(null);
+  const containerRef = useRef(null);
+
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -125,6 +135,94 @@ function Navbar() {
     
   }
 
+
+  // SEARCH FUNCTIONALITY FUNCTIONS
+
+  // Debounced fetching only for trending suggestions
+  useEffect(() => {
+      clearTimeout(debounceRef.current);
+
+      debounceRef.current = setTimeout(() => {
+      const q = searchText.trim();
+
+      // Cancel in-flight request
+      trendAbortRef.current?.abort();
+
+      // Create new abort controller
+      trendAbortRef.current = new AbortController();
+
+      // Fetch trending suggestions (global if empty, related if typed)
+      api.get(`/api/trending-suggestions/?q=${encodeURIComponent(q)}`,{ signal: trendAbortRef.current.signal })
+          .then((r) => (r.ok ? r.json() : []))
+          .then((data) =>
+          setTrendingSuggestions(Array.isArray(data) ? data : [])
+          )
+          .catch(() => {});
+
+      setOpen(true);
+      setActiveIndex(-1);
+      }, 300);
+
+      return () => clearTimeout(debounceRef.current);
+  }, [searchText]);
+
+  // Close on outside click
+  useEffect(() => {
+      const onDocClick = (e) => {
+      if (!containerRef.current?.contains(e.target)) setOpen(false);
+      };
+      document.addEventListener("click", onDocClick);
+      return () => document.removeEventListener("click", onDocClick);
+  }, []);
+
+  const onKeyDown = (e) => {
+      if (!open) return;
+
+      if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((i) =>
+          i + 1 < trendingSuggestions.length ? i + 1 : 0
+      );
+      } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((i) =>
+          i - 1 >= 0 ? i - 1 : trendingSuggestions.length - 1
+      );
+      } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (activeIndex >= 0 && trendingSuggestions[activeIndex]) {
+          select(trendingSuggestions[activeIndex].query);
+      } else if (searchText.trim()) {
+          select(searchText);
+          navigate(`/user-search/${searchText}`);
+      }
+      } else if (e.key === "Escape") {
+      setOpen(false);
+      }
+  };
+
+  const select = (term) => {
+      setSearchText(term);
+      setOpen(false);
+      // navigate(`/user-search/${term}`);
+  };
+
+  // simple highlight of the typed part
+  const highlight = (text) => {
+      const q = searchText.trim();
+      if (!q) return text;
+      const idx = text.toLowerCase().indexOf(q.toLowerCase());
+      if (idx === -1) return text;
+      return (
+      <>
+          {text.slice(0, idx)}
+          <span className="font-semibold">
+          {text.slice(idx, idx + q.length)}
+          </span>
+          {text.slice(idx + q.length)}
+      </>
+      );
+  };
 
   return (
     <nav className="flex items-center justify-between w-full h-18 relative" onMouseLeave={() => setShowCategoriesFor('')} style={{zIndex : '20'}}>
@@ -303,15 +401,45 @@ function Navbar() {
           }
 
         </div>
-        <motion.form initial={{y : 20, opacity : 0}} animate={{y : 0, opacity : 1}} className="w-9/12 flex items-center justify-center relative" onSubmit={HandleSearch}>
+        <motion.form ref={containerRef} initial={{y : 20, opacity : 0}} animate={{y : 0, opacity : 1}} className="w-9/12 flex items-center justify-center relative" onSubmit={HandleSearch}>
           <input
             id="search_box"
             type="text"
+            autoComplete="off"
             placeholder="Search Products . . . ."
             className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full "
             value={searchText}
             onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
+            onFocus={() => setOpen(true)}
+            onKeyDown={onKeyDown}
           />
+          {open && trendingSuggestions.length > 0 && (
+            <div className="absolute z-50 mt-2 w-full max-md:mt-0 bg-gray-200 border-none max-h-80 overflow-y-auto top-10 rounded-b-sm shadow-md">
+            {trendingSuggestions.map((t, i) => {
+                const active = i === activeIndex;
+                return (
+                <div
+                    key={t.query}
+                    role="button"
+                    tabIndex={0}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => select(t.query)}
+                    className={`px-4 py-2 cursor-pointer flex items-center justify-between font-product tracking-wide ${
+                    active ? "bg-less-primary" : "hover:bg-less-primary"
+                    }`}
+                >
+                    <span className="w-full flex items-center relative">
+                      {highlight(t.query)}
+                      <svg className="absolute right-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#ffffff"} fill={"none"}>
+                          <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#141B34" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M9 14V12C9 10.5858 9 9.87868 9.43934 9.43934C9.87868 9 10.5858 9 12 9H14M10 10L15 15" stroke="#141B34" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                </div>
+                );
+            })}
+            </div>
+        )}
           <button type="button" className="absolute right-0 bg-less-primary mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs flex items-center justify-center outline-none max-[900px]:hidden" aria-label="Search">
             {SearchBarUxText}
           </button>

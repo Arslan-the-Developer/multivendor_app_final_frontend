@@ -1,6 +1,6 @@
 import api from '../../axios';
 import { delay, motion } from 'motion/react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import useRefreshTokens from '../../Components/Hooks/useRefreshTokens';
 import { BarLoader, PuffLoader } from 'react-spinners'
@@ -23,6 +23,8 @@ function ProductDetailsScreen() {
     const [isOrderBeingCreated, setOrderBeingCreated] = useState(false);
     const [selectedImage, setSelectedImage] = useState('');
     const [selectedVariant, setSelectedVariant] = useState({});
+    const [extraPrice, setExtraPrice] = useState(0);
+    const [selectedVariants, setSelectedVariants] = useState([]);
 
 
     const navigate = useNavigate();
@@ -39,7 +41,12 @@ function ProductDetailsScreen() {
 
             setSelectedImage(response.data.product_images[0].image);
 
-            setSelectedVariant(response.data.variant_categories[0].variants[0]);
+
+            const variants = response.data.variant_categories.map((category) => {
+                return { category_id: category.id, variant_id: category.variants[0].id };
+            });
+
+            setSelectedVariants(variants);
 
             setLoading(false);
 
@@ -53,6 +60,32 @@ function ProductDetailsScreen() {
         
     }
 
+    async function AddProductToCart(e, product_id) {
+
+        try{
+    
+            const response = await api.post(`/api/add_modify_cart_product`, {product_id : product_id});
+            
+            console.log(response.data);
+            
+            let msg = document.getElementById(`cart_msg_${product_id}`);
+            msg.classList.remove("h-0");
+            msg.classList.remove("opacity-0");
+            
+            setTimeout(() => {
+                msg.classList.add("h-0");
+                msg.classList.add("opacity-0");
+            }, 1500);
+            
+    
+        } catch (error) {
+    
+            console.log(error);
+    
+        }
+        
+    }
+
     async function CreateOrder(e) {
 
         e.preventDefault();
@@ -61,7 +94,7 @@ function ProductDetailsScreen() {
 
         try{
 
-            const response = await api.post("/api/create_user_product_order", {product_id : productDetails.id, variant_id : selectedVariant.id, order_product_quantity : productBuyQuantity, order_delivery_address : selectedAddress})
+            const response = await api.post("/api/create_user_product_order", {product_id : productDetails.id, variants : selectedVariants, order_product_quantity : productBuyQuantity, order_delivery_address : selectedAddress})
 
             console.log(response.data);
 
@@ -111,6 +144,55 @@ function ProductDetailsScreen() {
         
     }
 
+    const extraPriceCalculate = useMemo(() => {
+    if (!productDetails?.variant_categories) return 0;
+
+    return selectedVariants.reduce((total, selected) => {
+        // Find the category in productDetails
+        const category = productDetails.variant_categories.find(
+        (cat) => cat.id === selected.category_id
+        );
+
+        if (!category) return total;
+
+        // Find the selected variant inside that category
+        const variant = category.variants.find(
+        (v) => v.id === selected.variant_id
+        );
+
+        return total + (variant?.extra_price || 0);
+    }, 0);
+    }, [selectedVariants, productDetails]);
+    
+    
+    const maxBuyQuantity = useMemo(() => {
+
+        if (!productDetails?.variant_categories || selectedVariants.length === 0) return 0;
+
+        let lowestQty = Infinity;
+
+        selectedVariants.forEach((selected) => {
+            const category = productDetails.variant_categories.find(
+            (cat) => cat.id === selected.category_id
+            );
+            if (!category) return;
+
+            const variant = category.variants.find((v) => v.id === selected.variant_id);
+            if (!variant) return;
+
+            // Compare and keep the lowest stock
+            lowestQty = Math.min(lowestQty, variant.variant_quantity);
+
+            if(productBuyQuantity > lowestQty){
+                setProductBuyQuantity(lowestQty);
+            }
+        });
+
+        return lowestQty === Infinity ? 0 : lowestQty;
+
+    }, [selectedVariants, productDetails]);
+
+
 
     useEffect(() => {
 
@@ -139,42 +221,43 @@ function ProductDetailsScreen() {
     <section className='w-full flex flex-col items-center justify-center relative'>
 
         {
-            showBuyForm && showChangeAddressForm ? (
-
-                <motion.div initial={{opacity : 0, y : 10}} animate={{opacity : 100, y : 0}} transition={{duration : 0.2}} className='w-110 h-full bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-3 absolute overflow-y-scroll custom-scrollbar' style={{zIndex : 21}}>
-                    <div className='h-1/10 w-full flex items-center justify-center relative'>
-                        <button title='Close' className='absolute right-0 cursor-pointer' onClick={() => setShowChangeAddressForm(false)}>
-                            <svg className='transition-all hover:rotate-180 hover:scale-105' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
-                                <path d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                        </button>
-                        <Link to={`/user-profile/manage-shipping-addresses`} title='Add New' className='absolute right-8 cursor-pointer'>
-                            <svg xmlns="http://www.w3.org/2000/svg" className='transition-all hover:rotate-180 hover:scale-105' viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
-                                <path d="M12 8V16M16 12L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
-                            </svg>
-                        </Link>
-                        <h2 className='font-product text-xl text-primary font-semibold'>Change Address</h2>
-                    </div>
-                    <div className='h-9/10 w-full overflow-y-scroll custom-scrollbar mt-2'>
-                        {
-                            addresses.map((address) => (
-                                <h2 onClick={() => setSelectedAddress(address.address)} className={`w-full cursor-pointer transition-all border-2 tracking-wide font-semibold h-18 p-2 mt-2 flex items-center justify-center font-product text-sm ${address.address === selectedAddress ? 'bg-less-primary border-primary' : 'bg-gray-100 border-gray-100 hover:border-primary'} rounded-sm`}>{address.address}</h2>
-                            ))
-                        }
-                    </div>
-                </motion.div>
-
-            ) : ""
-        }
-
-        {
             showBuyForm ? (
 
                 <motion.div initial={{opacity : 0}} animate={{opacity : 1, transition : 2}} className='w-full absolute flex items-center justify-center' style={{backgroundColor : "#0000003b", zIndex : 20, height : "111vh"}}>
 
-                    <form onSubmit={(e) => CreateOrder(e)} initial={{opacity : 0, scale : 0}} animate={{opacity : 1, scale : 1, delay : 1}} className='w-110 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-2'>
+
+                    <form onSubmit={(e) => CreateOrder(e)} initial={{opacity : 0, scale : 0}} animate={{opacity : 1, scale : 1, delay : 1}} className='w-110 bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-2 relative overflow-hidden'>
+
+                                            {
+                        showBuyForm && showChangeAddressForm ? (
+
+                                <motion.div initial={{opacity : 0, y : 10}} animate={{opacity : 100, y : 0}} transition={{duration : 0.2}} className='w-110 h-full bg-white shadow-lg rounded-sm flex flex-col items-center justify-start p-3 absolute overflow-y-scroll custom-scrollbar' style={{zIndex : 21}}>
+                                    <div className='h-1/10 w-full flex items-center justify-center relative'>
+                                        <button type='button' title='Close' className='absolute right-0 cursor-pointer' onClick={() => setShowChangeAddressForm(false)}>
+                                            <svg className='transition-all hover:rotate-180 hover:scale-105' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+                                                <path d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
+                                            </svg>
+                                        </button>
+                                        <Link to={`/user-profile/manage-shipping-addresses`} title='Add New' className='absolute right-8 cursor-pointer'>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className='transition-all hover:rotate-180 hover:scale-105' viewBox="0 0 24 24" width={24} height={24} color={"#006964"} fill={"none"}>
+                                                <path d="M12 8V16M16 12L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
+                                            </svg>
+                                        </Link>
+                                        <h2 className='font-product text-xl text-primary font-semibold'>Change Address</h2>
+                                    </div>
+                                    <div className='h-9/10 w-full overflow-y-scroll custom-scrollbar mt-2'>
+                                        {
+                                            addresses.map((address) => (
+                                                <h2 onClick={() => setSelectedAddress(address.address)} className={`w-full cursor-pointer transition-all border-2 tracking-wide font-semibold h-18 p-2 mt-2 flex items-center justify-center font-product text-sm ${address.address === selectedAddress ? 'bg-less-primary border-primary' : 'bg-gray-100 border-gray-100 hover:border-primary'} rounded-sm`}>{address.address}</h2>
+                                            ))
+                                        }
+                                    </div>
+                                </motion.div>
+
+                            ) : ""
+                        }
 
                         <div className='w-full h-1/3 flex items-center justify-start'>
 
@@ -204,23 +287,43 @@ function ProductDetailsScreen() {
 
                         <div className='w-full h-3/4 flex flex-col items-center justify-start'>
 
-                            <div className='w-full flex flex-col items-center justify-center font-product'>
-                                {
-                                productDetails.variant_categories.map((variant_category, index) => (
+                            <div className='w-full flex flex-col items-start justify-center font-product px-6 mt-2 mb-2'>
+                                
+                            {
+                                productDetails.variant_categories?.map((variant_category, index) => (
+                                    <div key={index} className="w-full flex items-center justify-start mt-2">
+                                        <h2 className='w-15'>{variant_category.category_title}</h2>
 
-                                    <div key={index} className='w-full'>
+                                        <div className="flex items-center justify-start mt-1">
+                                            {variant_category.variants.map((variant, i) => {
+                                                const selected = selectedVariants.find(
+                                                    (sv) => sv.category_id === variant_category.id
+                                                );
 
-                                    <div className='flex items-center w-full justify-around mt-1'>
-
-                                        {variant_category.variants.map((variant, i) => (
-                                            <button type='button' key={i} className={`px-4 py-1 rounded-sm ${variant == selectedVariant ? "bg-primary text-white text-sm" : "bg-gray-200 text-dull"} ${i == 0 ? "ml-0" : "ml-2"}`} onClick={() => {setSelectedVariant(variant)}} >{variant.variant_name}</button>
-                                        ))}
-
-                                    </div>
-
+                                                return (
+                                                    <button
+                                                        disabled={variant.variant_quantity === 0}
+                                                        type='button'
+                                                        key={i}
+                                                        className={`px-4 py-1 relative flex items-center justify-center text-center overflow-hidden rounded-sm ${variant.variant_quantity === 0 ? 'bg-gray-200 text-gray-400' : selected?.variant_id === variant.id ? "bg-primary text-white" : "bg-gray-200 text-dull"} ${i === 0 ? "ml-0" : "ml-2"}`}
+                                                        onClick={() => {
+                                                            setSelectedVariants((prev) =>
+                                                                prev.map((sv) =>
+                                                                    sv.category_id === variant_category.id
+                                                                        ? { ...sv, variant_id: variant.id }
+                                                                        : sv
+                                                                )
+                                                            );
+                                                        }}
+                                                    >
+                                                        {variant.variant_name}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 ))
-                                }
+                            }
                             </div>
 
                             <hr className='border border-gray-200 my-2 w-1/2' />
@@ -284,7 +387,7 @@ function ProductDetailsScreen() {
 
                                     <span className='w-14 mx-1 h-8 bg-gray-200 text-primary flex items-center justify-center'>{productBuyQuantity}</span>
 
-                                    <button onClick={() => { productBuyQuantity === selectedVariant.variant_quantity ? setProductBuyQuantity(productBuyQuantity) : setProductBuyQuantity(productBuyQuantity + 1)}} type='button' className='w-8 h-8 bg-gray-200 flex items-center justify-center border-2 border-gray-200 cursor-pointer transition hover:border-gray-400'>
+                                    <button onClick={() => { productBuyQuantity === maxBuyQuantity ? setProductBuyQuantity(productBuyQuantity) : setProductBuyQuantity(productBuyQuantity + 1)}} type='button' className='w-8 h-8 bg-gray-200 flex items-center justify-center border-2 border-gray-200 cursor-pointer transition hover:border-gray-400'>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={15} height={15} color={"#000000"} fill={"none"}>
                                             <path d="M12 4V20M20 12H4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
@@ -294,7 +397,7 @@ function ProductDetailsScreen() {
                                 
                             </div>
 
-                            <h2 className='mt-4 font-product text-xl text-primary font-semibold'>{productBuyQuantity * productDetails.product_base_price+selectedVariant.extra_price} /-</h2>
+                            <h2 className='mt-4 font-product text-xl text-primary font-semibold'>{productBuyQuantity * (productDetails?.product_base_price || 0) + extraPriceCalculate} /-</h2>
 
                             <div className='w-full flex items-center justify-between mt-4'>
 
@@ -317,19 +420,17 @@ function ProductDetailsScreen() {
 
         <div className='w-full mt-10 py-4 px-20 flex flex-col items-start justify-start max-lg:px-5'>
 
-            <p className='font-product tracking-wide text-primary'>Electronics {'>'} Headphones {'>'} Product Name</p>
-
             <div className='flex items-start justify-start mt-4'>
 
                 <div className='flex items-start justify-start w-125 h-100'>
 
-                    <div className='w-22 h-full mr-4 flex flex-col items-center justify-between'>
+                    <div className='w-22 h-full mr-4 flex flex-col items-center justify-start overflow-y-scroll overflow-x-hidden no-scrollbar'>
 
 
                         {
-                            productDetails.product_images.map((image) => (
+                            productDetails.product_images.map((image, i) => (
 
-                                <img className="w-22 h-22 border-2 border-transparent transition-all hover:border-less-primary rounded-md" src={`${image.image}`} onClick={() => {setSelectedImage(image.image)}} alt="Img" />
+                                <img className={`w-22 h-22 border-2 border-transparent transition-all hover:border-less-primary rounded-md ${i !== 0 && 'mt-1'}`} src={`${image.image}`} onClick={() => {setSelectedImage(image.image)}} alt="Img" />
                             ))
                         }
 
@@ -349,32 +450,49 @@ function ProductDetailsScreen() {
 
                     <h1 className='font-product text-2xl font-semibold tracking-wide text-primary'>{productDetails.product_name}</h1>
                     
-                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{productDetails.product_base_price + selectedVariant.extra_price}/-</h1>
+                    <h1 className='font-product text-3xl font-semibold tracking-wide text-primary mt-4'>{(productDetails?.product_base_price || 0) + extraPriceCalculate}/-</h1>
 
                     <div className='mt-6 flex flex-col items-start justify-start font-product'>
 
                         <p className='text-base font-semibold text-gray-500'>Product Variation</p>
 
-                        <div className='flex items-start justify-start mt-4'>
+                        <div className='flex flex-col items-start justify-start'>
 
                             {
-                            productDetails.variant_categories.map((variant_category, index) => (
+                            productDetails.variant_categories?.map((variant_category, index) => (
+                                <div key={index} className="mt-2">
+                                    <h2>{variant_category.category_title}</h2>
 
-                                <div key={index}>
+                                    <div className="flex items-center justify-start">
+                                        {variant_category.variants.map((variant, i) => {
+                                            const selected = selectedVariants.find(
+                                                (sv) => sv.category_id === variant_category.id
+                                            );
 
-                                <h2>{variant_category.category_title}</h2>
-
-                                <div className='flex items-center justify-start mt-1'>
-
-                                    {variant_category.variants.map((variant, i) => (
-                                        <button key={i} className={`px-4 py-1 rounded-sm ${variant == selectedVariant ? "bg-primary text-white" : "bg-gray-200 text-dull"} ${i == 0 ? "ml-0" : "ml-2"}`} onClick={() => {setSelectedVariant(variant)}} >{variant.variant_name}</button>
-                                    ))}
-
-                                </div>
-
+                                            return (
+                                                <button
+                                                    disabled={variant.variant_quantity === 0}
+                                                    key={i}
+                                                    className={`px-4 py-1 relative flex items-center justify-center text-center overflow-hidden transition-all ${variant.variant_quantity === 0 ? "cursor-not-allowed" : "cursor-pointer"} rounded-sm ${variant.variant_quantity === 0 ? 'bg-gray-200 text-gray-400' : selected?.variant_id === variant.id ? "bg-primary text-white" : "bg-gray-200 text-dull hover:text-primary"} ${i === 0 ? "ml-0" : "ml-2"}`}
+                                                    onClick={() => {
+                                                        setSelectedVariants((prev) =>
+                                                            prev.map((sv) =>
+                                                                sv.category_id === variant_category.id
+                                                                    ? { ...sv, variant_id: variant.id }
+                                                                    : sv
+                                                            )
+                                                        );
+                                                    }}
+                                                >
+                                                    {variant.variant_name}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             ))
-                            }
+                        }
+
 
 
                         </div>
@@ -438,7 +556,6 @@ function ProductDetailsScreen() {
             <button disabled={showBuyForm} onClick={() => setShowBuyForm(true)} className='w-36 h-12 bg-primary text-secondary rounded-sm mt-4 transition-all cursor-pointer'>Buy Now</button>
 
         </div> */}
-
 
     </section>
     </>

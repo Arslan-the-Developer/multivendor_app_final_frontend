@@ -1,6 +1,109 @@
-import React from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom';
+import api from '../../../axios';
+
 
 function FacilitiesSection() {
+
+    const navigate = useNavigate();
+
+    const [query, setQuery] = useState("");
+    const [trendingSuggestions, setTrendingSuggestions] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(-1);
+    const debounceRef = useRef(null);
+    const trendAbortRef = useRef(null);
+    const containerRef = useRef(null);
+
+    // Debounced fetching only for trending suggestions
+    useEffect(() => {
+        clearTimeout(debounceRef.current);
+
+        debounceRef.current = setTimeout(() => {
+        const q = query.trim();
+
+        // Cancel in-flight request
+        trendAbortRef.current?.abort();
+
+        // Create new abort controller
+        trendAbortRef.current = new AbortController();
+
+        // Fetch trending suggestions (global if empty, related if typed)
+        fetch(
+            `http://127.0.0.1:8000/api/trending-suggestions/?q=${encodeURIComponent(
+            q
+            )}`,
+            { signal: trendAbortRef.current.signal }
+        )
+            .then((r) => (r.ok ? r.json() : []))
+            .then((data) =>
+            setTrendingSuggestions(Array.isArray(data) ? data : [])
+            )
+            .catch(() => {});
+
+        setOpen(true);
+        setActiveIndex(-1);
+        }, 300);
+
+        return () => clearTimeout(debounceRef.current);
+    }, [query]);
+
+    // Close on outside click
+    useEffect(() => {
+        const onDocClick = (e) => {
+        if (!containerRef.current?.contains(e.target)) setOpen(false);
+        };
+        document.addEventListener("click", onDocClick);
+        return () => document.removeEventListener("click", onDocClick);
+    }, []);
+
+    const onKeyDown = (e) => {
+        if (!open) return;
+
+        if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActiveIndex((i) =>
+            i + 1 < trendingSuggestions.length ? i + 1 : 0
+        );
+        } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((i) =>
+            i - 1 >= 0 ? i - 1 : trendingSuggestions.length - 1
+        );
+        } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (activeIndex >= 0 && trendingSuggestions[activeIndex]) {
+            select(trendingSuggestions[activeIndex].query);
+        } else if (query.trim()) {
+            select(query.trim());
+        }
+        } else if (e.key === "Escape") {
+        setOpen(false);
+        }
+    };
+
+    const select = (term) => {
+        setQuery(term);
+        setOpen(false);
+        navigate(`/user-search/${term}`);
+    };
+
+    // simple highlight of the typed part
+    const highlight = (text) => {
+        const q = query.trim();
+        if (!q) return text;
+        const idx = text.toLowerCase().indexOf(q.toLowerCase());
+        if (idx === -1) return text;
+        return (
+        <>
+            {text.slice(0, idx)}
+            <span className="font-semibold">
+            {text.slice(idx, idx + q.length)}
+            </span>
+            {text.slice(idx + q.length)}
+        </>
+        );
+    };
 
   return (
 
@@ -43,6 +146,48 @@ function FacilitiesSection() {
         </div>
 
         <hr className='mt-12 mb-2 border border-primary w-1/3 opacity-10' />
+
+        <div ref={containerRef} className="relative w-full max-w-md">
+        <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setOpen(true)}
+            onKeyDown={onKeyDown}
+            placeholder="Search trending..."
+            className="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        {open && trendingSuggestions.length > 0 && (
+            <div className="absolute z-50 mt-1 w-full bg-white border rounded-lg shadow-lg max-h-80 overflow-y-auto">
+            <div className="px-3 py-1 text-xs text-gray-500">
+                Trending searches
+            </div>
+            {trendingSuggestions.map((t, i) => {
+                const active = i === activeIndex;
+                return (
+                <div
+                    key={t.query}
+                    role="button"
+                    tabIndex={0}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => select(t.query)}
+                    className={`px-4 py-2 cursor-pointer flex items-center justify-between ${
+                    active ? "bg-gray-100" : "hover:bg-gray-50"
+                    }`}
+                >
+                    <span>📈 {highlight(t.query)}</span>
+                    {typeof t.count === "number" && (
+                    <span className="text-[10px] text-gray-400">
+                        {t.count}
+                    </span>
+                    )}
+                </div>
+                );
+            })}
+            </div>
+        )}
+        </div>
 
     </section>
 
