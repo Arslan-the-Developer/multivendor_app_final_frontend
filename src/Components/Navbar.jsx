@@ -215,7 +215,7 @@ function Navbar() {
 
   const select = (term) => {
       setSearchText(term);
-      setOpen(false);
+      setSearchBarUxText("Enter");
       // navigate(`/user-search/${term}`);
   };
 
@@ -419,7 +419,7 @@ function Navbar() {
             type="text"
             autoComplete="off"
             placeholder="Search Products . . . ."
-            className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full "
+            className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full focus:rounded-t-sm"
             value={searchText}
             onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
             onFocus={() => setOpen(true)}
