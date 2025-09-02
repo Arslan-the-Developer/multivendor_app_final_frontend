@@ -28,6 +28,7 @@ function Navbar() {
 
   // SEARCH FUNCTIONALITY REQUIREMENTS
   const [trendingSuggestions, setTrendingSuggestions] = useState([]);
+  const [trendingSuggestionsLoading, setTrendingSuggestionsLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const debounceRef = useRef(null);
@@ -140,9 +141,12 @@ function Navbar() {
 
   // Debounced fetching only for trending suggestions
   useEffect(() => {
+
+      setTrendingSuggestionsLoading(true);
+
       clearTimeout(debounceRef.current);
 
-      debounceRef.current = setTimeout(() => {
+      debounceRef.current = setTimeout( async () => {
       const q = searchText.trim();
 
       // Cancel in-flight request
@@ -152,14 +156,22 @@ function Navbar() {
       trendAbortRef.current = new AbortController();
 
       // Fetch trending suggestions (global if empty, related if typed)
-      api.get(`/api/trending-suggestions/?q=${encodeURIComponent(q)}`,{ signal: trendAbortRef.current.signal })
-          .then((r) => (r.ok ? r.json() : []))
-          .then((data) =>
-          setTrendingSuggestions(Array.isArray(data) ? data : [])
-          )
-          .catch(() => {});
+      try{
 
-      setOpen(true);
+        const response = await api.get(`/api/trending-suggestions/?q=${encodeURIComponent(q)}`);
+        
+        setTrendingSuggestions(Array.isArray(response.data) ? response.data : []);
+
+        setTrendingSuggestionsLoading(false);
+
+      } catch (error) {
+
+        console.log(error);
+
+        setTrendingSuggestionsLoading(false);
+
+      }
+
       setActiveIndex(-1);
       }, 300);
 
@@ -413,12 +425,19 @@ function Navbar() {
             onFocus={() => setOpen(true)}
             onKeyDown={onKeyDown}
           />
-          {open && trendingSuggestions.length > 0 && (
-            <div className="absolute z-50 mt-2 w-full max-md:mt-0 bg-gray-200 border-none max-h-80 overflow-y-auto top-10 rounded-b-sm shadow-md">
+          {open && trendingSuggestionsLoading ? (
+            <div className="absolute z-50 mt-2 w-full max-md:mt-0 bg-gray-200 border-none flex items-center justify-center overflow-y-auto top-10 rounded-b-sm shadow-md">
+              <BarLoader color="#006964" width="100%" height={"2px"} />
+            </div>
+          ) : open && trendingSuggestions.length > 0 && (
+            <motion.div initial={{maxHeight : "0"}} animate={{maxHeight : "20rem"}} className="absolute z-50 mt-2 w-full max-md:mt-0 bg-gray-200 border-none max-h-80 overflow-y-hidden top-10 rounded-b-sm shadow-md">
             {trendingSuggestions.map((t, i) => {
                 const active = i === activeIndex;
                 return (
-                <div
+                <motion.div
+                    initial={{opacity : 0, y : 20}}
+                    animate={{opacity : 100, y : 0}}
+                    transition={{delay : i/10+0.01}}
                     key={t.query}
                     role="button"
                     tabIndex={0}
@@ -435,10 +454,10 @@ function Navbar() {
                           <path d="M9 14V12C9 10.5858 9 9.87868 9.43934 9.43934C9.87868 9 10.5858 9 12 9H14M10 10L15 15" stroke="#141B34" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </span>
-                </div>
+                </motion.div>
                 );
             })}
-            </div>
+            </motion.div>
         )}
           <button type="button" className="absolute right-0 bg-less-primary mr-2 rounded-sm mt-2 px-2 py-1 font-semibold text-center text-xs flex items-center justify-center outline-none max-[900px]:hidden" aria-label="Search">
             {SearchBarUxText}
