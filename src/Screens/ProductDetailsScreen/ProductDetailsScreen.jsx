@@ -506,7 +506,7 @@ function ProductDetailsScreen() {
                             Buy Now
                         </button>
                         
-                        <button className='bg-primary rounded-sm font-product text-white flex items-center justify-center px-8 py-3 ml-2 relative group cursor-pointer overflow-hidden'>
+                        <button onClick={(e) => {AddProductToCart(e, productDetails.id)}} className='bg-primary rounded-sm font-product text-white flex items-center justify-center px-8 py-3 ml-2 relative group cursor-pointer overflow-hidden'>
                             <span className='w-1/3 h-100 bg-white blur-md opacity-30 absolute rotate-45 -left-25 transition-all group-hover:left-45 duration-200'></span>
                             Add To Cart
                         </button>

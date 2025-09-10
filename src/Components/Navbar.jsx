@@ -20,7 +20,7 @@ function Navbar() {
   const [isResponsiveMenuOpen, setResponsiveMenuOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [showSubCategoriesFor, setShowCategoriesFor] = useState('');
-  const [SearchBarUxText, setSearchBarUxText] = useState('Shift + S');
+  const [SearchBarUxText, setSearchBarUxText] = useState('Alt + S');
   const [selectedResponsiveCategory, setSelectedResponsiveCategory] = useState('');
 
   const keyRef = useRef(null);
@@ -40,7 +40,7 @@ function Navbar() {
         const handleKeyDown = (event) => {
         keyRef.current = event.keyCode;
 
-        if (event.shiftKey && keyRef.current === 83) {
+        if (event.altKey && keyRef.current === 83) {
             
             event.preventDefault();
             
@@ -424,7 +424,7 @@ function Navbar() {
             placeholder="Search Products . . . ."
             className="py-2 px-3 mt-2 max-[900px]:mt-0 w-full rounded-sm placeholder:text-dull bg-gray-200 text-dull outline-none font-product max-w-full focus:rounded-t-sm"
             value={searchText}
-            onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Shift + S') : setSearchBarUxText(' Enter ');}}
+            onChange={(e) => {setSearchText(e.target.value); e.target.value === '' ? setSearchBarUxText('Alt + S') : setSearchBarUxText(' Enter ');}}
             onFocus={() => setOpen(true)}
             onKeyDown={onKeyDown}
           />

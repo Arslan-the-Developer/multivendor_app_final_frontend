@@ -143,65 +143,6 @@ function SellerAddNewProduct({onSuccess,productFetchFunction,storeIDForFunction}
   };
 
 
-  /*const handleAddVariant = () => {
-    setVariants([
-      ...variants,
-      {
-        images: [
-          { file: null, preview: null },
-          { file: null, preview: null },
-          { file: null, preview: null },
-        ],
-        name: '',
-        quantity: '',
-        price: '',
-      },
-    ]);
-  };
-
-  const handleRemoveVariant = index => {
-    if (variants.length <= 1) return;
-
-    // revoke all previews for that variant
-    variants[index].images.forEach(img => {
-      if (img.preview) URL.revokeObjectURL(img.preview);
-    });
-
-    setVariants(variants.filter((_, i) => i !== index));
-  };
-
-  const handleVariantChange = (index, field, value) => {
-    setVariants(variants.map((variant, i) => {
-          if (i !== index) return variant;
-          return { ...variant, [field]: value };
-        }));
-    };
-
-    const handleVariantImageChange = (variantIdx, imageIdx, file) => {
-      const preview = file ? URL.createObjectURL(file) : null;
-
-      setVariants(current =>
-        current.map((v, vi) => {
-          if (vi !== variantIdx) return v;
-
-          // revoke old preview for this slot
-          const old = v.images[imageIdx].preview;
-          if (old) URL.revokeObjectURL(old);
-
-          // build new images array
-          const newImages = v.images.map((slot, ii) =>
-            ii === imageIdx
-              ? { file, preview }
-              : slot
-          );
-
-          return { ...v, images: newImages };
-        })
-      );
-    };
-  
-    */
-
     const addCategory = () => {
     if (!isBasePriceSet) return;
     setVariantCategories([

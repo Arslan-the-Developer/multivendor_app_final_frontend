@@ -308,14 +308,14 @@ function SellerRegistrationScreen() {
               onInput={(e) => handleInput(e, index, "otp-verify")}
               onKeyDown={(e) => handleKeyDown(e, index, "two-factor-pin")}
               maxLength="1"
-              className="border-2 border-secondary w-14 h-14 bg-transparent focus:outline-none text-xl text-secondary text-center placeholder:text-slate-300"
+              className="border-2 border-secondary w-14 h-14 bg-transparent focus:outline-none text-xl text-secondary text-center placeholder:text-slate-300 rounded-md"
               placeholder='-'
               required
               />
             ))}
         </div>
 
-        <button disabled={isOTPFormButtonDisabled} type="submit" className='w-full text-secondary h-14 flex items-center justify-center mt-10 border-2 border-secondary transition-all outline-none focus:bg-secondary focus:text-primary hover:bg-secondary hover:text-primary'>{isOTPFormButtonDisabled ? <BarLoader color="#ffffff" /> : "Submit"}</button>
+        <button disabled={isOTPFormButtonDisabled} type="submit" className='w-full text-secondary h-14 flex items-center justify-center mt-10 border-2 border-secondary transition-all outline-none focus:bg-secondary focus:text-primary hover:bg-secondary hover:text-primary rounded-md'>{isOTPFormButtonDisabled ? <BarLoader color="#ffffff" /> : "Submit"}</button>
       </form>
       
       {
